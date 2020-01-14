@@ -1,3 +1,5 @@
+const  projectconfig = require('../config/projconfig').get(process.env.NODE_ENV)
+
 const isAuthenticated = (req, res, next) => {
   // simple check to see if the user is authenicated or not,
   // if not redirect the user to the SSO Server for Login
@@ -7,7 +9,7 @@ const isAuthenticated = (req, res, next) => {
   if(!req.headers.referer || !req.headers.referer.includes('login')){
     if (req.cookies.ssoCookie == null) {
       return res.redirect(
-        `http://localhost:4444/sso/login?serviceURL=${redirectURL}`
+        `${projectconfig.redirectUrls[0]}/sso/login?serviceURL=${redirectURL}`
       );
     }
   }

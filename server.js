@@ -9,7 +9,7 @@ const isAuthenticated = require("./controllers/isAuthenticated")
 const session = require('express-session')
 const fileUpload = require('express-fileupload');
 // app.use(checkSSORedirect())
-var ObjectManager = require('./modules/objectmanager.js')
+var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies

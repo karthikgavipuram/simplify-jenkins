@@ -4,7 +4,8 @@ var objectManager = new ObjectManager();
 var jwt = require('jsonwebtoken');
 var mongo = require('mongodb');
 var mongojs = require('mongojs')
-var db = mongojs("mongodb://localhost:27017/cv",collections)
+const projectconfig = require('../config/projconfig').get(process.env.NODE_ENV)
+var db = mongojs(projectconfig.mongoCvUrl,collections)
 
 ObjectManager.prototype.getObjects = function(objType, filterField, filterValue, callback) {
     var intFields = ["userId"];
