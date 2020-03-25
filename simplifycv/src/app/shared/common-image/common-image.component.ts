@@ -13,7 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser'
               </ng-template>
               </div>
             </div>`,
-  styleUrls: ['./common-image.component.css']
+  styleUrls: ['./common-image.component.scss']
 })
 export class CommonImageComponent implements OnInit {
 @Input('image') _image:any

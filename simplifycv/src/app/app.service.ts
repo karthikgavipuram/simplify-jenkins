@@ -1,11 +1,9 @@
-import {Response,Headers,RequestOptions} from '@angular/http';
+import { Injectable, Inject } from '@angular/core';
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Injectable,Inject} from '@angular/core';
-import {Observable}     from 'rxjs';
-import{Router} from '@angular/router'
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import {JwtHelper} from 'angular2-jwt';
+import { Router } from '@angular/router';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 
@@ -18,28 +16,37 @@ token:string;
 userDetails:any;
 userPriv:any;
 customerId:any;
-jwtHelper: JwtHelper = new JwtHelper();
+jwtHelper = new JwtHelperService();
   constructor(private http: HttpClient, @Inject('apiBase') private _api:string,private router:Router) {
-    var headers = new Headers({ 'Authorization': localStorage.getItem('token'),'Content-Type': 'application/json'});
-    this.options = new RequestOptions({ headers: headers });
     window.addEventListener('storage',(token)=>{
       // this.setUserDetails({});
       this.token=token.newValue;
     })
   }
   setUserDetails(){
-    this.userDetails =  this.jwtHelper.decodeToken(localStorage.getItem('token'));
+    if (localStorage.getItem('token')) {
+      this.userDetails = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+    }
   }
   getcookie(){
-    return this.http.get(this._api + '/getCookie', this.options)
+    return this.http.get(this._api + '/getCookie', { responseType: "json", observe: "response" }).pipe(
+      map(res => res.body),
+      catchError(this.handleError)
+    )
   }
 
   updateUser(val:any){
-      return this.http.post(this._api + '/updateUser', val, this.options)
+      return this.http.post(this._api + '/updateUser', val, { responseType: "json", observe: "response" }).pipe(
+        map(res => res.body),
+        catchError(this.handleError)
+      )
   }
 
   getData(data:any){
-    return this.http.post(this._api + '/getData', data, this.options)
+    return this.http.post(this._api + '/getData', data,{ responseType: "json", observe: "response" } ).pipe(
+      map(res => res.body),
+      catchError(this.handleError)
+    )
   }
 
   uploadFile(formdata: any, url: string) {
@@ -49,11 +56,10 @@ jwtHelper: JwtHelper = new JwtHelper();
   }
   
   logout(){
-    return this.http.get(this._api + '/logout', this.options)
+    return this.http.get(this._api + '/logout', { responseType: "json", observe: "response" })
   }
 
-  private handleError (error: Response) {
-    
-    return Observable.throw(error || 'Some error');
+  handleError(error: Response) {
+    return throwError(error || 'Server error')
   }
 }

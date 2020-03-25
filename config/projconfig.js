@@ -1,13 +1,10 @@
 const config = {
     "production":{
-        redirectUrls : ["http://localhost:4444"],
-        mongoAuthUrl : "mongodb://localhost:27017/authserver",
-        mongoCvUrl: "mongodb://localhost:27017/cv"
+        
     },
     "default":{
         redirectUrls : ["http://localhost:4444"],
-        mongoAuthUrl : "mongodb://localhost:27017/authserver",
-        mongoCvUrl: "mongodb://localhost:27017/cv"
+        mongoCvUrl: "mongodb://172.105.58.154:27017/cv"
     }
 }
 

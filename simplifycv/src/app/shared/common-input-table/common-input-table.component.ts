@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'app-common-input-table',
   templateUrl: './common-input-table.component.html',
-  styleUrls: ['./common-input-table.component.css']
+  styleUrls: ['./common-input-table.component.scss']
 })
 export class CommonInputTableComponent implements OnInit {
 @Input('details') _details:any
