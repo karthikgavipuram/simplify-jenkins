@@ -1,0 +1,148 @@
+<div>
+        <div class="wrapper">
+                <div class="head-info">
+                    <div class="personal-info">
+                        <h1>Bradley Cooper</h1>
+                        <h2>Website Designer / Developer</h2>
+                        <div class="tt-exp">3+ Years Experience</div>
+                            <!-- <span class="glyphicon glyphicon-envelope" class="gly-ico"></span> -->
+                            <br>
+                            <div class="row">
+                                    <span style="margin-left:5%;border:white">
+                                        <app-common-input [details]="{placeholder:'Email',value:template.general.email,key:'email',parent:'general',obj:'template'}" (emitVal)="updateKey($event)"></app-common-input>
+                                     </span>
+                                   &nbsp; | &nbsp;
+                                    <!-- <span class="glyphicon glyphicon-phone"></span> -->
+                                    <span> <app-common-input [details]="{placeholder:'Phone Number',value:template.general.ph_no,key:'ph_no',parent:'general',obj:'template'}" (emitVal)="updateKey($event)"></app-common-input></span>
+                            </div>
+                    </div> <!-- personal-Info -->
+                    <div class="per-dtls">
+                        <table>
+                            <tr>
+                                <td width="50%"><span class="glyphicon glyphicon-education"></span><span> B.Tech Computer Science</span></td>
+                                <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span> Bangalore - Horamavu</span></td>
+                            </tr>
+                            <tr>
+                                <td width="50%"><span class="glyphicon glyphicon-equalizer"></span><span> Current CTC</span></td>
+                                <td width="50%"><span class="glyphicon glyphicon-education"></span><span> Expected CTC</span></td>
+                            </tr>
+                            <tr>
+                                <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span> Available in - 20 Days</span></td>
+                                <td width="50%"><span class="glyphicon glyphicon-equalizer"></span><span><app-common-input [details]="{placeholder:'D.O.B',value:template.general.dob,key:'dob',parent:'general',obj:'template'}" (emitVal)="updateKey($event)"></app-common-input></span></td>
+                            </tr>
+                            <tr>
+                                <td width="50%"><span class="glyphicon glyphicon-education"></span><span> H1B1 AppliedH1B1 Applied</span></td>
+                                <td width="50%"><span class="glyphicon glyphicon-education"></span><span> H125478</span></td>
+                            </tr>
+                        </table>
+                    </div> <!-- Per-Dtls -->
+                </div> <!-- head-info -->
+        
+                
+                        <app-common-image (emitImageStr)="imageString($event)"></app-common-image>
+                 <!-- PRO-IMG -->
+        
+                <div class="detail-info">
+                        <app-common-input-table [details]="details.education" [records]="template.education"></app-common-input-table>
+        
+                        <!-- <table>
+                            <tr>
+                                <th width="5%" class="one"></th>
+                                <th width="20%">Year</th>
+                                <th width="30%" class="institute">Institute</th>
+                                <th width="15%">Course</th>
+                                <th width="15%">Percentage</th>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2009-2012</td>
+                                <td>Manipal Sikkim University</td>
+                                <td>MBA</td>
+                                <td>79%</td>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2006-2009</td>
+                                <td>Baldwin Boys College</td>
+                                <td>BBA</td>
+                                <td>97%</td>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2004-2006</td>
+                                <td>George Institue</td>
+                                <td>PUC</td>
+                                <td>90%</td>
+                            </tr>
+                        </table> -->
+        
+        
+                    <div class="border"></div>
+        
+                        <app-common-input-table [details]="details.experience" [records]="template.experience"></app-common-input-table>
+        
+                        <!-- <table>
+                            <tr>
+                                <th width="5%" class="one"></th>
+                                <th width="20%">Year</th>
+                                <th width="30%">Company</th>
+                                <th width="15%">Designation</th>
+                                <th width="15%">Percentage</th>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2012-2016</td>
+                                <td>Wipro</td>
+                                <td>Associate HR</td>
+                                <td>1.3 years</td>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2010-2012</td>
+                                <td>HCL Technologies</td>
+                                <td>Sr. HR</td>
+                                <td>2.0 Years</td>
+                            </tr>
+                            <tr>
+                                <td class="one"><img src="images/circle.png"></td>
+                                <td>2008-2010</td>
+                                <td>Idea Solutions Pvt Ltd</td>
+                                <td>HR</td>
+                                <td>2.0 Years</td>
+                            </tr>
+                        </table> -->
+        
+                    <div class="border"></div>
+        
+                    <app-common-input-table [details]="details.skillset" [records]="template.skillset"></app-common-input-table>
+                    <!-- Skill SET -->
+        
+                    <div class="border"></div>
+        
+                    <app-common-input-table [details]="details.projects" [records]="template.projects"></app-common-input-table>
+                </div> <!-- DETAIL_INFO -->
+        
+                <div class="graph-sec">
+                     <!-- DOMAIN KNOWLEDGE -->
+                     <app-common-input-table [details]="details.domain_knowledge" [records]="template.domain_knowledge"></app-common-input-table>
+
+                    <div class="border"></div>
+        
+                    <app-common-input-table [details]="details.frameworks" [records]="template.frameworks"></app-common-input-table>
+                    <!-- frame -->
+        
+                    <div class="border"></div>
+        
+                    <div class="certi-ach">
+                        <div class="title-head" class="print-head"><span class="glyphicon glyphicon-education"></span><span> CERTIFICATION & ACHIVEMENTS</span></div>
+                        <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; MS Excel Certified</span></li>
+                        <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; ITIL Certified</span></li>
+                        <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Employee Of The Year</span></li>
+                        <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Team Lead Of The Year</span></li>
+        
+                    </div>
+        
+        
+                </div> <!-- GRAPH SECTION -->
+            </div>
+</div>

@@ -8,6 +8,7 @@ app.use(cookieParser())
 const isAuthenticated = require("./controllers/isAuthenticated")
 const session = require('express-session')
 const fileUpload = require('express-fileupload');
+// app.use(checkSSORedirect())
 var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
 
@@ -56,13 +57,13 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/cvgenerator','/home','/profile'],isAuthenticated, (req, res, next) => {
+app.get(['/','/cvgenerator','/home','/profile'], isAuthenticated, (req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
-    res.sendFile('index.html', { root: __dirname + '/public/dist/' });
+    res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });
 })
 
-app.use(express.static(path.join(__dirname, 'public/dist')))
+app.use(express.static(path.join(__dirname, 'simplifycv/dist')))
 
 app.post('/updateUser', function(req,res){
     objManager.updateUser(req.body,function(err,data){

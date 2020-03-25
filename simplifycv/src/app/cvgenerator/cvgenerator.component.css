@@ -1,0 +1,421 @@
+body {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+:root {
+    -webkit-print-color-adjust: exact;
+}
+
+.glyphicon {
+    color: #82B1FF;
+}
+
+.border {
+    width: 90%;
+    height: 2px;
+    background-color: #e0e0e0;
+    margin: auto;
+    opacity: .7;
+    margin-top:5%
+}
+
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+.head-info {
+    width: 80%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #222;
+    color: #fff;
+    float: left;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.personal-info {
+    width: 45%;
+    float: left;
+}
+
+    .personal-info h1 {
+        font-size: 32px;
+        padding-left: 20px;
+        font-weight: 700;
+    }
+
+    .personal-info h2 {
+        font-size: 21px;
+        padding-left: 20px;
+        margin-top: 0px;
+    }
+
+    .personal-info .tt-exp {
+        width: 150px;
+        background-color: #82B1FF;
+        margin-left: 20px;
+        text-align: center;
+        padding: 2px;
+        border: 2px solid #82B1FF;
+        font-size: 14px;
+        margin-top: 20px;
+        border-radius: 2px;
+    }
+
+    .personal-info p {
+        padding-left: 20px;
+        margin-top: 20px;
+        font-size: 17px;
+    }
+
+.per-dtls {
+    width: 55%;
+    float: left;
+    height: 200px;
+    overflow: hidden;
+    background-color: #222;
+}
+
+    .per-dtls table {
+        width: 100%;
+        margin: auto;
+    }
+
+        .per-dtls table tr {
+        }
+
+            .per-dtls table tr td {
+                height: 50px;
+                font-size: 16px;
+            }
+
+
+
+
+
+
+
+
+.detail-info {
+    width: 50%;
+    /*height: 100vh;*/
+    background-color: #f1f1f1;
+    overflow: hidden;
+    font-family: 'Josefin Sans', sans-serif;
+    border-right: 2px solid #ddd;
+    padding-bottom: 30px;
+    float: left;
+}
+
+.education {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.title-head {
+    width: 100%;
+    overflow: hidden;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.education table {
+    width: 96%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+    .education table th {
+        font-size: 18px;
+        height: 30px;
+    }
+
+    .education table td {
+        height: 30px;
+    }
+
+    .education table .one {
+    }
+
+        .education table .one img {
+            margin-top: -3px;
+            width: 15px;
+        }
+
+
+
+.experience {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: 200px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+
+
+    .experience table {
+        width: 96%;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+        .experience table th {
+            font-size: 18px;
+            height: 30px;
+        }
+
+        .experience table td {
+            height: 30px;
+        }
+
+        .experience table .one {
+        }
+
+            .experience table .one img {
+                margin-top: -3px;
+                width: 15px;
+            }
+
+
+
+
+.skillset {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+    .skillset table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .skillset table th {
+            font-size: 18px;
+        }
+
+        .skillset table td {
+            height: 40px;
+            /*background-color: #fff;*/
+        }
+
+            .skillset table td .pb-ttl {
+                font-size: 14px;
+            }
+
+            .skillset table td .pb-hld {
+                height: 5px;
+                width: 80%;
+                background-color: #ddd;
+                float: left;
+            }
+
+            .skillset table td .pb-res {
+                margin-top: -7px;
+                /*background-color: red;*/
+                width: 12%;
+                float: left;
+                text-align: center;
+            }
+
+.pro-bar {
+    width: 80%;
+    background-color: #82B1FF;
+    height: 5px;
+}
+
+
+
+
+
+.projects {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .projects table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .projects table th {
+            font-size: 18px;
+        }
+
+        .projects table td {
+            height: 40px;
+        }
+
+.project-pb {
+    width: 80%;
+    height: 5px;
+    background-color: #ddd !important;
+    float: left;
+}
+
+.pro-pb-res {
+    width: 18%;
+    height: 15px;
+    float: left;
+    /*background-color: red;*/
+    margin-top: -5px;
+    overflow: hidden;
+    font-size: 10px;
+    padding-left: 5px;
+}
+
+.pro-point {
+    background-color: #82B1FF;
+    width: 50%;
+    height: 20px;
+    border-radius: 100%;
+    font-size: 10px;
+    text-align: center;
+    padding-top: 3px;
+}
+
+
+/*?right section*/
+
+
+.graph-sec {
+    width: 50%;
+    /*height: 1000px;*/
+    float: left;
+    overflow: hidden;
+    background-color: #eee;
+    font-family: 'Josefin Sans', sans-serif;
+}
+/*domain-knowledge*/
+.domain-knw {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: auto;
+    overflow: hidden;
+    /*margin-top: 100px;*/ /*manish*/
+    margin-top: 25px;
+}
+
+.dm-knw-skill {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+    .dm-knw-skill li {
+        list-style-type: none;
+        display: inline;
+        margin-left: 12%;
+        font-size: 18px;
+    }
+
+.domain-knw table {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .domain-knw table th {
+        text-align: center;
+    }
+
+
+.grp-chart {
+    width: 80%;
+    margin: auto;
+    /*background-image: url(images/domain.png) ;*/
+    background-repeat: no-repeat;
+    background-size: 35%;
+    /*height: 160px;*/ /*manish*/
+    height: 200px;
+    background-position: center;
+}
+
+    .grp-chart img {
+        width: 60%;
+    }
+
+/*framework*/
+
+.frame {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    /*height: 290px;*/ /*manish*/
+    height: 340px;
+    overflow: hidden;
+    /*margin-top: 50px;*/ /*manish*/
+    margin-top: 25px;
+}
+
+
+    .frame table {
+        width: 96%;
+        margin: auto;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+        .frame table th {
+            font-size: 16px;
+            /*color: #fff;*/
+        }
+
+        .frame table td {
+            font-size: 14px;
+            /*color: #fff;*/
+        }
+
+
+
+.frame-grh {
+    /*width: 150px;*/
+    height: 150px;
+    border-radius: 4px;
+    /*background-image: url(images/frame.png);*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px;
+    margin: 0px auto;
+    border-radius: 100%;
+    margin-top: 20px;
+}
+
+/*certification and achievements*/
+
+
+.certi-ach {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: 230px;
+    overflow: hidden;
+    margin-top: 48px;
+    font-size: 12px;
+    padding-bottom: 30px;
+}
+
+    .certi-ach li {
+        list-style-type: none;
+        padding-left: 20px;
+        margin-top: 20px;
+    }
