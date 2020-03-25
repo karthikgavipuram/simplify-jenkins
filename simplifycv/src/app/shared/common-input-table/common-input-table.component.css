@@ -1,0 +1,16 @@
+.title-head{
+	width: 100%;
+	overflow: hidden;
+	font-size: 18px;
+	font-weight: 700;
+
+}
+
+.commontable {
+    width: 96%;
+    margin: auto;
+    /*background-color: #ddd;*/
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+}
