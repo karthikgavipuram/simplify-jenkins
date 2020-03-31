@@ -3,7 +3,7 @@ const config = {
         
     },
     "default":{
-        redirectUrls : ["http://localhost:4444"],
+        redirectUrl : ["http://localhost:4444"],
         mongoCvUrl: "mongodb://172.105.58.154:27017/cv"
     }
 }

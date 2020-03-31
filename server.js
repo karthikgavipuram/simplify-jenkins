@@ -6,26 +6,27 @@ app.use(bodyParser.json({ limit: '5mb' }))
 var cookieParser = require('cookie-parser')
 app.use(cookieParser())
 const isAuthenticated = require("./controllers/isAuthenticated")
+const projectconfig = require('./config/projconfig').get(process.env.NODE_ENV)
 const session = require('express-session')
 const fileUpload = require('express-fileupload');
 var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
+var cors = require('cors')
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
 }))
 
-app.use(session({secret: 'Your secret key',saveUninitialized: true,resave: true,token:''}))
+app.use(session({secret: 'Your secret key',saveUninitialized: true,resave: true}))
 app.use(fileUpload());
 app.get('/getCookie',function(req,res){
     if(req.cookies.ssoCookie) res.status(200).json({success:true,token:req.cookies.ssoCookie})
     else res.status(409).json({success:false , error: "No cookie"})
 })
 
-app.use('/setCookie',(req, res, next)=>{
-    res.header("Access-Control-Allow-Origin",  req.header('origin'));
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin,X-Requested-With');
+
+
+app.use('/setCookie',cors({credentials:true,origin: projectconfig.redirectUrl[0]}),(req, res, next)=>{
     res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.method == 'OPTIONS') {
         res.status(200).end();
@@ -34,17 +35,16 @@ app.use('/setCookie',(req, res, next)=>{
     }
 })
 app.get('/setCookie',function(req,res){
-    const {ssoToken} = req.query
-    if(!ssoToken) return res.status(400).json({ message: "badRequest" })
-    res.cookie("ssoCookie", ssoToken,{ maxAge: 1000 * 600000 * 10, httpOnly: false })
-    return res.status(200).json({ success: true, token:ssoToken })
-    //return res.send()
+    // var {ssoToken} = req.query
+    // if(!ssoToken) return res.status(400).json({ message: "badRequest" })
+    // res.cookie("ssoCookie", ssoToken,{ maxAge: 1000 * 600000 * 10, httpOnly: false, SameSite:'None',  Secure:true})
+    return res.status(200).json({ success: true })
 })
 
 app.all('/*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin,X-Requested-With');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin,X-Requested-With');
     res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.method == 'OPTIONS') {
         res.status(200).end();
