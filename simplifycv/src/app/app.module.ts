@@ -10,12 +10,16 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { DisableCardDirective } from './directives/disable-card.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    LandingPageComponent,
+    DisableCardDirective
   ],
   imports: [
     BrowserModule,
