@@ -26,7 +26,10 @@ app.get('/getCookie',function(req,res){
 
 
 
-app.use('/setCookie',cors({credentials:true,origin: projectconfig.redirectUrl[0]}),(req, res, next)=>{
+app.use('/setCookie',(req, res, next)=>{
+    res.header("Access-Control-Allow-Origin",  projectconfig.redirectUrl[0]);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,PATCH');
+    res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin,X-Requested-With');
     res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.method == 'OPTIONS') {
         res.status(200).end();
