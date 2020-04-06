@@ -11,7 +11,8 @@ const session = require('express-session')
 const fileUpload = require('express-fileupload');
 var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
-var cors = require('cors')
+var cors = require('cors');
+const nodemailer = require('nodemailer');
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
@@ -59,7 +60,7 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/cvgenerator','/home','/profile'],isAuthenticated,(req, res, next) => {
+app.get(['/','/cvgenerator','/home','/profile'],(req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
     res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });
@@ -112,4 +113,51 @@ app.use((err, req, res, next) => {
 app.listen(4445, function(){
     console.log("server deployed on http://%s:%s", this.address().address, this.address().port)
 })
+app.post('/send', (req, res) => {
+    const output = `
+      <p>You have a new contact request</p>
+      <h3>Contact Details</h3>
+      <ul>  
+        <li>Name: Shruthi</li>
+        <li>Company: Simplify3x Software Private Limited</li>
+        <li>Email: shruthi.g@simplify3x.com</li>
+        <li>Phone: 9538124623</li>
+      </ul>
+      <h3>Message</h3>
+      <p>hello</p>
+    `;
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "send.one.com",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+          user: 'shruthi.g@simplify3x.com', // generated ethereal user
+          pass: 'shruthi21g'  // generated ethereal password
+      },
+      tls:{
+        rejectUnauthorized:false
+      }
+    });
+  
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"Nodemailer Contact" <shruthi.g@simplify3x.com>', // sender address
+        to: 'shruthi21g@gmail.com', // list of receivers
+        subject: 'Node Contact Request', // Subject line
+        text: 'Hello world?', // plain text body
+        html: output // html body
+    };
+  
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        // return res.status(200).json({ success: true })
+    });
+    });
+  
 
