@@ -27,8 +27,8 @@ app.get('/getCookie',function(req,res){
 
 
 app.use('/setCookie',(req, res, next)=>{
-    res.header("Access-Control-Allow-Origin",  req.header('origin'));
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,PATCH');
+    res.header("Access-Control-Allow-Origin",  projectconfig.redirectUrl[0]);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin,X-Requested-With');
     res.setHeader('Access-Control-Allow-Credentials', true);
     if (req.method == 'OPTIONS') {
@@ -38,9 +38,9 @@ app.use('/setCookie',(req, res, next)=>{
     }
 })
 app.get('/setCookie',function(req,res){
-    // var {ssoToken} = req.query
-    // if(!ssoToken) return res.status(400).json({ message: "badRequest" })
-    // res.cookie("ssoCookie", ssoToken,{ maxAge: 1000 * 600000 * 10, httpOnly: false, SameSite:'None',  Secure:true})
+    var {ssoToken} = req.query
+    if(!ssoToken) return res.status(400).json({ message: "badRequest" })
+    res.cookie("ssoCookie", ssoToken,{ maxAge: 1000 * 600000 * 10, httpOnly: false, SameSite:'None'})
     return res.status(200).json({ success: true })
 })
 
@@ -59,7 +59,7 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/cvgenerator','/home','/profile'],isAuthenticated,(req, res, next) => {
+app.get(['/','/cvgenerator','/home','/profile'],(req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
     res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });
