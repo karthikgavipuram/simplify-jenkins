@@ -12,7 +12,6 @@ const fileUpload = require('express-fileupload');
 var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
 var cors = require('cors');
-const nodemailer = require('nodemailer');
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
