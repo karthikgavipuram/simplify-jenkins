@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DisableCardDirective } from './directives/disable-card.directive';
+import { ProfileBuilderComponent } from './profile-builder/profile-builder.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { DisableCardDirective } from './directives/disable-card.directive';
     HomeComponent,
     ProfileComponent,
     LandingPageComponent,
-    DisableCardDirective
+    DisableCardDirective,
+    ProfileBuilderComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ import { DisableCardDirective } from './directives/disable-card.directive';
     SharedModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   providers: [
     AppService,
