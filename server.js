@@ -11,7 +11,7 @@ const session = require('express-session')
 const fileUpload = require('express-fileupload');
 var ObjectManager = require('./modules/objectmanager')
 var objManager = new ObjectManager();
-var cors = require('cors')
+var cors = require('cors');
 
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true
@@ -59,7 +59,7 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/cvgenerator','/home','/profile'],(req, res, next) => {
+app.get(['/','/cvgenerator','/home','/profile','/builder'],(req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
     res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });
@@ -112,4 +112,5 @@ app.use((err, req, res, next) => {
 app.listen(4445, function(){
     console.log("server deployed on http://%s:%s", this.address().address, this.address().port)
 })
+  
 

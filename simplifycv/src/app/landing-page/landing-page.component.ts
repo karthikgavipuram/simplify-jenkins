@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppService} from '../app.service'
 
 @Component({
   selector: 'app-landing-page',
@@ -7,14 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _cs:AppService) { }
 
   ngOnInit(): void {
   }
-  goToLogin(){
-    window.location.href="http://localhost:4200/login";
-  }
-  goToRegister(){
-    window.location.href="http://localhost:4200/registerUser";
+  sendMail(){
+    this._cs.sendMail().subscribe((res:any)=>{
+      console.log(res);
+    })
   }
 }

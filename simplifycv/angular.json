@@ -32,6 +32,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
               "./src/assets/js/jquery-3.2.1.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
@@ -96,9 +97,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/material-icons/iconfont/material-icons.css",
+              "./node_modules/material-icons/iconfont/material-icons.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           }
         },
         "lint": {
@@ -129,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "simplifycv-web"
+  "defaultProject": "simplifycv-web",
+  "cli": {
+    "analytics": false
+  }
 }

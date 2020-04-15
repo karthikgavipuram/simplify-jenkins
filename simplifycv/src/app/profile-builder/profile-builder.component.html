@@ -1,0 +1,362 @@
+<div class="header">
+    <!-- <div class="col-md-6 text-left"> -->
+    <!-- <h4 class="header_note">SimplifyCV</h4> -->
+    <!-- </div> -->
+    <!-- <div class="col-md-6 text-right">
+        <a><i class="material-icons" style="color:white;"> person </i></a>
+    </div> -->
+    </div>
+    <div class="container-fluid ">
+    <div class="row" style="height: calc(100% - 60px);">
+        <div class="col-md-2" style="padding: 0;">
+            <div class="side_bar">
+                <div class="profile-box">
+                    <!-- <a><i class="material-icons" style="font-size: 135px;padding: 5px 50px;"> photo_camera </i></a> -->
+                    <!-- <mat-icon>add_a_photo</mat-icon> -->
+                </div>
+                <div class="pb">
+                    <!-- <span><i class="material-icons"> person_pin </i></span> -->
+                        <span style="padding: 0px 25px;"> PROFILE BUILDER</span>
+                        <!-- <span style="float: right;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
+                </div>
+                <div>
+                    <ul>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> person_outline</i></span> -->
+                            <label (click)="showFields('Basic Information')"> Basic Information</label>
+                        </li>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> menu_book</i></span> -->
+                            <label (click)="showFields('Education Qualification')"> Education Qualification</label>
+                        </li>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> bar_chart</i></span> -->
+                            <label (click)="showFields('Skills')"> Skills</label>
+                        </li>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> pie_chart</i></span> -->
+                            <label (click)="showFields('Domain')"> Domain</label>
+                        </li>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> computer</i></span> -->
+                            <label (click)="showFields('Projects')"> Projects</label>
+                        </li>
+                        <li>
+                            <!-- <span style="float: left;"><i class="material-icons"> emoji_events</i></span> -->
+                            <label (click)="showFields('Certification and Achievements')"> Certification and Achievements</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7" style="padding: 0px 2px;">
+            <div style="width: 100%;height: 55px;background-color: white; box-shadow: 0px 2px 3px grey;"></div>
+            <div class="pb_section">
+                <div style="height: 45px;"><label style="float: left; font-size: 25px;">PROFILE BUILDER</label></div>
+                <div class="fields_box">
+                    <div style="width: 100%;height: 55px;background-color:#f8f8f8; box-shadow: 0px 1px grey;color: #09a16feb;">
+                            <label style="padding: 5px; font-size: 20px;"> {{header}} </label>
+                            <div *ngIf="header=='Basic Information'" style="float: right;">
+                                <a class="btn btn-light" (click)="subHeaderChange('Demographics')">Demographics</a>
+                                <a class="btn btn-light" (click)="subHeaderChange('Contact Info')">Contact Info</a>
+                                <a class="btn btn-light" (click)="subHeaderChange('Job Specific Info')">Job Specific Info</a>
+                            </div>
+                            <div *ngIf="header=='Projects'" style="float: right; margin: 0;">
+                                <a class="btn btn-light" (click)="subProjHeader=true"><span>Add More Details</span></a>
+                            </div>
+                            <div *ngIf="header=='Certification and Achievements'" style="float: right; margin: 0;">
+                            <a class="btn btn-light" (click)="certificationHeaderChange('Certifications')">Certifications</a>
+                            <a class="btn btn-light" (click)="certificationHeaderChange('Achievements')">Achievements</a>
+                        </div>
+                    </div>
+                    <div class="fields" *ngIf="header=='Basic Information'" id="Basic Information">
+                            <form>
+                                <div *ngIf="subHeader=='Demographics'">
+                                    <div class="textbox">
+                                        <label>Enter Your First Name *</label>
+                                        <input type="text" required name="first name" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Last Name *</label>
+                                        <input type="text" required name="last name" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Date of Birth</label>
+                                        <input type="text" name="dob" autocomplete="off">
+                                        <!-- <span style="float: right;"><i class="material-icons"> date_range</i></span> -->
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Location</label>
+                                        <input type="text" name="location" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Passport Number</label>
+                                        <input type="text" name="passport numer" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Visa Status</label>
+                                        <input type="text" name="visa status" autocomplete="off">
+                                    </div>
+                                    <br>
+                                </div>
+                                <div *ngIf="subHeader=='Contact Info'">
+                                    <div class="textbox">
+                                        <label>Enter Your Email *</label>
+                                        <input type="text" required name="email" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Phone Number</label>
+                                        <input type="text" name="phone number" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Address</label>
+                                        <input type="text" name="address" autocomplete="off">
+                                    </div>
+                                    <br>
+                                </div>
+                                <div *ngIf="subHeader=='Job Specific Info'">
+                                    <!-- <div>
+                                        <label>Enter Your Job Experience *</label>
+                                        <select id="experience" class="form-control" (change)="experienced($event)">
+                                            <option value="Fresher">Fresher</option>
+                                            <option value="Experienced">Experienced</option>
+                                        </select>
+                                    </div> -->
+                                    <div class="textbox">
+                                        <label>Enter Your Job Experience</label>
+                                        <input type="text" required name="experience" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Previous Company</label>
+                                        <input type="text" name="Previous Company" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Designation</label>
+                                        <input type="text" name="Designation" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Current CTC</label>
+                                        <input type="text" name="cctc" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <label>Enter Your Expected CTC</label>
+                                        <input type="text" name="ectc" autocomplete="off">
+                                    </div>
+                                    <br>
+                                </div>
+                            </form>
+                    </div>
+                    <div class="fields" *ngIf="header=='Education Qualification'" id="Education Qualification">
+                        <form>
+                            <div class="textbox">
+                                <label>Institution *</label>
+                                <input type="text" required name="first name" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>Course </label>
+                                <br>
+                                <input type="text" name="first name" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>Duration</label>
+                                <br>
+                                <input type="text" name="first name" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>Percentage or CGPA</label>
+                                <input type="text" name="first name" autocomplete="off">
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="fields" *ngIf="header=='Skills'" id="Skills">
+                        <form>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 250px;">Enter Skills</th>
+                                        <th style="width: 250px;">Expertise Level</th>
+                                        <th style="width: 250px;">Years of Experience</th>
+                                        <th style="width: 25px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of rows;let i=index">
+                                        <td> 
+                                            <div class="textbox">
+                                                <input type="text" name="skill1" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" name="skill2" autocomplete="off">
+                                                <!-- <span style="float: right;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" name="skill3" autocomplete="off">
+                                                <!-- <span style="float: right;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
+                                            </div>
+                                        </td>
+                                        <td *ngIf="i==rows.length-1">
+                                            <!-- <span style="margin-top: 30px;" (click)="showRow()"><i class="material-icons"> add</i></span> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="fields" *ngIf="header=='Domain'" id="Domain">
+                        <form>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 250px;">Enter Domain</th>
+                                        <th style="width: 250px;">Expertise Level</th>
+                                        <th style="width: 250px;">Years of Experience</th>
+                                        <th style="width: 25px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of rows;let i=index">
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" required name="domain1" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" required name="domain2" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" required name="domain3" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td *ngIf="i==rows.length-1">
+                                            <!-- <span style="margin-top: 30px;" (click)="showRow()"><i class="material-icons"> add</i></span> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="fields" *ngIf="header=='Projects'" id="Projects" style="width: 850px;">
+                        <form>
+                            <div *ngIf="!subProjHeader">
+                            <div class="textbox">
+                                <label>Project Name</label>
+                                <input type="text" required name="project name" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>My Role</label>
+                                <br>
+                                <input type="text" name="My role" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>Project Duration</label>
+                                <input type="text" name="project duration" autocomplete="off">
+                            </div>
+                            <br>
+                            <div class="textbox">
+                                <label>Domain</label>
+                                <br>
+                                <input type="text" name="Domain" autocomplete="off">
+                            </div>
+                            <br>
+                        </div>
+                            <div *ngIf="subProjHeader">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 250px;">Skills Used</th>
+                                        <th style="width: 250px;">Expertise Level</th>
+                                        <th style="width: 25px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" required name="first name" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="textbox">
+                                                <input type="text" required name="first name" autocomplete="off">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!-- <span style="float: right;"><i class="material-icons"> add</i></span> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="fields" *ngIf="header=='Certification and Achievements'" id="Certification and Achievements">
+                        <form>
+                            <div *ngIf="certificationHeader=='Certifications'">
+                                    <div class="textbox">
+                                        <input type="text" required name="first name" placeholder="Title *" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <input type="text" name="first name" placeholder="Organization" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <input type="text" name="first name" placeholder="Issue Date" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <input type="text" name="first name" placeholder="Expires" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <input type="text" name="first name" placeholder="Credential ID" autocomplete="off">
+                                    </div>
+                                    <br>
+                                    <div class="textbox">
+                                        <input type="text" name="first name" placeholder="URL" autocomplete="off">
+                                    </div>
+                                    <br>
+                            </div>
+                            <div *ngIf="certificationHeader!='Certifications'">
+                                <div class="textbox">
+                                    <input type="text" name="first name" placeholder="Achievements" autocomplete="off">
+                                </div>
+                                <br>
+                        </div>
+                        </form>
+                    </div>
+    
+                    <!-- <div style="width: 100%;height: 35px;background-color:#f8f8f8;color: #09a16feb;">
+                        {{message}}
+                    </div> -->
+                </div>
+            </div>
+    
+    
+        </div>
+    </div>
+    </div>
