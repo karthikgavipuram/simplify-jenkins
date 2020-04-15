@@ -3,7 +3,7 @@ const config = {
         
     },
     "default":{
-        redirectUrl : ["http://localhost:4444"],
+        redirectUrl : ["https://cv.simplifyqa.com"],
         mongoCvUrl: "mongodb://172.105.58.154:27017/cv"
     }
 }
