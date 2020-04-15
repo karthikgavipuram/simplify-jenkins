@@ -22,8 +22,6 @@ jwtHelper = new JwtHelperService();
       // this.setUserDetails({});
       this.token=token.newValue;
     })
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.options = headers;
   }
   setUserDetails(){
     if (localStorage.getItem('token')) {
@@ -63,8 +61,5 @@ jwtHelper = new JwtHelperService();
 
   handleError(error: Response) {
     return throwError(error || 'Server error')
-  }
-  sendMail(){
-    return this.http.post(this._api +'/send',"hi",{ responseType: "json", observe: "response" });
   }
 }
