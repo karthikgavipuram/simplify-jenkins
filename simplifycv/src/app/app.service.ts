@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 
@@ -29,24 +28,15 @@ jwtHelper = new JwtHelperService();
     }
   }
   getcookie(){
-    return this.http.get(this._api + '/getCookie', { responseType: "json", observe: "response" }).pipe(
-      map(res => res.body),
-      catchError(this.handleError)
-    )
+    return this.http.get(this._api + '/getCookie', { responseType: 'json' })
   }
 
   updateUser(val:any){
-      return this.http.post(this._api + '/updateUser', val, { responseType: "json", observe: "response" }).pipe(
-        map(res => res.body),
-        catchError(this.handleError)
-      )
+      return this.http.post(this._api + '/updateUser', val, { responseType: "json", observe: "response" })
   }
 
   getData(data:any){
-    return this.http.post(this._api + '/getData', data,{ responseType: "json", observe: "response" } ).pipe(
-      map(res => res.body),
-      catchError(this.handleError)
-    )
+    return this.http.post(this._api + '/getData', data,{ responseType: "json", observe: "response" } )
   }
 
   uploadFile(formdata: any, url: string) {

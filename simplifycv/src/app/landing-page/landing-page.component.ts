@@ -10,11 +10,6 @@ export class LandingPageComponent implements OnInit {
 
   constructor(private _cs:AppService) { }
 
-  ngOnInit(): void {
-  }
-  sendMail(){
-    this._cs.sendMail().subscribe((res:any)=>{
-      console.log(res);
-    })
+  ngOnInit() {
   }
 }

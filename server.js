@@ -21,7 +21,7 @@ app.use(session({secret: 'Your secret key',saveUninitialized: true,resave: true}
 app.use(fileUpload());
 app.get('/getCookie',function(req,res){
     if(req.cookies.ssoCookie) res.status(200).json({success:true,token:req.cookies.ssoCookie})
-    else res.status(409).json({success:false , error: "No cookie"})
+    else res.status(500).json({success:false , error: "No cookie"})
 })
 
 
@@ -59,7 +59,7 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/cvgenerator','/home','/profile','/builder'],(req, res, next) => {
+app.get(['/','/home','/profilebuilder','/cvupload'],(req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
     res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });

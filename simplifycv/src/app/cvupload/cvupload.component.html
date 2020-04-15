@@ -6,17 +6,20 @@
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div *ngIf="!cvDetails.cv_dl_url" class="name">Upload CV</div>
-                    <div *ngIf="cvDetails.cv_dl_url" class="name">Update CV</div>
+                    <div *ngIf="!cv_dl_url" class="name">Upload CV</div>
+                    <div *ngIf="cv_dl_url" class="name">Update CV</div>
                     <div class="value">
                         <div class="input-group js-input-file">
                             <input (change)="filechange($event)" class="input-file" type="file" name="file_cv" id="file">
-                            <label class="label--file" for="file">Choose file</label>
+                            <label *ngIf="!file" class="label--file" for="file">Choose file</label>
                             <label *ngIf="file" class="label--file">{{file.name}}</label>
+                            <button *ngIf="file" (click)="onSubmit()">Upload</button>
+                            <input style="cursor: pointer;" class="label--file" (click)="gotobuilder()" />Skip 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

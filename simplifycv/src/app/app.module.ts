@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppService } from './app.service';
-import {apphttpinterceptor} from './app.interceptor';
+import {AppHttpInterceptor} from './app.interceptor';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DisableCardDirective } from './directives/disable-card.directive';
 import { ProfileBuilderComponent } from './profile-builder/profile-builder.component';
-import {MatIconModule} from '@angular/material/icon';
+import { CvuploadComponent } from './cvupload/cvupload.component';
+// import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {MatIconModule} from '@angular/material/icon';
     ProfileComponent,
     LandingPageComponent,
     DisableCardDirective,
-    ProfileBuilderComponent
+    ProfileBuilderComponent,
+    CvuploadComponent
   ],
   imports: [
     BrowserModule,
@@ -30,15 +32,14 @@ import {MatIconModule} from '@angular/material/icon';
     SharedModule,
     HttpClientModule,
     FormsModule,
-    RouterModule,
-    MatIconModule
+    RouterModule
   ],
   providers: [
     AppService,
     {provide: 'apiBase', useValue:''},
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: apphttpinterceptor,
+      useClass: AppHttpInterceptor,
       multi :true
     }
   ],

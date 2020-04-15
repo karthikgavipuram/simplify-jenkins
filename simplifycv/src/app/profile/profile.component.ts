@@ -10,7 +10,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class ProfileComponent implements OnInit {
   file:any
   userDetails:any = {}
-  profileDetails:any = {}
+  cvDetails:any = {}
 
   constructor(private _cs:AppService,private r:Router) { }
 
@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     this._cs.getData(search).subscribe(
       (res:any)=>{
         this.userDetails = res.data[0]
-        this.profileDetails = this.userDetails.cvdetails
+        this.cvDetails = this.userDetails.cvdetails
       },
       (err)=>{
 
@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
       updateFields:{}
     }
     details.userId = this.userDetails.userId
-    details.updateFields.cvdetails = this.profileDetails
+    details.updateFields.cvdetails = this.cvDetails
     if(this.file){
       let formdata = new FormData()
       formdata.append('file',this.file)
