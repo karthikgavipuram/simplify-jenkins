@@ -29,7 +29,7 @@
             ],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.scss"
+              "src/styles.scss" 
             ],
             "scripts": [
               "./src/assets/js/jquery-3.2.1.min.js",
@@ -96,10 +96,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/material-icons/iconfont/material-icons.css",
-              "./node_modules/material-icons/iconfont/material-icons.scss"
+              "src/styles.scss"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
