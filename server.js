@@ -59,7 +59,7 @@ app.all('/*', function(req, res, next) {
 
 
 
-app.get(['/','/home','/profilebuilder','/cvupload'],(req, res, next) => {
+app.get(['/','/home','/profilebuilder','/cvupload'],isAuthenticated,(req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,token,Origin,X-Origin');
     res.sendFile('index.html', { root: __dirname + '/simplifycv/dist/' });
@@ -96,17 +96,9 @@ app.get('/logout',function(req,res){
 })
 
 app.use((err, req, res, next) => {
-    console.error({
-      message: err.message,
-      error: err
-    })
-    const statusCode = err.status || 500
-    let message = err.message || "Internal Server Error"
-  
-    if (statusCode === 500) {
-      message = "Internal Server Error"
-    }
-    res.status(statusCode).json({ message })
+    console.log("in error handler");
+    console.log(JSON.stringify(err));
+    res.status(500).send({ "error": err.stack });
 })
 
 app.listen(4445, function(){

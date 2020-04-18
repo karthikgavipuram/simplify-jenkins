@@ -28,17 +28,6 @@ ObjectManager.prototype.getObjects = function(objType, filterField, filterValue,
     });
 }
 
-ObjectManager.prototype.getNextSequence = function getNextSequence(objValue, cb) {
-    db.sequence.findAndModify({
-        query: { "_id": objValue },
-        update: { $inc: { "seq": 1 } },
-        new: true,
-        upsert: true
-    }, function (err, doc) {
-        cb(err, doc);
-    });
-}
-
 ObjectManager.prototype.updateUser = function (objValue, cb) {
     const tmpId = parseInt(objValue.userId);
     var updateFields = objValue.updateFields;
