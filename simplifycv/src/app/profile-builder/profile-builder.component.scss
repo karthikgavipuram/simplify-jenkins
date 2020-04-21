@@ -1,6 +1,6 @@
 li label{
     padding: 0px 5px;
-    font-size: 18px;
+    font-size: 16px;
 }
 li label:hover{
     color: #0fbe85;
@@ -32,14 +32,13 @@ div button:checked{
     box-shadow: 1px 1px 5px grey;
   }
   .profile-box{
-    width: 250px;
-    height: 150px;
+    // width: 250px;
+    // height: 150px;
     padding: 5px;
   }
   .pb{
       background-color: #5b525233;
-      width: 250px;
-      height: 40px;
+    //   height: 40px;
       padding: 5px;
       margin:4px;
       box-shadow: 1px 1px 5px grey;
@@ -53,7 +52,6 @@ div button:checked{
     box-shadow: 1px 1px 5px grey;
 }
 .pb_section{
-    width: 100%;
     height: 550px !important;
     padding: 10px;
     margin-top: 5px;
@@ -61,14 +59,14 @@ div button:checked{
     overflow: hidden;
 }
 .fields_box{
-    width: 98%;
+    // width: 98%;
     height: 475px;
     // padding: 10px;
     background-color:white;
 }
 .fields{
     background-color: white;
-    width: 100%;
+    // width: 100%;
     height: 425px;
     padding: 20px;
     overflow: auto;
@@ -77,8 +75,8 @@ div button:checked{
     width: 70%;
     overflow: hidden;
     font-size: 20px;
-    padding: 8px 0;
-    margin: 8px 0;
+    // padding: 8px 0;
+    // margin: 8px 0;
     border-bottom: 1px solid #212869;
     font-family: Calibri;
     color: black;
@@ -96,7 +94,7 @@ div button:checked{
     border: none;
     outline: none;
     background: none;
-    color: black;
+    color: #32303096;
     font-size: 18px;
     font-family: Calibri;
     width: 80%;
@@ -107,4 +105,40 @@ textbox::placeholder {
     color: black;
     font-family: Calibri;
 }
-    
+.education-box{
+    width: 100%;
+    height: 40%;
+    background-color: white;
+    box-shadow: 1px 1px 5px grey;
+    margin: 20px 0px;
+}
+.education-box div{
+    width: 28.33%;
+    height: 45%;
+    float: left;
+    padding: 10px;
+}
+.education-box div label{
+    font-size: 18px;
+    font-family: Calibri;
+    width: 100%;
+    color: grey;
+}
+.education-box div span{
+    color: black;
+    font-family: Calibri;
+    font-size: 16px;
+}
+.education-modal{
+    width: 100%;
+}
+.education-modal div{
+    width: 45%;
+    float: left;
+    margin: 15px;
+}
+.ed_icons{
+    float: right;
+    padding: 20px;
+    color: grey;
+}
