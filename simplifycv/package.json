@@ -21,6 +21,7 @@
     "@angular/router": "~9.1.0-next.5",
     "@auth0/angular-jwt": "^3.0.1",
     "bootstrap": "^4.3.1",
+    "chart.js": "^2.9.3",
     "flatpickr": "^4.6.3",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
