@@ -21,36 +21,36 @@
                 </div>
                 <div>
                     <ul>
-                        <li>
+                        <li id="Personal Information">
                             <span style="float: left;"><i class="material-icons"> person_outline</i></span>
                             <label (click)="showFields('Personal Information')"> Personal Information</label>
                             <span style="float: right;padding: 0px 15px;" (click)="showPersonal=!showPersonal"><i class="material-icons"> keyboard_arrow_down </i></span>  
                             <ul *ngIf="showPersonal" style="padding: 2px 50px;">
-                                <li (click)="subHeaderChange('Basic Info')"> Basic Info</li>
-                                <li (click)="subHeaderChange('Job Specific Info')" style="padding: 10px 0px;"> Job Specific Info</li>
+                                <li id="Basic Info" (click)="subHeaderChange('Basic Info')"> Basic Info</li>
+                                <li id="Job Specific Info" (click)="subHeaderChange('Job Specific Info')" style="padding: 10px 0px;"> Job Specific Info</li>
                             </ul>                        
                         </li>
-                        <li>
+                        <li id="Education">
                             <span style="float: left;"><i class="material-icons"> menu_book</i></span>
                             <label (click)="showFields('Education')"> Education</label>
                         </li>
-                        <li>
+                        <li id="Work Experience">
                             <span style="float: left;"><i class="material-icons"> work_outline</i></span>
                             <label (click)="showFields('Work Experience')"> Work Experience</label>
                         </li>
-                        <li>
+                        <li id="Skills">
                             <span style="float: left;"><i class="material-icons"> bar_chart</i></span>
                             <label (click)="showFields('Skills')"> Skills</label>
                         </li>
-                        <li>
+                        <li id="Domain">
                             <span style="float: left;"><i class="material-icons"> pie_chart</i></span>
                             <label (click)="showFields('Domain')"> Domain</label>
                         </li>
-                        <li>
+                        <li id="Projects">
                             <span style="float: left;"><i class="material-icons"> computer</i></span>
                             <label (click)="showFields('Projects')"> Projects</label>
                         </li>
-                        <li>
+                        <li id="Certification and Achievements">
                             <span style="float: left;"><i class="material-icons"> emoji_events</i></span>
                             <label (click)="showFields('Certification and Achievements')"> Certification and Achievements</label>
                         </li>
@@ -65,7 +65,7 @@
                 <div class="fields_box">
                     <div style="height: 55px;background-color:#f8f8f8; box-shadow: 0px 1px grey;">
                         <label style="padding: 5px; font-size: 20px; color: green;"> {{header}} </label>
-                        <a class="btn btn-primary btn-sm" style="float: right;background-color: #0000003d; height: 35px;margin: 5px;" >Next</a>
+                        <a class="btn btn-primary btn-sm" style="float: right;background-color: #0000003d; height: 35px;margin: 5px;" (click)="nextSection()">Next</a>
                     </div>
                     <div class="fields" *ngIf="header=='Personal Information'" id="Personal Information">
                             <form>
@@ -249,12 +249,12 @@
                                         </td>
                                         <td>
                                             <div class="textbox">
-                                                <!-- <input type="text" name="ex_level{{i}}" [(ngModel)]="row.expertise_level" autocomplete="off"> -->
-                                                <select [(ngModel)]="row.expertise_level" (change)="experienced($event)" style="all:unset ;">
+                                                <input type="text" name="ex_level{{i}}" [(ngModel)]="row.expertise_level" autocomplete="off">
+                                                <!-- <select [(ngModel)]="row.expertise_level" (change)="experienced($event)" style="all:unset ;">
                                                     <option value="Beginner">Beginner</option>
                                                     <option value="Medium">Medium</option>
                                                     <option value="Expert">Expert</option>
-                                                </select>
+                                                </select> -->
                                             </div>
                                             <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
                                         </td>
