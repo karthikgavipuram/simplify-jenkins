@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { of } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -21,13 +22,35 @@ export class ProfileBuilderComponent implements OnInit {
   project:any={};
   certification:any={};
   editedIndex;
+  sections:any=['Personal Information','Education','Work Experience','Skills','Domain','Projects','Certification and Achievements'];
+  subSection=['Basic Info', 'Job Specific Info']
+  currentSection;
   constructor() { 
     for(let i=0;i<3;i++){
       this.rows.push(i);
     }
   }
-  
+  nextSection(){
+    let section=this.sections.indexOf(this.header);
+    let section1=this.subSection.indexOf(this.subHeader);
+    document.getElementById(this.subHeader).style.color='unset';
+    if(section==0 && section1==0){
+        this.subHeader=this.subSection[1];
+        document.getElementById(this.subHeader).style.color='blue';
+        return;
+    }
+    document.getElementById(this.header).style.color='unset';
+    if(section==0 || section1>0){
+    let index=++section;
+    if(index>6)
+    return;
+    this.currentSection=this.sections[index];
+    this.header=this.currentSection;
+    document.getElementById(this.header).style.color='blue';
+    }
+  }
   ngOnInit() {
+    
     this.cvDetails={
       "basicInfo":{
             "name" : "Shane Alex Pereira",
@@ -101,6 +124,9 @@ export class ProfileBuilderComponent implements OnInit {
           "url" : "xx"
       }],
     }
+    setTimeout(() => {
+      document.getElementById(this.subHeader).style.color='blue';
+    }, 200);
   }
   addEducation(data){
     if(this.editedIndex!=-1){
@@ -179,10 +205,13 @@ export class ProfileBuilderComponent implements OnInit {
     $("#" + id).modal();
   }
   showFields(header){
+    document.getElementById(this.header).style.color='unset';
     if(this.subProjHeader){
       this.subProjHeader=false;
     }
     this.header=header;
+    let x =document.getElementById(header);
+    x.style.color='blue';
   }
   showRow(card){
     if(card=='skills'){
@@ -213,6 +242,9 @@ export class ProfileBuilderComponent implements OnInit {
   else{
     x.style.height="30%";
   }
+  }
+  experienced(data){
+
   }
   
 }
