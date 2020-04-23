@@ -1,20 +1,20 @@
-<div class="page-wrapper bg-dark p-t-100 p-b-50">
+<div class="page-wrapper bg-white p-t-180 p-b-50">
     <div class="wrapper wrapper--w900">
         <div class="card card-6">
             <div class="card-heading">
-                <h2 class="title">Upload CV</h2>
+                <h2 class="title"><br>&nbsp;&nbsp;&nbsp;&nbsp;Upload CV</h2>
             </div>
             <div class="card-body">
                 <div class="form-row">
-                    <div *ngIf="!cv_dl_url" class="name">Upload CV</div>
+                    <div *ngIf="!cv_dl_url" class="name">Upload your CV here:</div>
                     <div *ngIf="cv_dl_url" class="name">Update CV</div>
                     <div class="value">
                         <div class="input-group js-input-file">
                             <input (change)="filechange($event)" class="input-file" type="file" name="file_cv" id="file">
-                            <label *ngIf="!file" class="label--file" for="file">Choose file</label>
+                            &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<label *ngIf="!file" class="label--file" for="file">Choose file</label>
                             <label *ngIf="file" class="label--file">{{file.name}}</label>
                             <button *ngIf="file" (click)="onSubmit()">Upload</button>
-                            <button style="cursor: pointer;" class="label--file" (click)="gotobuilder()" >Skip</button> 
+                            &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;<button style="cursor: pointer;" class="label--file" (click)="gotobuilder()" >Skip</button> 
                         </div>
                     </div>
                 </div>
