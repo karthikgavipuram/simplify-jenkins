@@ -1,0 +1,417 @@
+<div class="wrapper" *ngIf="cvDetails">
+    <div class="head-info">
+        <div class="personal-info" >
+            <h1>{{cvDetails.personal_info.basic_information.full_name}}</h1>
+            <h2>{{cvDetails.experience[0].designation}}</h2>
+            <div class="tt-exp">{{cvDetails.personal_info.job_info.total_exp}} Years</div>
+            <p>
+                <span class="glyphicon glyphicon-envelope" class="gly-ico"></span><span> {{cvDetails.personal_info.basic_information.email_id}}</span>
+                |
+                <span class="glyphicon glyphicon-phone"></span><span>{{cvDetails.personal_info.basic_information.mobile_number}}</span>
+            </p>
+        </div> <!-- personal-Info -->
+        <div class="per-dtls">
+            <table>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.education[0].level}} {{cvDetails.education[0].course}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span> {{cvDetails.personal_info.basic_information.current_location}}</span></td>
+                </tr>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-equalizer"></span><span> {{cvDetails.personal_info.job_info.current_ctc}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.personal_info.job_info.expected_ctc}}</span></td>
+                </tr>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span>Available in - {{cvDetails.personal_info.job_info.notice_period}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-equalizer"></span><span> {{cvDetails.personal_info.basic_information.dob}}</span></td>
+                </tr>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.personal_info.job_info.visa_country}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.personal_info.job_info.visa}}</span></td>
+                </tr>
+            </table>
+        </div> <!-- Per-Dtls -->
+    </div> <!-- head-info -->
+
+    <div class="pro-img">
+        <div class="display-image">
+            <!-- <img src="assets/images/profile.jpg"> -->
+        </div>
+    </div> <!-- PRO-IMG -->
+
+    <div class="detail-info">
+        <div class="education">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> EDUCATION</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%" class="one"></th>
+                    <th width="15%">Year</th>
+                    <th width="25%" class="institute">Institute</th>
+                    <th width="25%">Course</th>
+                    <th width="15%">Percentage</th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.education">
+                    <td class="one"><img src="assets/images/circle.png"></td>
+                    <td>{{row.from}}-{{row.to}}</td>
+                    <td>{{row.institution}}</td>
+                    <td>{{row.course}}</td>
+                    <td>{{row.grade}}</td>
+                </tr>
+            </table>
+        </div> 
+
+        <div class="border"></div>
+
+        <div class="experience">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> EXPERIENCE</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%" class="one"></th>
+                    <th width="15%">Year</th>
+                    <th width="25%">Company</th>
+                    <th width="25%">Designation</th>
+                    <th width="15%">Location</th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.experience">
+                    <td class="one"><img src="assets/images/circle.png"></td>
+                    <td>{{row.from.year}}-{{row.to.year}}</td>
+                    <td>{{row.company}}</td>
+                    <td>{{row.designation}}</td>
+                    <td>{{row.location}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="border"></div>
+
+        <div class="skillset">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> SKILL SET</span></div>
+            <div class="row col-md-12">
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">EXPERT</th>
+                        </tr>
+        
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='expert'">
+                                <div class="pb-ttl">{{row.name}}-{{row.years}}</div>
+                                <div class="pb-hld"><div class="pro-bar"></div></div><div class="pb-res">21%</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">APPLIED</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='applied'">
+                                <div class="pb-ttl">{{row.name}}-{{row.years}}</div>
+                                <div class="pb-hld"><div class="pro-bar"></div></div><div class="pb-res">21%</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">AWARE</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='aware'">
+                                <div class="pb-ttl">{{row.name}}-{{row.years}}</div>
+                                <div class="pb-hld"><div class="pro-bar"></div></div><div class="pb-res">21%</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            
+
+        </div> <!-- Skill SET -->
+
+        <div class="border"></div>
+
+        <div class="projects">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> PROJECTS</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%"></th>
+                    <th width="19%">PROJECT NAME</th>
+                    <th width="18%">DURATION</th>
+                    <th width="18%">PROJECT ROLE</th>
+                    <th width="15%">DOMIAN</th>
+                    <th width="20%">SKILLS USED</th>
+                    <th width="5%"></th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.projects">
+                    <td><div class="pro-point">P1</div></td>
+                    <td>{{row.name}}</td>
+                    <td>{{row.from.year}}-{{row.to.year}}</td>
+                    <td>{{row.role}}</td>
+                    <td>{{row.domain}}</td>
+                    <td>{{row.skills_used.join()}}</td>
+                </tr>
+
+                <!-- <tr>
+                    <td><div class="pro-point">P2</div></td>
+                    <td>Centro commercial </td>
+                    <td>1.6 Years</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                    <td><div class="project-pb"></div><div class="pro-pb-res">00%</div></td>
+                    <td><div class="pro-point">+</div></td>
+                </tr>
+
+                <tr>
+                    <td><div class="pro-point">P3</div></td>
+                    <td>Ernst Handel</td>
+                    <td>0.8 Years</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                    <td><div class="project-pb"></div><div class="pro-pb-res">00%</div></td>
+                    <td><div class="pro-point">+</div></td>
+                </tr>
+
+                <tr>
+                    <td><div class="pro-point">P4</div></td>
+                    <td>Island Trading</td>
+                    <td>2.4 Years</td>
+                    <td>Helen Bennett</td>
+                    <td>UK</td>
+                    <td><div class="project-pb"></div><div class="pro-pb-res">00%</div></td>
+                    <td><div class="pro-point">+</div></td>
+                </tr> -->
+            </table>
+
+
+        </div>
+    </div> <!-- DETAIL_INFO -->
+
+    <div class="graph-sec">
+        <div class="domain-knw">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> DOMAIN KNOWLEDGE</span></div>
+
+            <div class="dm-knw-skill">
+                <li>EXPERT</li>
+                <li>APPLIED</li>
+                <li>AWARE</li>
+            </div>
+
+            <table>
+                <tr>
+                    <th width="25%">Insurance</th>
+                    <th width="25%">Banking</th>
+                    <th width="25%">Health Care</th>
+                    <th width="25%">Retail</th>
+                </tr>
+                <tr>
+                    <td>2.3 Years</td>
+                    <td>1.8 Years</td>
+                    <td>2.0 Years</td>
+                    <td>1.1 Years</td>
+                </tr>
+
+            </table>
+            <div class="grp-chart">
+                <!-- CHART COMES IN HERE -->
+                <!--<center><img src="images/domain.png"></center>-->
+            </div>
+            <script>
+
+                $(document).ready(function () {
+                    $('.grp-chart').highcharts({
+                        chart: {
+                            renderTo: 'grp-chart',
+                            type: 'column',
+                            height: 200,
+                            width: 320,
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            //categories: ['Insurance', 'Banking', 'Health Care', 'Retail']
+                            //categories: ['']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Vertical Text'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            valueSuffix: '°C'
+                        },
+                        legend: {
+                            layout: 'vertical',
+                            align: 'right',
+                            verticalAlign: 'middle',
+                            borderWidth: 0
+                        },
+                        series: [{
+
+                            name: 'Insurance',
+                            data: [1]
+                        }, {
+                            name: 'Banking',
+                            data: [2]
+                        }, {
+                            name: 'Health Care',
+                            data: [3]
+                        }, {
+                            name: 'Retail',
+                            data: [4]
+                        }]
+                    });
+
+
+                    $('.frame-grh').highcharts({
+                        chart: {
+                            renderTo: '.frame-grh',
+                            type: 'pie',
+                            height: 200,
+                            width: 320,
+
+                        },
+
+                        plotOptions: {
+                            pie: {
+                                showInLegend: true,
+                            
+                            }
+                        }, tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+
+                        series: [{
+                            data: [
+
+                                ['IE7', 25],
+                                ['IE6', 22],
+                                ['Chrome', 50],
+
+                            ]
+                        }], function () {
+                                            $('#btn').click(function () {
+                                                chart.series[0].data[0].update(0);
+                                                chart.series[0].data[0].setVisible(false);
+                                            });
+                                            $('#btn2').click(function () {
+                                                chart.series[0].data[0].update(chart.series[0].data[0].trueVal);
+                                                chart.series[0].data[0].setVisible(true);
+                                            });
+                                        }
+                    });
+                });
+
+
+
+
+
+
+
+                //$(function () {
+
+
+
+                //    var chart = new Highcharts.Chart({
+                //        chart: {
+                //            renderTo: 'grp-chart',
+                //            type: 'column'
+                //        },
+                //        credits: {
+                //            enabled: false
+                //        },
+                //        title: {
+                //            text: 'Name Of THe Graph'
+                //        },
+                //        xAxis: {
+                //            categories: ['Insurance', 'Banking', 'Health Care', 'Retail']
+                //        },
+                //        yAxis: {
+                //            title: {
+                //                text: 'Vertical Text'
+                //            },
+                //            plotLines: [{
+                //                value: 0,
+                //                width: 1,
+                //                color: '#808080'
+                //            }]
+                //        },
+                //        tooltip: {
+                //            valueSuffix: '°C'
+                //        },
+                //        legend: {
+                //            layout: 'vertical',
+                //            align: 'right',
+                //            verticalAlign: 'middle',
+                //            borderWidth: 0
+                //        },
+                //        series: [{
+
+                //            name: 'Insurance',
+                //            data: [7.0, 6.9, 9.5, 14.5]
+                //        }, {
+                //                name: 'Banking',
+                //            data: [-0.2, 0.8, 5.7, 11.3]
+                //        }, {
+                //                name: 'Health Care',
+                //            data: [-0.9, 0.6, 3.5, 8.4]
+                //        }, {
+                //                name: 'Retail',
+                //            data: [3.9, 4.2, 5.7, 8.5]
+                //        }]
+                //    });
+                //});
+            </script>
+
+        </div> <!-- DOMAIN KNOWLEDGE -->
+
+        <div class="border"></div>
+
+        <div class="frame">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> FRAME WORK</span></div>
+            <table>
+                <tr>
+                    <th>Framework Tool 1</th>
+                    <th>Framework Tool 2</th>
+                    <th>Framework Tool 3</th>
+                </tr>
+                <tr>
+                    <td class="">4.1 Years</td>
+                    <td>2.3 Years</td>
+                    <td>1.0 Years</td>
+                </tr>
+            </table>
+            <div id="frame-grh" class="frame-grh">
+
+            </div>
+        </div> <!-- frame -->
+
+        <div class="border"></div>
+
+        <div class="certi-ach">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> CERTIFICATION & ACHIVEMENTS</span></div>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; MS Excel Certified</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; ITIL Certified</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Employee Of The Year</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Team Lead Of The Year</span></li>
+
+        </div>
+
+
+    </div> <!-- GRAPH SECTION -->
+</div>

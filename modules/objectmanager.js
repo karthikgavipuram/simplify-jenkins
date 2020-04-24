@@ -29,7 +29,7 @@ ObjectManager.prototype.getObjects = function(objType, filterField, filterValue,
 }
 
 ObjectManager.prototype.updateObject = function (obj,cb) {
-    if (!obj.query || !obj.updateFields || !obj.collections) cb("Invalid Body")
+    if (!obj.query || !obj.updateFields || !obj.collection) cb("Invalid Body")
     db[obj.collection].findAndModify({
         query: obj.query,
         update: { $set: obj.updateFields },

@@ -53,6 +53,7 @@ jwtHelper = new JwtHelperService();
     return throwError(error || 'Server error')
   }
   updateObject(val){
+    console.log(val)
     return this.http.post(this._api + '/updateObject', val, { responseType: "json", observe: "response" })
   }
 }

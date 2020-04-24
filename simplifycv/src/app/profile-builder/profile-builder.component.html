@@ -6,7 +6,7 @@
         <a><i class="material-icons" style="color:white;"> person </i></a>
     </div> -->
 </div>
-    <div class="container-fluid ">
+    <div class="container-fluid">
     <div class="row" style="height: calc(100% - 60px);">
         <div class="col-md-2" style="padding: 0;">
             <div class="side_bar">
@@ -58,16 +58,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8" style="padding: 0px 2px;">
+        <div class="col-md-8" style="padding: 0px 2px;" *ngIf="cvDetails">
             <div style="height: 55px;background-color: white; box-shadow: 0px 2px 3px grey;">
-                <a class="btn btn-primary btn-sm" style="float: right;background-color: #20446a; height: 35px;margin: 5px;color: white;padding-bottom: 45px;" (click)="nextSection()">Save</a>
+                <a class="btn btn-primary btn-sm" style="float: right;background-color: #20446a; height: 35px;margin: 5px;color: white;padding-bottom: 45px;" [routerLink]="['/publish']">Publish</a>
+                <a class="btn btn-primary btn-sm" style="float: right;background-color: #20446a; height: 35px;margin: 5px;color: white;padding-bottom: 45px;" (click)="save()">Save</a>
             </div>
             <div class="pb_section">
                 <div style="height: 45px;"><label style="float: left; font-size: 25px;">PROFILE BUILDER</label></div>
                 <div class="fields_box">
                     <div style="height: 55px;background-color:#f8f8f8; box-shadow: 0px 1px grey;">
                         <label style="padding: 5px; font-size: 20px; color: green;"> {{header}} </label>
-                        <a class="btn btn-primary btn-sm" style="float: right;background-color: #0000003d; height: 35px;margin: 5px;" (click)="save()">Next</a>
+                        <!-- <a class="btn btn-primary btn-sm" style="float: right;background-color: #0000003d; height: 35px;margin: 5px;" (click)="save()">Next</a> -->
                     </div>
                     <div class="fields" *ngIf="header=='Personal Information'" id="Personal Information">
                             <form>
@@ -167,7 +168,7 @@
                                         <br>
                                         <div style="display: flex; width: 500px;">
                                         <!-- <input type="text" name="notice period" placeholder="Serving Notice Period" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.serving_np"> -->
-                                        <select name="serving_np" class="form-control" (change)="experienced($event)">
+                                        <select name="serving_np" class="form-control">
                                             <option *ngFor="let y of noticePeriod" value="{{y}}">{{y}}</option>
                                         </select>
                                         <input type="text" name="days" placeholder="No. of days left" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;margin: 0 10px;" [(ngModel)]="cvDetails.personal_info.job_info.notice_period">
@@ -203,7 +204,7 @@
                                 <span>{{row.course}}</span>
                             </div>
                             <div style="width: 10%;">
-                                <span class="ed_icons" (click)="editEdu(row,i)"><i class="material-icons"> edit</i></span>
+                                <!-- <span class="ed_icons" (click)="editEdu(row,i)"><i class="material-icons"> edit</i></span> -->
                                 <span class="ed_icons" (click)="deleteEdu(i)"><i class="material-icons"> delete</i></span>
                             </div>
                             <div>
@@ -238,7 +239,7 @@
                                 <span></span>
                             </div>
                             <div style="width: 10%;">
-                                <span class="ed_icons" (click)="editWork(row,i)"><i class="material-icons"> edit</i></span>
+                                <!-- <span class="ed_icons" (click)="editWork(row,i)"><i class="material-icons"> edit</i></span> -->
                                 <span class="ed_icons" (click)="deleteWork(i)"><i class="material-icons"> delete</i></span>
                             </div>
                             <div>
@@ -272,13 +273,16 @@
                                         </td>
                                         <td>
                                             <div class="textbox">
-                                             <input type="text" name="ex_level{{i}}"  onkeypress="return (event.charCode > 64 && 
-                                             event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off"> 
+                                             <!-- <input type="text" name="ex_level{{i}}"  onkeypress="return (event.charCode > 64 && 
+                                             event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off">  -->
                                                 <!-- <mselect [(ngModel)]="row.expertise_level" (change)="experienced($event)" style="all:unset ;">
                                                     <option value="Beginner">Beginner</option>
                                                     <option value="Medium">Medium</option>
                                                     <option value="Expert">Expert</option>
                                                 </select> -->
+                                                <select name="ex_level{{i}}" class="form-control" [(ngModel)]="row.expertise_level">
+                                                    <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
+                                                </select>
                                             </div>
                                             <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
                                         </td>
@@ -286,7 +290,7 @@
                                             <div class="textbox">
                                                 <input type="text" name="years{{i}}"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="row.years" autocomplete="off" maxlength="3">
                                             </div>
-                                            <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
+                                            <!-- <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
                                         </td>
                                         <td>
                                             <span (click)="deleteRow('skills',i)"><i class="material-icons" style="margin-top: 30px;padding: 0px 15px;"> delete_outline</i></span>
@@ -329,7 +333,7 @@
                                             <div class="textbox">
                                                 <input type="text" name="domainyears{{i}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="row.years" autocomplete="off" maxlength="3">
                                             </div>
-                                            <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
+                                            <!-- <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
                                         </td>
                                         <td>
                                             <span (click)="deleteRow('domain',i)"><i class="material-icons" style="margin-top: 30px;padding: 0px 15px;"> delete_outline</i></span>
@@ -364,7 +368,7 @@
                             </div>
                             <span (click)="projectExpand('projectExpand1')"><i class="material-icons" style="margin: 25px 20px;"> keyboard_arrow_down</i></span>
                             <div style="width: 10%;height: 30%;">
-                                <span style="padding: 10px;" (click)="editProject(row,i)"><i class="material-icons"> edit</i></span>
+                                <!-- <span style="padding: 10px;" (click)="editProject(row,i)"><i class="material-icons"> edit</i></span> -->
                                 <span style="padding: 10px;" (click)="deleteProject(i)"><i class="material-icons"> delete</i></span>
                             </div>
                             <div *ngIf="showSummary" style="width: 100%;">
@@ -394,7 +398,7 @@
                                 <span>{{row.cretification_id}}</span>
                             </div>
                             <div style="width: 10%;">
-                                <span class="ed_icons" (click)="editCertificate(row,i)"><i class="material-icons"> edit</i></span>
+                                <!-- <span class="ed_icons" (click)="editCertificate(row,i)"><i class="material-icons"> edit</i></span> -->
                                 <span class="ed_icons" (click)="deleteCertificate(i)"><i class="material-icons"> delete</i></span>
                             </div>
                             <div>
@@ -456,14 +460,14 @@
                     <div class="textbox" style="width: 21%;border: none;">
                         <label>From</label>
                         <br>
-                        <select name="edu_from" class="form-control" (change)="experienced($event)" [(ngModel)]="education.from">
+                        <select name="edu_from" class="form-control" [(ngModel)]="education.from">
                             <option value="">Select Year</option>
                             <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                         </select>
                     </div>
                     <div class="textbox" style="width: 21%;border: none;">
                         <label>To/Expected</label>
-                        <select name="edu_to" class="form-control" (change)="experienced($event)" [(ngModel)]="education.to">
+                        <select name="edu_to" class="form-control" [(ngModel)]="education.to">
                             <option value="">Select Year</option>
                             <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                         </select>
@@ -484,7 +488,7 @@
             </div>
         </div>
     </div>
-    <div id="workModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+    <div id="workModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="workExp.from">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -516,11 +520,11 @@
                         <!-- <input type="text" name="from months" [(ngModel)]="workExp.from_months" placeholder="Select Month" autocomplete="off" style="width: 150px;border-bottom: 1px solid #212869;">
                         <input type="text" name="from years" [(ngModel)]="workExp.from_years" autocomplete="off" placeholder="Select Year" style="width: 150px;border-bottom: 1px solid #212869;"> -->
                         <div style="display: flex;width: 95%;margin: 0;">
-                        <select name="work_from_years" class="form-control" (change)="experienced($event)" style="margin: 0 10px;">
+                        <select name="work_from_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.from.year">
                             <option value="">Select Year</option>
                             <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                         </select>
-                        <select name="work_from_months" class="form-control" (change)="experienced($event)">
+                        <select name="work_from_months" class="form-control" [(ngModel)]="workExp.from.month">
                             <option value="">Select Month</option>
                             <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                         </select>
@@ -530,11 +534,11 @@
                         <label>To</label>
                         <br>
                         <div style="display: flex;width: 95%;margin: 0;">
-                        <select name="work_to_years" class="form-control" (change)="experienced($event)" style="margin: 0 10px;">
+                        <select name="work_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.year">
                             <option value="">Select Year</option>
                             <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                         </select>
-                        <select name="work_to_months" class="form-control" (change)="experienced($event)">
+                        <select name="work_to_months" class="form-control" [(ngModel)]="workExp.to.month">
                             <option value="">Select Month</option>
                             <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                         </select>
@@ -600,7 +604,7 @@
             </div>
         </div>
     </div>
-    <div id="projectModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+    <div id="projectModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="project.from">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -622,11 +626,11 @@
                         <label>From</label>
                         <br>
                         <div style="display: flex;width: 95%;margin: 0;">
-                            <select name="proj_from_years" class="form-control" (change)="experienced($event)" style="margin: 0 10px;">
+                            <select name="proj_from_years" class="form-control"  style="margin: 0 10px;" [(ngModel)]="project.from.year">
                                 <option value="">Select Year</option>
                                 <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                             </select>
-                            <select name="proj_from_months" class="form-control" (change)="experienced($event)">
+                            <select name="proj_from_months" class="form-control" [(ngModel)]="project.from.month">
                                 <option value="">Select Month</option>
                                 <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                             </select>
@@ -636,11 +640,11 @@
                             <label>To</label>
                             <br>
                             <div style="display: flex;width: 95%;margin: 0;">
-                            <select name="proj_to_years" class="form-control" (change)="experienced($event)" style="margin: 0 10px;">
+                            <select name="proj_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.year">
                                 <option value="">Select Year</option>
                                 <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                             </select>
-                            <select name="proj_to_months" class="form-control" (change)="experienced($event)">
+                            <select name="proj_to_months" class="form-control" [(ngModel)]="project.to.month">
                                 <option value="">Select Month</option>
                                 <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                             </select>
