@@ -14,6 +14,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { DisableCardDirective } from './directives/disable-card.directive';
 import { ProfileBuilderComponent } from './profile-builder/profile-builder.component';
 import { CvuploadComponent } from './cvupload/cvupload.component';
+import { PublishComponent } from './publish/publish.component';
 // import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CvuploadComponent } from './cvupload/cvupload.component';
     LandingPageComponent,
     DisableCardDirective,
     ProfileBuilderComponent,
-    CvuploadComponent
+    CvuploadComponent,
+    PublishComponent
   ],
   imports: [
     BrowserModule,
