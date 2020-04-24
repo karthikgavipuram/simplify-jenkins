@@ -94,15 +94,15 @@ div button:checked{
     border: none;
     outline: none;
     background: none;
-    color: #32303096;
+    // color: #32303096;
     font-size: 18px;
     font-family: Calibri;
     width: 80%;
     float: left;
     margin: 0 10px;
 }
-textbox::placeholder {
-    color: black;
+::placeholder {
+    color:#32303096;
     font-family: Calibri;
 }
 .education-box{
