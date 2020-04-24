@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
+import { AppService } from '../app.service';
 declare var $: any;
 
 @Component({
@@ -23,11 +25,19 @@ export class ProfileBuilderComponent implements OnInit {
   certification:any={};
   editedIndex;
   sections:any=['Personal Information','Education','Work Experience','Skills','Domain','Projects','Certification and Achievements'];
-  subSection=['Basic Info', 'Job Specific Info']
+  subSection=['Basic Info', 'Job Specific Info'];
+  noticePeriod=['Serving Notice Period',"Yet To Serve Notice Period"]
   currentSection;
-  constructor() { 
+  duration:any={};
+  years:any=[];
+  constructor(private _cs:AppService) { 
     for(let i=0;i<3;i++){
       this.rows.push(i);
+    }
+    let today=new Date();
+    let year=today.getFullYear();
+    for(let i=1980;i<=year;i++){
+     this.years.push(i);
     }
   }
   nextSection(){
@@ -50,83 +60,105 @@ export class ProfileBuilderComponent implements OnInit {
     }
   }
   ngOnInit() {
-    
+  
     this.cvDetails={
-      "basicInfo":{
-            "name" : "Shane Alex Pereira",
-            "dob" : "25th Dec 1995",
-            "location" : "Bengaluru, Karnataka",
-            "ph_number" : 9110824364,
-            "relocation" : false
-      },
-      "education" : [{
-        "institute" : "St Joseph's Convent",
-        "qualification_level" : "High School",
-        "specialisation_in" : "",
-        "duration" : "2008-2010",
-        "location":"Kolar",
-        "grade":"79%"
-        },
-        {
-          "institute" : "St Teresa's Convent",
-          "qualification_level" : "PUC",
-          "specialisation_in" : "PCMB",
-          "duration" : "2010-2012",
-          "location":"Kolar",
-          "grade":"75%"
-          }
-      ],
-      "workexperience": [{
-        "company":"Apple",
-        "designation":"Software Developer",
-        "duration":"2017-present",
-        "location":"bengalure",
-        "engagementType":"full time"
-      }
-      ],
-        "skills" : [{
-          "name" : "Java",
-          "expertise_level" : "Medium",
-          "years" : 2.0
-        },
-        {
-          "name" : "Angular",
-          "expertise_level" : "Medium",
-          "years" : 1.0
-        },
-        {
-          "name" : "Nodejs",
-          "expertise_level" : "Medium",
-          "years" : 2.0
-        }
-      ],
-        "domain" : [{
-          "name" : "App Development",
-          "expertise_level" : "Medium",
-          "years" : 2.0
+        "personal_info" : {
+            "basic_information" : {
+                "full_name" : "Shane Alex Pereira",
+                "dob" : "25 Dec 1995",
+                "current_location" : "Bengaluru, Karnataka",
+                "mobile_number" : 9110824364,
+                "alt_number" : 123456779,
+                "email_id" : "xx"
+            },
+            "job_info" : {
+                "total_exp" : "1",
+                "relocation" : false,
+                "preferred_loc" : "Bangalore",
+                "current_ctc" : "10000",
+                "expected_ctc" : "1234567",
+                "notice_period" : "",
+                "visa_status" : {
+                  "country" : "",
+                  "type" : "",
+                  "expires" : ""
+                }
+              }
+            },
+            "education" : [{
+                "institution" : "xxx",
+                "level" : "",
+                "location" : "",
+                "course" : "xxx",
+                "from" : "", 
+                "to":"",
+                "grade" : "xx"
+                }],
+               
+            "skills" : [{
+                    "name" : "java",
+                    "expertise_level" : "Aware",
+                    "years" : 2.5
+            }],
+            "domain" : [{
+              "name" : "App Development",
+              "expertise_level" : "Medium",
+              "years" : 2.0
+            }],
+            "projects" : [{
+                    "name" : "Simplifycv",
+                    "role" : "Developer",
+                    "domain" : "Web Development",
+                    "type" : "xx",
+                    "from" : {
+                      "year" : "2020",
+                      "month" : ""
+                      },
+                      "to" : {
+                          "year" : "",
+                          "month" : ""
+                      },
+                    "summary" : "",
+                    "responsibility" : "",
+                    "skills_used" : ["Javascript", "Nodejs", "Kubernetes"],
+                    "ongoing":true
+            }],
+            "experience" : [{
+                "company" : "xxx",
+                "designation" : "",
+                "location" : "",
+                "engagement_type" : "",
+                "from" : {
+                  "year" : "",
+                  "month" : ""
+                  },
+              "to" : {
+                  "year" : "",
+                  "month" : ""
+                 },
+
+                "currently_working" : false 
+            }],
+            "achievements" : [{
+                "title" : "xx",
+                "description" : "xx",
+                "year" : "xx"
+            }],
+            "certifications" : [{
+                "title" : "xx",
+                "organization" : "xx",
+                "issue_date" : "",
+                "expires" : true,
+                "expiry_date" : "",
+                "credential_id" : "xx",
+                "url" : "xx"
         }],
-        "projects" : [{
-          "name" : "Simplifycv",
-          "domain" : "Web Development",
-          "role" : "Developer",
-          "duration":"",
-          "skills" : "Javascript Nodejs Kubernetes",
-          "summary":"",
-          "responsibility":""
-        }],
-      "certifications" : [{
-          "title" : "xx",
-          "organization" : "xx",
-          "issue_date" : "25",
-          "expires" : true,
-          "expiry_date" : "25",
-          "cretification_id" : "xx",
-          "url" : "xx"
-      }],
     }
     setTimeout(() => {
       document.getElementById(this.subHeader).style.color='blue';
     }, 200);
+    this.duration.months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    this.duration.years=this.years;
   }
   addEducation(data){
     if(this.editedIndex!=-1){
@@ -189,7 +221,6 @@ export class ProfileBuilderComponent implements OnInit {
     else{
     this.cvDetails.certifications.push(this.certification);
     }
-    this.workExp={};
     this.editedIndex=-1;
   }
   editCertificate(row,i){
@@ -206,11 +237,12 @@ export class ProfileBuilderComponent implements OnInit {
   }
   showFields(header){
     document.getElementById(this.header).style.color='unset';
+    document.getElementById(this.subHeader).style.color='unset';
     if(this.subProjHeader){
       this.subProjHeader=false;
     }
     this.header=header;
-    let x =document.getElementById(header);
+    let x =document.getElementById(this.header);
     x.style.color='blue';
   }
   showRow(card){
@@ -229,6 +261,20 @@ export class ProfileBuilderComponent implements OnInit {
       this.cvDetails.domain.splice(i,1);
     }
   }
+  cancel(header){
+    if(header=='education'){
+        this.education={};
+  }
+  if(header=='experience'){
+    this.workExp={};
+  }
+  if(header=='project'){
+    this.project={};
+  }
+  if(header=='certification'){
+    this.certification={};
+}
+}
   subHeaderChange(header){
     this.header='Personal Information'
     this.subHeader=header;
@@ -246,6 +292,8 @@ export class ProfileBuilderComponent implements OnInit {
   experienced(data){
 
   }
-  
+  save(){
+    this._cs.saveObject(this.cvDetails).subscribe();
+  }
   
 }
