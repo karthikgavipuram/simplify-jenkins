@@ -87,6 +87,19 @@ app.post('/getData', function(req,res){
     })
 })
 
+app.get('/updateObject',function (req,res,){
+    objManager.updateObject(req.body,function (err,data){
+        if (err) 
+        {
+            res.status(500).json({success : false,error : err})
+        }
+        else
+        {
+            res.status(200).json({success : true, data : data})
+        }
+    }) 
+})
+
 var uploadRouter = require('./routes/upload');
 app.use('/upload',uploadRouter)
 
