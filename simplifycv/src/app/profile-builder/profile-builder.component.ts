@@ -30,6 +30,7 @@ export class ProfileBuilderComponent implements OnInit {
   currentSection;
   duration:any={};
   years:any=[];
+  userObject:any={};
   constructor(private _cs:AppService) { 
     for(let i=0;i<3;i++){
       this.rows.push(i);
@@ -52,7 +53,7 @@ export class ProfileBuilderComponent implements OnInit {
     document.getElementById(this.header).style.color='unset';
     if(section==0 || section1>0){
     let index=++section;
-    if(index>6)
+  if(index>6)
     return;
     this.currentSection=this.sections[index];
     this.header=this.currentSection;
@@ -60,6 +61,26 @@ export class ProfileBuilderComponent implements OnInit {
     }
   }
   ngOnInit() {
+    if(!this._cs.userDetails || !this._cs.userDetails.id){
+      this._cs.getcookie().subscribe(
+        (res:any)=>{
+          if(res.token) localStorage.setItem('token',res.token)
+          this._cs.setUserDetails();
+          this._cs.getData({"collection":"user",query:{"userId":this._cs.userDetails.id}}).subscribe((res:any)=>{
+            console.log(res);
+          });
+        },
+        (err)=>{
+          console.log('error in getcookie()')
+        }
+      )
+    }
+    else{
+      this._cs.getData({"collection":"user",query:{"userId":this._cs.userDetails.id}}).subscribe((res:any)=>{
+        console.log(res);
+        this.userObject=res.body.data[0];
+      });
+    }
   
     this.cvDetails={
         "personal_info" : {
@@ -293,7 +314,9 @@ export class ProfileBuilderComponent implements OnInit {
 
   }
   save(){
-    this._cs.saveObject(this.cvDetails).subscribe();
+    let cvDetails=this.userObject;
+    this.userObject.cvdetails.builderdetails=this.cvDetails;
+    this._cs.updateObject({"collection":"user",query:{"userId":this._cs.userDetails.id},"updateFields":{"cvdetails":this.userObject.cvdetails}}).subscribe();
   }
   
 }
