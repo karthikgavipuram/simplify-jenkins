@@ -28,15 +28,13 @@ ObjectManager.prototype.getObjects = function(objType, filterField, filterValue,
     });
 }
 
-ObjectManager.prototype.updateUser = function (objValue, cb) {
-    const tmpId = parseInt(objValue.userId);
-    var updateFields = objValue.updateFields;
-    updateFields.updatedOn = new Date();
-    db['user'].findAndModify({
-        query: { userId: tmpId },
-        update: { $set: updateFields },
-        new: true
-    }, function (err, doc, lastErrorObject) {
+ObjectManager.prototype.updateObject = function (obj,cb) {
+    if (!obj.query || !obj.updateFields || !obj.collections) cb("Invalid Body")
+    db[obj.collection].findAndModify({
+        query: obj.query,
+        update: { $set: obj.updateFields },
+        new: false
+    }, function (err, doc) {
         if (err) {
             cb(err);
         } else {
@@ -45,7 +43,7 @@ ObjectManager.prototype.updateUser = function (objValue, cb) {
                 return;
             }
             delete doc._id;
-            var objTypeHistory = 'user_history';
+            var objTypeHistory = `${obj.collection}_history`;
             objectManager.saveObjectHistory(objTypeHistory, doc, function (err, done) {
                 if (err) {
                     console.log("history oject not saved");
@@ -80,5 +78,6 @@ ObjectManager.prototype.search = function (objValue, cb) {
         }
     });
 }
+
 
 module.exports = ObjectManager;
