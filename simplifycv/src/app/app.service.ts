@@ -52,7 +52,7 @@ jwtHelper = new JwtHelperService();
   handleError(error: Response) {
     return throwError(error || 'Server error')
   }
-  saveObject(val){
+  updateObject(val){
     return this.http.post(this._api + '/updateObject', val, { responseType: "json", observe: "response" })
   }
 }
