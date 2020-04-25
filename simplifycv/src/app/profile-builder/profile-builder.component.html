@@ -140,47 +140,60 @@
                                         <input type="text" name="experiencemonths" placeholder="Months" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 150px;border-bottom: 1px solid #212869;" maxlength="2">
                                     </div>
                                     <div style="margin-top:15px">
-                                        <input style="float: left; width: 3%; margin: 10px 0px;" type="checkbox" name="Preferred location">
+                                        <input style="float: left; width: 3%; margin: 10px 0px;" type="checkbox" name="Preferred location" [(ngModel)]="cvDetails.personal_info.job_info.relocation">
                                         <label style="font-size: 17px;margin-top: 5px;">Willing to relocate</label>
                                     </div>
                                     <div class="textbox">
                                         <label>Preferred Location</label>
-                                        <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_loc">
+                                        <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_loc" [disabled]="!cvDetails.personal_info.job_info.relocation">
                                     </div>
                                     <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
                                     <br>
                                     <div class="textbox" style="border: none;">
                                         <label>Current Compensation (Annual)</label>
                                         <br>
-                                        <input type="text" name="ccurrency" placeholder="INR" autocomplete="off" style="width: 50px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.currency">
-                                        <input type="text" name="cctc" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc">
+                                        <div style="display: flex;">
+                                        <select name="ccurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.currency" style="width: 15%;margin-right: 15px;">
+                                            <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
+                                        </select>
+                                        <input type="text" name="cctc" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.value">
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="textbox" style="border: none;">
                                         <label>Expected Compensation (Annual)</label>
                                         <br>
-                                        <input type="text" name="ecurrency" placeholder="INR" autocomplete="off" style="width: 50px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.currency">
-                                        <input type="text" name="ectc" placeholder="Ex. 5,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc">
+                                        <div style="display: flex;">
+                                            <select name="ecurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.currency" style="width: 15%;margin-right: 15px;">
+                                                <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
+                                            </select>    
+                                        <input type="text" name="ectc" placeholder="Ex. 5,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.value">
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="textbox" style="border: none;">
                                         <label>Notice Period</label>
                                         <br>
-                                        <div style="display: flex; width: 500px;">
-                                        <!-- <input type="text" name="notice period" placeholder="Serving Notice Period" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.serving_np"> -->
-                                        <select name="serving_np" class="form-control">
-                                            <option *ngFor="let y of noticePeriod" value="{{y}}">{{y}}</option>
+                                        <div style="display: flex; width: 500px; margin-right: 15px;">
+                                        <!-- <input type="text" name="notice period" pla(ceholder="Serving Notice Period" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.serving_np"> -->
+                                        <select name="serving_np" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.status">
+                                            <option *ngFor="let y of noticePeriod" value="{{y.value}}">{{y.key}}</option>
                                         </select>
-                                        <input type="text" name="days" placeholder="No. of days left" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;margin: 0 10px;" [(ngModel)]="cvDetails.personal_info.job_info.notice_period">
+                                        <input type="text" name="days" placeholder="No. of days left" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;margin: 0 10px;" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.days">
                                         </div>
                                     </div>
                                     <br>
                                     <div class="textbox" style="border: none;width: 90%;">
                                         <label>Visa Status</label>
                                         <br>
-                                        <input type="text" name="country" placeholder="Select Country" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_country">
-                                        <input type="text"  name="visa" placeholder="Ex. H1B1" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa">
-                                        <input type="text"  name="validdate" placeholder="Valid Till" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_validtill">
+                                        <div style="display: flex;">
+                                            <select name="visa_country" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.country" style="width: 20%;margin-right: 10px;">
+                                                <option *ngFor="let y of countries" value="{{y.value}}">{{y.key}}</option>
+                                            </select>
+                                        <!-- <input type="text" name="country" placeholder="Select Country" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_country"> -->
+                                        <input type="text"  name="visa" placeholder="Ex. H1B1" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.type">
+                                        <input type="text"  name="validdate" placeholder="Valid Till" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.expires">
+                                        </div>
                                     </div>
                                     <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
                                     <br>
@@ -188,7 +201,7 @@
                             </form>
                     </div>
                     <div class="fields" *ngIf="header=='Education'" id="Education">
-                        <span style="float: right; margin: -10px 0px;" data-toggle="modal" data-target="#educationModal"><i class="material-icons"> add</i></span>
+                        <span style="float: right; margin: -10px 0px;" (click)="showModal('educationModal')"><i class="material-icons"> add</i></span>
                         <div *ngFor="let row of cvDetails.education;let i=index" class="education-box">
                         <!-- <div > -->
                             <div>
@@ -216,14 +229,14 @@
                                 <span>{{row.location}}</span>
                             </div>
                             <div>
-                                <label>Grade</label>
-                                <span>{{row.grade}}</span>
+                                <label>Score</label>
+                                <span>{{row.grade.type}}-{{row.grade.value}}</span>
                             </div>
                         <!-- </div> -->
                         </div>   
                     </div>
                     <div class="fields" *ngIf="header=='Work Experience'" id="work">
-                        <span style="float: right; margin: -10px 0px;" data-toggle="modal" data-target="#workModal"><i class="material-icons"> add</i></span>
+                        <span style="float: right; margin: -10px 0px;" (click)="showModal('workModal')"><i class="material-icons"> add</i></span>
                     
                         <div *ngFor="let row of cvDetails.experience;let i=index" class="education-box">
                             <div>
@@ -236,7 +249,7 @@
                             </div>
                             <div>
                                 <label>Experience</label>
-                                <span></span>
+                                <span>{{row.from.year}}-{{row.to.year}}</span>
                             </div>
                             <div style="width: 10%;">
                                 <!-- <span class="ed_icons" (click)="editWork(row,i)"><i class="material-icons"> edit</i></span> -->
@@ -324,8 +337,11 @@
                                         </td>
                                         <td>
                                             <div class="textbox">
-                                                <input type="text" name="domainex-level{{i}}"  onkeypress="return (event.charCode > 64 && 
-                                                event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off">
+                                                <!-- <input type="text" name="domainex-level{{i}}"  onkeypress="return (event.charCode > 64 && 
+                                                event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off"> -->
+                                                <select name="domainex_level{{i}}" class="form-control" [(ngModel)]="row.expertise_level">
+                                                    <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
+                                                </select>
                                             </div>
                                             <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
                                         </td>
@@ -348,7 +364,7 @@
                         </form>
                     </div>
                     <div class="fields" *ngIf="header=='Projects'" id="Projects">
-                        <span style="float: right; margin: -10px 0px;" data-toggle="modal" data-target="#projectModal"><i class="material-icons"> add</i></span>
+                        <span style="float: right; margin: -10px 0px;" (click)="showModal('projectModal')"><i class="material-icons"> add</i></span>
                         <div *ngFor="let row of cvDetails.projects;let i=index" class="education-box" id="projectExpand1" style="height: 25%;">
                             <div style="width: 20%;height: 30%;">
                                 <label>Name</label>
@@ -364,7 +380,7 @@
                             </div>
                             <div style="width: 20%;height: 30%;">
                                 <label>Duration</label>
-                                <span></span>
+                                <span>{{row.from.year}}-{{row.to.year}}</span>
                             </div>
                             <span (click)="projectExpand('projectExpand1')"><i class="material-icons" style="margin: 25px 20px;"> keyboard_arrow_down</i></span>
                             <div style="width: 10%;height: 30%;">
@@ -445,9 +461,13 @@
                         <label>Institute Name</label>
                         <input type="text" name="institutename" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.institution" autocomplete="off" required>
                     </div>
-                    <div class="textbox">
+                    <div class="textbox" style="border: none;">
                         <label>Qualification Level</label>
-                        <input type="text" name="level" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.level" autocomplete="off">
+                        <!-- <input type="text" name="level" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.level" autocomplete="off"> -->
+                        <select name="level" class="form-control" [(ngModel)]="education.level">
+                            <option value="">Select Qualificatin</option>
+                            <option *ngFor="let y of qualification" value="{{y.value}}">{{y.key}}</option>
+                        </select>
                     </div>
                     <div class="textbox">
                         <label>Specialization In</label>
@@ -475,8 +495,13 @@
                     <div class="textbox" style="border: none;">
                         <label>Grade</label>
                         <br>
-                        <input type="text" name="type" placeholder="GPA" autocomplete="off" style="width: 50px;border-bottom: 1px solid #212869;">
-                        <input type="text"  name="grade" autocomplete="off" style="width: 250px;border-bottom: 1px solid #212869;" [(ngModel)]="education.grade">
+                        <!-- <input type="text" name="type" placeholder="GPA" autocomplete="off" style="width: 50px;border-bottom: 1px solid #212869;"> -->
+                        <div style="display: flex;width: 100%; margin: 0;">
+                        <select name="level" class="form-control" [(ngModel)]="education.grade.type" style="width: 30%; margin-right: 10px;">
+                            <option *ngFor="let y of grade" value="{{y.value}}">{{y.key}}</option>
+                        </select>
+                        <input type="text"  name="grade" autocomplete="off" style="width: 250px;border-bottom: 1px solid #212869;" [(ngModel)]="education.grade.value">
+                        </div>
                     </div>
                 </div>
                 </form>
@@ -510,9 +535,14 @@
                         <label>Location</label>
                         <input type="text" name="worklocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.location" autocomplete="off">
                     </div>
-                    <div class="textbox">
+                    <div class="textbox" style="border: none;">
                         <label>Engagement type</label>
-                        <input type="text" name="etype" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.engagementType" autocomplete="off">
+                        <!-- <input type="text" name="etype" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.engagementType" autocomplete="off"> -->
+                        <select name="level" class="form-control" [(ngModel)]="workExp.engagementType">
+                            <option value="">Select Type</option>
+                            <option *ngFor="let y of engagementType" value="{{y.value}}">{{y.key}}</option>
+                        </select>
+
                     </div>
                     <div class="textbox" style="border: none;">
                         <label>From</label>
@@ -534,17 +564,17 @@
                         <label>To</label>
                         <br>
                         <div style="display: flex;width: 95%;margin: 0;">
-                        <select name="work_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.year">
+                        <select name="work_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.year" [disabled]="workExp.currently_working">
                             <option value="">Select Year</option>
                             <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                         </select>
-                        <select name="work_to_months" class="form-control" [(ngModel)]="workExp.to.month">
+                        <select name="work_to_months" class="form-control" [(ngModel)]="workExp.to.month" [disabled]="workExp.currently_working" >
                             <option value="">Select Month</option>
                             <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                         </select>
                         </div>
                     </div>
-                    <input type="checkbox" name="work status" style="width: 5%;"><span>I am currently working in this role</span>
+                    <input type="checkbox" name="work status" style="width: 5%;" [(ngModel)]="workExp.currently_working"><span>I am currently working in this role</span>
                 </div>
                 </form>
                 </div>
@@ -640,11 +670,11 @@
                             <label>To</label>
                             <br>
                             <div style="display: flex;width: 95%;margin: 0;">
-                            <select name="proj_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.year">
+                            <select name="proj_to_years" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.year" [disabled]="project.ongoing">
                                 <option value="">Select Year</option>
                                 <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
                             </select>
-                            <select name="proj_to_months" class="form-control" [(ngModel)]="project.to.month">
+                            <select name="proj_to_months" class="form-control" [(ngModel)]="project.to.month" [disabled]="project.ongoing">
                                 <option value="">Select Month</option>
                                 <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
                             </select>
@@ -654,19 +684,19 @@
                             <label>Domain</label>
                             <input type="text" name=" projectdomain" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.domain" autocomplete="off">
                         </div>
-                    <input type="checkbox" name="working" style="width: 5%;"><span>On going project</span>
+                    <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="project.ongoing"><span>On going project</span>
                     <div class="textbox" style="width: 55%;">
                         <label>Skills Used</label>
                         <br>
                         <input type="text" name="skillsused" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.skills" autocomplete="off">
                     </div>
                     <!-- <span style="float: right;margin-right: 290px;margin-top: 45px;"><i class="material-icons"> add</i></span> -->
-                    <div class="textbox" style="width: 80%;">
+                    <div class="textbox" style="width: 80%;border: none;">
                         <label>Project Description</label>
                         <br>
                         <textarea rows="4" class="form-control" type="text" [(ngModel)]="project.summary" name="summary" ></textarea>
                     </div>
-                    <div class="textbox" style="width: 80%;">
+                    <div class="textbox" style="width: 80%;border: none;">
                         <label>Responsibility</label>
                         <br>
                         <textarea rows="2" class="form-control" type="text" [(ngModel)]="project.responsibility" name="Responsibility" ></textarea>

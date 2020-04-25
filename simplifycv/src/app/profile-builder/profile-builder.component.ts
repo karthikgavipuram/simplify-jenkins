@@ -18,13 +18,18 @@ export class ProfileBuilderComponent implements OnInit {
   showPersonal:boolean=true;
   showSummary:boolean=false;
   workExp:any={"company":"","designation":"","engagementType":"","from":{"year":"","month":""},"to":{"year":"","month":""},"location":""};
-  education:any={"institute":"","course":"","from":"","to":"","grade":"","level":"","location":""};
+  education:any={"institute":"","course":"","from":"","to":"","grade":{"type":"","value":""},"level":"","location":""};
   project:any={"name":"","role":"","skills_used":[],"domain":"","type":"","summary":"","responsibility":"" ,"ongoing":false,"from":{"year":"","month":""},"to":{"year":"","month":""},"location":""};
   certification:any={"title":"","organization":"","issue_date":"","expires":true,"expiry_date":"","credential_id":"","url":""};
   sections:any=['Personal Information','Education','Work Experience','Skills','Domain','Projects','Certification and Achievements'];
   subSection=['Basic Info', 'Job Specific Info'];
-  noticePeriod=['Serving Notice Period',"Yet To Serve Notice Period"];
+  noticePeriod=[{"key":"Actively Looking","value":"active"},{"key":"Passively Looking","value":"passive"},{"key":"Serving Notice Period","value":"serving"},{"key":"Immediately Available","value":"immediate"}];
   expertise_level=[{"key":"Aware","value":"aware"},{"key":"Expert","value":"expert"},{"key":"Applied","value":"applied"}];
+  currency=[{"key":"INR","value":"INR"},{"key":"USD","value":"USD"},{"key":"CAD","value":"CAD"},{"key":"AUD","value":"AUD"},{"key":"GBP","value":"GBP"}];
+  countries=[{"key":"USA","value":"USA"},{"key":"Canada","value":"Canada"},{"key":"UK","value":"UK"},{"key":"Australia","value":"Autralia"},{"key":"Dubai","value":"Dubai"}];
+  qualification=[{"key":"High School","value":"High School"},{"key":"Intermediate","value":"Intermediate"},{"key":"UG","value":"UG"},{"key":"PG","value":"PG"},{"key":"PhD","value":"PhD"}];
+  grade=[{"key":"GPA","value":"GPA"},{"key":"Percentage","value":"Percentage"},{"key":"CGPA","value":"CGPA"}];
+  engagementType=[{"key":"Full Time","value":"Full Time"},{"key":"Part Time","value":"Part Time"},{"key":"Intern","value":"Intern"}];
   currentSection;
   duration:any={};
   years:any=[];
@@ -83,16 +88,16 @@ export class ProfileBuilderComponent implements OnInit {
         this.userObject=res.body.data[0];
       });
     }
-    setTimeout(() => {
-      document.getElementById(this.subHeader).style.color='blue';
-    }, 200);
+    // setTimeout(() => {
+    //   document.getElementById(this.subHeader).style.color='blue';
+    // }, 200);
     this.duration.months=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.duration.years=this.years;
   }
   addEducation(data){
     
     this.cvDetails.education.push(this.education);
-    this.education={};
+    this.education={"institute":"","course":"","from":"","to":"","grade":{"type":"","value":""},"level":"","location":""};
     
   }
   editEdu(row,i){
@@ -144,14 +149,14 @@ export class ProfileBuilderComponent implements OnInit {
     $("#" + id).modal();
   }
   showFields(header){
-    document.getElementById(this.header).style.color='unset';
-    document.getElementById(this.subHeader).style.color='unset';
+    // document.getElementById(this.header).style.color='unset';
+    // document.getElementById(this.subHeader).style.color='unset';
     if(this.subProjHeader){
       this.subProjHeader=false;
     }
     this.header=header;
-    let x =document.getElementById(this.header);
-    x.style.color='blue';
+    // let x =document.getElementById(this.header);
+    // x.style.color='blue';
   }
   showRow(card){
     if(card=='skills'){
@@ -184,7 +189,8 @@ export class ProfileBuilderComponent implements OnInit {
 }
 }
   subHeaderChange(header){
-    this.header='Personal Information'
+    this.header='Personal Information';
+    // document.getElementById(this.subHeader).style.color='unset';
     this.subHeader=header;
   }
   projectExpand(id){
