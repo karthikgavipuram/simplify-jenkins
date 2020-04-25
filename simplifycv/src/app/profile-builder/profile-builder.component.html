@@ -136,8 +136,8 @@
                                         <br>
                                         <!-- <input type="text" name="experience years" placeholder="Years" autocomplete="off" style="width: 250px;"> -->
                                         <!-- <input type="text" name="experience months" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" ngModel maxlength="3"> -->
-                                        <input type="text" name="experienceyears" placeholder="Years" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 150px; border-bottom: 1px solid #212869;" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp">
-                                        <input type="text" name="experiencemonths" placeholder="Months" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 150px;border-bottom: 1px solid #212869;" maxlength="2">
+                                        <input type="text" name="experienceyears" placeholder="Years" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 150px; border-bottom: 1px solid #212869;" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.year">
+                                        <input type="text" name="experiencemonths" placeholder="Months" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" style="width: 150px;border-bottom: 1px solid #212869;" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.month">
                                     </div>
                                     <div style="margin-top:15px">
                                         <input style="float: left; width: 3%; margin: 10px 0px;" type="checkbox" name="Preferred location" [(ngModel)]="cvDetails.personal_info.job_info.relocation">
@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="textbox">
                                         <label>Preferred Location</label>
-                                        <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_loc" [disabled]="!cvDetails.personal_info.job_info.relocation">
+                                        <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_location" [disabled]="!cvDetails.personal_info.job_info.relocation">
                                     </div>
                                     <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
                                     <br>
@@ -411,7 +411,7 @@
                             </div>
                             <div>
                                 <label>Certification ID</label>
-                                <span>{{row.cretification_id}}</span>
+                                <span>{{row.credential_id}}</span>
                             </div>
                             <div style="width: 10%;">
                                 <!-- <span class="ed_icons" (click)="editCertificate(row,i)"><i class="material-icons"> edit</i></span> -->
@@ -451,8 +451,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true" (click)="cancel('education')">&times;</span></button>
+                        <button type="button" aria-label="Close"><span
+                            aria-hidden="true" (click)="hideModal('educationModal')">&times;</span></button>
                 </div>
                 <div class="modal-body">
                 <form #eduData="ngForm" (ngSubmit)="addEducation(eduData)">
@@ -507,8 +507,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="cancel('education')">Cancel</button>
-                    <button type="submit"  class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="addEducation(eduData)">Submit</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('educationModal')" >Cancel</button>
+                    <button type="submit"  class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addEducation(eduData)">Submit</button>
                 </div>
             </div>
         </div>
@@ -517,8 +517,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true" (click)="cancel('experience')">&times;</span></button>
+                        <button type="button" aria-label="Close" (click)="hideModal('workModal')"><span
+                            aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                 <form #workData="ngForm" (ngSubmit)="addWork(workData)">
@@ -579,8 +579,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="cancel('experience')">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="addWork(workData)">Submit</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('workModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addWork(workData)">Submit</button>
                 </div>
     
             </div>
@@ -590,8 +590,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true" (click)="cancel('certification')">&times;</span></button>
+                        <button type="button" aria-label="Close" (click)="hideModal('certificationModal')"><span
+                            aria-hidden="true" >&times;</span></button>
                 </div>
                 <div class="modal-body">
                 <form #certificateData="ngForm" (ngSubmit)="addCertificate(certificateData)">
@@ -606,7 +606,7 @@
                     </div>
                     <div class="textbox">
                         <label>Certification ID</label>
-                        <input type="text" name="certification_id" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.cretification_id" autocomplete="off">
+                        <input type="text" name="certification_id" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.credential_id" autocomplete="off">
                     </div>
                     <div class="textbox">
                         <label>Issue Date</label>
@@ -615,9 +615,10 @@
                     <div class="textbox">
                         <label>Expires</label>
                         <br>
-                        <input type="text" name="expires" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.expiry_date" autocomplete="off" maxlength="2">
+                        <input type="text" name="expires" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.expiry_date" [disabled]="certification.expires" autocomplete="off" maxlength="2">
                     </div>
-                    <!-- <input type="checkbox" name="working" style="width: 5%;"><span>This credential does not expire</span> -->
+                    <br>
+                    <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="certification.expires"><span>This credential does not expire</span>
                     <div class="textbox">
                         <label>URL</label>
                         <br>
@@ -627,8 +628,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="cancel('certification')">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="addCertificate(certificateData)">Submit</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('certificationModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addCertificate(certificateData)">Submit</button>
                 </div>
     
             </div>
@@ -638,8 +639,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true" (click)="cancel('project')">&times;</span></button>
+                        <button type="button" aria-label="Close"><span
+                            aria-hidden="true" (click)="hideModal('projectModal')">&times;</span></button>
                 </div>
                 <div class="modal-body">
                 <form #projectData="ngForm" (ngSubmit)="addProject(projectData)">
@@ -705,8 +706,8 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="cancel('project')">Cancel</button>
-                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" data-dismiss="modal" (click)="addProject(projectData)">Submit</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('projectModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addProject(projectData)">Submit</button>
                 </div>
     
             </div>
