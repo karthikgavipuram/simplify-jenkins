@@ -231,9 +231,14 @@ export class ProfileBuilderComponent implements OnInit {
       this.cvDetails.personal_info.job_info.preferred_location="";
     }
     this.userObject.cvdetails.builderDetails = this.cvDetails;
-    this._cs.updateObject({ "collection": "user", query: { "userId": this._cs.userDetails.id }, "updateFields": { "cvdetails": this.userObject.cvdetails } }).subscribe(() => {
-
-    });
+    this._cs.updateObject({ "collection": "user", query: { "userId": this._cs.userDetails.id }, "updateFields": { "cvdetails": this.userObject.cvdetails } }).subscribe(
+      (res:any)=>{
+        alert('Succesfully saved')
+      },
+      (err:any)=>{
+        console.log(err)
+      }
+    );
   }
 
 }
