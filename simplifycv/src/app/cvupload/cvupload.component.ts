@@ -40,23 +40,10 @@ export class CvuploadComponent implements OnInit {
     }
     catch(e){
       console.log(JSON.stringify(e))
-    }  
-    if (resp.downloadPath) {
-      let details = {
-        userId: 1,
-        updateFields: {
-          cvdetails: { name: resp.org_name, downloadPath: resp.downloadUrl, parsedCv : resp.parsedCv, builder: resp.builder}
-        }
-      }
-      this._cs.updateUser(details).subscribe(
-        (res: any) => {
-          alert('CV processed successfully!')
-          this.r.navigate(['/profilebuilder'])
-        },
-        (err: any) => {
-
-        }
-      )
+    }
+    if(resp){
+      alert('CV uploaded and processed successfully')
+      this.r.navigate(['/publish'])
     }
   }
 

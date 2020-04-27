@@ -40,7 +40,7 @@ router.post('/uploadResume', async function (req, res) {
     let usfile = req.files["file"];
     await usfile.mv(filepath);
     let cwd = path.resolve(folderPath)
-    const ls = spawn("python3",["parser.py",filepath],{shell: true});
+    const ls = spawn("python",["../python/parser.py",filepath],{shell: true});
     ls.stdout.setEncoding('utf8').on("data",function (parsed_cv) {
         parsed_cv = parsed_cv.replace(/'/g, '"').replace(/None/g, '"empty"');
         parsed_cv = JSON.parse(parsed_cv);
@@ -69,7 +69,7 @@ router.post('/uploadResume', async function (req, res) {
         })
     });
 
-    ls.stderr.on("data", data => {
+    ls.stderr.setEncoding('utf8').on("data", data => {
         console.log(`stderr: ${data}`);
     });
 

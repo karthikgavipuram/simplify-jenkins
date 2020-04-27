@@ -7,8 +7,8 @@ import { PublishComponent } from './publish/publish.component';
 
 
 const routes: Routes = [
-  { path: '',redirectTo:'cvupload',pathMatch:'full'},
-  { path: 'cvupload',component:CvuploadComponent},
+  { path: '',redirectTo:'profilebuilder',pathMatch:'full'},
+  // { path: 'cvupload',component:CvuploadComponent},
   { path: 'profilebuilder',component:ProfileBuilderComponent},
   { path : 'publish',component:PublishComponent},
   { path : 'page',component:LandingPageComponent}
