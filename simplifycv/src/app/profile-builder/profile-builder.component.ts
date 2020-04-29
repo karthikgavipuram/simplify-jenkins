@@ -106,15 +106,8 @@ export class ProfileBuilderComponent implements OnInit {
     }, 500);
   }
   addEducation(data) {
-    if(this.edited!=-1){
-      this.cvDetails.education.splice(this.edited,1,this.education);
-      this.edited=-1;
-      this.clearJson(this.education)
-    }
-    else{
       this.cvDetails.education.push(this.clone(this.education));
-    }
-    this.hideModal('educationModal')
+      this.hideModal('educationModal')
   }
   editEdu(row, i) {
     this.education = row;
@@ -128,13 +121,9 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.workExp.currently_working){
       this.workExp.to={"year":"","month":""};
     }
-    if(this.edited!=-1){
-      this.cvDetails.experience.splice(this.edited,1,this.workExp);
-      this.edited=-1;
-    }
-    else{
+  
       this.cvDetails.experience.push(this.clone(this.workExp));
-    }
+
     this.hideModal('workModal')
   }
   clone(json){
@@ -155,13 +144,9 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.project.skills)
       this.project.skills_used = this.project.skills.split(',');
     delete this.project.skills;
-    if(this.edited!=-1){
-      this.cvDetails.projects.splice(this.edited,1,this.project);
-      this.edited=-1;
-    }
-    else{
+    
       this.cvDetails.projects.push(this.clone(this.project));
-    }
+    
     this.hideModal('projectModal')
   }
   edited=-1;
@@ -177,13 +162,9 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.certification.expires){
       this.certification.expiry_date="";
     }
-    if(this.edited!=-1){
-      this.cvDetails.certifications.splice(this.edited,1,this.certification);
-      this.edited=-1;
-    }
-    else{
+    
     this.cvDetails.certifications.push(this.clone(this.certification));
-    }
+  
     this.hideModal('certificationModal')
 
   }
