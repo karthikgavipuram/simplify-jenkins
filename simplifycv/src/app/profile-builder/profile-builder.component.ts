@@ -34,6 +34,7 @@ export class ProfileBuilderComponent implements OnInit {
   duration: any = {};
   years: any = [];
   userObject: any = {};
+  showPic:boolean=true;
   constructor(private _cs: AppService) {
     let today = new Date();
     let year = today.getFullYear();
@@ -93,13 +94,31 @@ export class ProfileBuilderComponent implements OnInit {
     // }, 200);
     this.duration.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.duration.years = this.years;
+    setTimeout(() => {
+      this.showDate();
+    }, 500);
+  }
+  showDate(){
+    setTimeout(() => {
+      $('.flatpickr').flatpickr({
+        enableTime:false
+      });
+    }, 500);
   }
   addEducation(data) {
-    this.cvDetails.education.push(this.clone(this.education));
+    if(this.edited!=-1){
+      this.cvDetails.education.splice(this.edited,1,this.education);
+      this.edited=-1;
+      this.clearJson(this.education)
+    }
+    else{
+      this.cvDetails.education.push(this.clone(this.education));
+    }
     this.hideModal('educationModal')
   }
   editEdu(row, i) {
     this.education = row;
+    this.edited=i
     this.showModal('educationModal');
   }
   deleteEdu(i) {
@@ -109,8 +128,13 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.workExp.currently_working){
       this.workExp.to={"year":"","month":""};
     }
-
-    this.cvDetails.experience.push(this.clone(this.workExp));
+    if(this.edited!=-1){
+      this.cvDetails.experience.splice(this.edited,1,this.workExp);
+      this.edited=-1;
+    }
+    else{
+      this.cvDetails.experience.push(this.clone(this.workExp));
+    }
     this.hideModal('workModal')
   }
   clone(json){
@@ -118,6 +142,7 @@ export class ProfileBuilderComponent implements OnInit {
   }
   editWork(row, i) {
     this.workExp = row;
+    this.edited=i;
     this.showModal('workModal');
   }
   deleteWork(i) {
@@ -130,12 +155,19 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.project.skills)
       this.project.skills_used = this.project.skills.split(',');
     delete this.project.skills;
-
-    this.cvDetails.projects.push(this.clone(this.project));
+    if(this.edited!=-1){
+      this.cvDetails.projects.splice(this.edited,1,this.project);
+      this.edited=-1;
+    }
+    else{
+      this.cvDetails.projects.push(this.clone(this.project));
+    }
     this.hideModal('projectModal')
   }
+  edited=-1;
   editProject(row, i) {
     this.project = row;
+    this.edited=i;
     this.showModal('projectModal');
   }
   deleteProject(i) {
@@ -145,12 +177,19 @@ export class ProfileBuilderComponent implements OnInit {
     if(this.certification.expires){
       this.certification.expiry_date="";
     }
+    if(this.edited!=-1){
+      this.cvDetails.certifications.splice(this.edited,1,this.certification);
+      this.edited=-1;
+    }
+    else{
     this.cvDetails.certifications.push(this.clone(this.certification));
+    }
     this.hideModal('certificationModal')
 
   }
   editCertificate(row, i) {
     this.certification = row;
+    this.edited=i
     this.showModal('certificationModal');
   }
   deleteCertificate(i) {
@@ -167,6 +206,7 @@ export class ProfileBuilderComponent implements OnInit {
       this.subProjHeader = false;
     }
     this.header = header;
+    this.showDate();
     // let x =document.getElementById(this.header);
     // x.style.color='blue';
   }
@@ -215,6 +255,7 @@ export class ProfileBuilderComponent implements OnInit {
     this.header = 'Personal Information';
     // document.getElementById(this.subHeader).style.color='unset';
     this.subHeader = header;
+    this.showDate();
   }
   projectExpand(id) {
     this.showSummary = !this.showSummary;
@@ -226,9 +267,34 @@ export class ProfileBuilderComponent implements OnInit {
       x.style.height = "30%";
     }
   }
+  convertToDate(s){
+    var date = new Date(s);
+    return date
+  }
+  checkyear(id){
+    var a=$('#'+id+'_from_years').val();
+    var b=$('#'+id+'_to_years').val();
+    if(b<a){
+      document.getElementById(id+'_error').innerHTML="Year should be greater";
+      if(id=='project')
+      this.project.to={"year":"","month":""};
+      else if(id=='work')
+      this.project.to={"year":"","month":""};
+      else
+      this.education.to="";
+      setTimeout(() => {
+        document.getElementById(id+'_error').innerHTML="";
+      }, 5000);
+    }
+  }
+
   save() {
+    // save date type
     if(!this.cvDetails.personal_info.job_info.relocation){
       this.cvDetails.personal_info.job_info.preferred_location="";
+    }
+    if(this.cvDetails.personal_info.basic_information.dob){
+      this.cvDetails.personal_info.basic_information.dob=this.convertToDate(this.cvDetails.personal_info.basic_information.dob);
     }
     this.userObject.cvdetails.builderDetails = this.cvDetails;
     this._cs.updateObject({ "collection": "user", query: { "userId": this._cs.userDetails.id }, "updateFields": { "cvdetails": this.userObject.cvdetails } }).subscribe(
@@ -240,5 +306,13 @@ export class ProfileBuilderComponent implements OnInit {
       }
     );
   }
+  profilepic:any;
+  upload_profilepic(event){
+    this.showPic=false;
+    var profile= <HTMLImageElement>document.getElementById('profile');
+    profile.src=URL.createObjectURL(event.target.files[0]); 
+    profile.width=250;
+    profile.height=200;
 
+  }
 }

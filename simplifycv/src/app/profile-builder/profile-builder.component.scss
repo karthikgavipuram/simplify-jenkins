@@ -35,8 +35,8 @@ div button:checked{
     box-shadow: 1px 1px 5px grey;
   }
   .profile-box{
-    // width: 250px;
-    // height: 150px;
+    width: 250px;
+    height: 200px;
     padding: 5px;
   }
   .pb{
@@ -144,4 +144,38 @@ div button:checked{
     float: right;
     padding: 20px;
     color: grey;
+}
+.flatpickr-calendar * {
+    transition: none
+}
+
+input.flatpickr[readonly=""],
+input.flatpickr[readonly="readonly"] {
+    background: #fff;
+}
+
+
+// .flatpickr-current-month {
+//     font-size: 110%;
+//     line-height: 1.5
+// }
+
+.flatpickr-current-month span.cur-month {
+    font-weight: 500;
+}
+
+span.flatpickr-weekday {
+    font-weight: normal;
+}
+
+.flatpickr-calendar {
+    box-shadow: 0 3px 13px rgba(0, 0, 0, 0.2)
+}
+input.flatpickr::placeholder {
+    font-size: 19px;
+    text-align: right;
+}
+.error{
+    padding:1px 10px;
+     color: red;
 }
