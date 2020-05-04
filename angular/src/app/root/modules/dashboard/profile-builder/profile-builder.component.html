@@ -22,7 +22,6 @@
                         
                         </div>
                         <br>
-                        <br>
                         <div class="textbox">
                             <label>Date of Birth  </label>
                             <br>
@@ -38,6 +37,7 @@
                         <br>
                         <div class="textbox">
                             <label>Current Location</label>
+                            <br>
                             <input type="text" name="location" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.current_location" autocomplete="off">
                         </div>
                         <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> my_location</i></span> -->
@@ -339,7 +339,7 @@
             </div>
             
         </div>
-        <div class="fields" *ngIf="header=='Certification and Achievements'" id="Certification and Achievements">
+        <div class="fields" *ngIf="header=='Certifications and Achievements'" id="Certification and Achievements">
             <span style="float: right; margin: -10px 0px;" data-toggle="modal" data-target="#certificationModal"><i class="material-icons"> add</i></span>
             <div *ngFor="let row of cvDetails.certifications;let i=index" class="education-box">
                 <div>
@@ -372,5 +372,281 @@
         <!-- <div style="width: 100%;height: 35px;background-color:#f8f8f8;color: #09a16feb;">
             {{message}}
         </div> -->
+    </div>
+</div>
+<div id="educationModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h4 style="padding-top: 10px;">Education</h4>
+                    <button type="button" aria-label="Close" style="float: right;"><span
+                        aria-hidden="true" (click)="hideModal('educationModal')">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            <form #eduData="ngForm" (ngSubmit)="addEducation(eduData)">
+            <div class="education-modal">
+                <div class="textbox">
+                    <label>Institute Name</label>
+                    <input type="text" name="institutename" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.institution" autocomplete="off" required>
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>Qualification Level</label>
+                    <!-- <input type="text" name="level" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.level" autocomplete="off"> -->
+                    <select name="level" class="form-control" [(ngModel)]="education.level">
+                        <option value="">Select Qualificatin</option>
+                        <option *ngFor="let y of qualification" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+                </div>
+                <div class="textbox">
+                    <label>Specialization In</label>
+                    <input type="text" name="Specialization" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.course" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Location</label>
+                    <input type="text" name="educationlocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.location" autocomplete="off">
+                </div>
+                <div class="textbox" style="width: 21%;border: none;">
+                    <label>From</label>
+                    <br>
+                    <select name="edu_from" id="education_from_years" class="form-control" [(ngModel)]="education.from">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                    </select>
+                </div>
+                <div class="textbox" style="width: 21%;border: none;">
+                    <label>To/Expected</label>
+                    <select name="edu_to" class="form-control" id="education_to_years" [(ngModel)]="education.to" (change)="checkyear('education')">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                    </select>
+                    <label id="education_error" class="error"></label>
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>Grade</label>
+                    <br>
+                    <!-- <input type="text" name="type" placeholder="GPA" autocomplete="off" style="width: 50px;border-bottom: 1px solid #212869;"> -->
+                    <div style="display: flex;width: 100%; margin: 0;">
+                    <select name="level" class="form-control" [(ngModel)]="education.grade.type" style="width: 30%; margin-right: 10px;">
+                        <option *ngFor="let y of grade" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+                    <input type="text"  name="grade" autocomplete="off" style="width: 250px;border-bottom: 1px solid #212869;" [(ngModel)]="education.grade.value">
+                    </div>
+                </div>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('educationModal')" >Cancel</button>
+                <button type="submit"  class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addEducation(eduData)">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="workModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="workExp.from">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="padding-top: 10px;">Work Experience</h4>
+                    <button type="button" aria-label="Close" (click)="hideModal('workModal')" style="float: right;"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            <form #workData="ngForm" (ngSubmit)="addWork(workData)">
+            <div class="education-modal">
+                <div class="textbox">
+                    <label>Company Name</label>
+                    <input type="text" name="companyname" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.company" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Designation</label>
+                    <input type="text" name="designation" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.designation" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Location</label>
+                    <input type="text" name="worklocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.location" autocomplete="off">
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>Engagement type</label>
+                    <!-- <input type="text" name="etype" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.engagementType" autocomplete="off"> -->
+                    <select name="level" class="form-control" [(ngModel)]="workExp.engagementType">
+                        <option value="">Select Type</option>
+                        <option *ngFor="let y of engagementType" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>From</label>
+                    <br>
+                    <!-- <input type="text" name="from months" [(ngModel)]="workExp.from_months" placeholder="Select Month" autocomplete="off" style="width: 150px;border-bottom: 1px solid #212869;">
+                    <input type="text" name="from years" [(ngModel)]="workExp.from_years" autocomplete="off" placeholder="Select Year" style="width: 150px;border-bottom: 1px solid #212869;"> -->
+                    <div style="display: flex;width: 95%;margin: 0;">
+                    <select name="work_from_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.from.month">
+                        <option value="">Select Month</option>
+                        <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                    </select>
+                    <select name="work_from_years" id="work_from_years" class="form-control" [(ngModel)]="workExp.from.year">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>To</label>
+                    <br>
+                    <div style="display: flex;width: 95%;margin: 0;">
+                    <select name="work_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.month" [disabled]="workExp.currently_working">
+                        <option value="">Select Month</option>
+                        <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                    </select>
+                    <select name="work_to_years" class="form-control" id="work_to_years" [(ngModel)]="workExp.to.year" [disabled]="workExp.currently_working" (change)="checkyear('work')">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                    </select>
+                    </div>
+                    <label id="work_error" class="error"></label>
+                </div>
+                <input type="checkbox" name="work status" style="width: 5%;" [(ngModel)]="workExp.currently_working"><span>I am currently working in this role</span>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('workModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addWork(workData)">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="certificationModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="padding-top: 10px;">Certification</h4>
+                    <button type="button" aria-label="Close" (click)="hideModal('certificationModal')" style="float: right;"><span
+                        aria-hidden="true" >&times;</span></button>
+            </div>
+            <div class="modal-body">
+            <form #certificateData="ngForm" (ngSubmit)="addCertificate(certificateData)">
+            <div class="education-modal">
+                <div class="textbox">
+                    <label>Title </label>
+                    <br>
+                    <input type="text" name="title" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.title"  autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Issuing Organisation</label>
+                    <input type="text" name="issuingorganization" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.organization" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Certification ID</label>
+                    <input type="text" name="certification_id" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.credential_id" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Issue Date</label>
+                    <input type="text" name="issuedate" id="flatpickr2" class="flatpickr" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.issue_date" autocomplete="off" maxlength="2">
+                    <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;">
+                </div>
+                <div class="textbox">
+                    <label>Expires</label>
+                    <br>
+                    <input type="text" name="expires" id="flatpickr3" class="flatpickr" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.expiry_date" [disabled]="certification.expires" autocomplete="off" maxlength="2">
+                    <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;">
+                </div>
+                <br>
+                <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="certification.expires"><span>This credential does not expire</span>
+                <div class="textbox">
+                    <label>URL</label>
+                    <br>
+                    <input type="text" name="url" oninput="this.value = this.value.replace(/[^a-zA-Z ./:]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.url" autocomplete="off">
+                </div>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('certificationModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addCertificate(certificateData)">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="projectModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="project.from">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="padding-top: 10px;">Projects</h4>
+                    <button type="button" aria-label="Close" style="float: right;"><span
+                        aria-hidden="true" (click)="hideModal('projectModal')">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            <form #projectData="ngForm" (ngSubmit)="addProject(projectData)">
+            <div class="education-modal">
+                <div class="textbox">
+                    <label>Project Name </label>
+                    <input type="text" name="projectname" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.name" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Project Role</label>
+                    <input type="text" name="role" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.role" autocomplete="off">
+                </div>
+                <div class="textbox" style="border: none;">
+                    <label>From</label>
+                    <br>
+                    <div style="display: flex;width: 95%;margin: 0;">
+                        <select name="proj_from_months" class="form-control"  style="margin: 0 10px;" [(ngModel)]="project.from.month">
+                            <option value="">Select Month</option>
+                            <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                        </select>
+                        <select name="project_from_years" id="project_from_years" class="form-control" [(ngModel)]="project.from.year">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
+                     </div>
+                </div>
+                    <div class="textbox" style="border: none;">
+                        <label>To</label>
+                        <br>
+                        <div style="display: flex;width: 95%;margin: 0;">
+                        <select name="project_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.month" [disabled]="project.ongoing">
+                            <option value="">Select Month</option>
+                            <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                        </select>
+                        <select name="project_to_years" id="project_to_years" class="form-control" [(ngModel)]="project.to.year" [disabled]="project.ongoing" (change)="checkyear('project')">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
+                        <label id="project_error" class="error"></label>
+                        </div>
+                    </div>
+                    <div class="textbox">
+                        <label>Domain</label>
+                        <input type="text" name=" projectdomain" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.domain" autocomplete="off">
+                    </div>
+                <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="project.ongoing"><span>On going project</span>
+                <div class="textbox" style="width: 55%;">
+                    <label>Skills Used</label>
+                    <br>
+                    <input type="text" name="skillsused" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.skills" autocomplete="off">
+                </div>
+                <!-- <span style="float: right;margin-right: 290px;margin-top: 45px;"><i class="material-icons"> add</i></span> -->
+                <div class="textbox" style="width: 80%;border: none;">
+                    <label>Project Description</label>
+                    <br>
+                    <textarea rows="4" class="form-control" type="text" [(ngModel)]="project.summary" name="summary" ></textarea>
+                </div>
+                <div class="textbox" style="width: 80%;border: none;">
+                    <label>Responsibility</label>
+                    <br>
+                    <textarea rows="2" class="form-control" type="text" [(ngModel)]="project.responsibility" name="Responsibility" ></textarea>
+                </div>
+            </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('projectModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addProject(projectData)">Submit</button>
+            </div>
+
+        </div>
     </div>
 </div>
