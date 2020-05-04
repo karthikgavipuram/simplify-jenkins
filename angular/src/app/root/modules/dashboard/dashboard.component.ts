@@ -10,7 +10,10 @@ import {AppService} from '@root/app.service'
 })
 export class DashboardComponent implements OnInit {
   @Output() section:EventEmitter
+  @Output() subsection:EventEmitter
   show:boolean=true;
+  showPersonal:boolean = false
+
   constructor(private r:Router,private _ds:DashboardService,private _as:AppService) { }
 
   ngOnInit() {
@@ -54,6 +57,12 @@ export class DashboardComponent implements OnInit {
 
   emitSection(section:string){
     this._ds.selectedSection.emit(section)
+    if(section == 'Personal Information') this.showPersonal=!this.showPersonal
+    else this.showPersonal = false
+  }
+
+  emitSubSection(subsection:string){
+    this._ds.selectedSubsection.emit(subsection)
   }
 
 }

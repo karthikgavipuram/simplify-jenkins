@@ -10,7 +10,8 @@ declare var $: any;
   styleUrls: ['./profile-builder.component.scss']
 })
 export class ProfileBuilderComponent implements OnInit, OnDestroy {
-  subscribedEmit:any;
+  subscribedSection:any;
+  subscribedSubsection:any;
   cvDetails: any;
   message: string = "Successfully saved entered data";
   header: string = 'Personal Information';
@@ -91,9 +92,12 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
     this.duration.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.duration.years = this.years;
     this.showDate();
-    this.subscribedEmit = this._ds.selectedSection.subscribe((section: any) => {
+    this.subscribedSection = this._ds.selectedSection.subscribe((section: any) => {
       this.showFields(section)
-  });
+    });
+    this.subscribedSubsection = this._ds.selectedSubsection.subscribe((subsection: any) => {
+    this.subHeaderChange(subsection)
+});
   }
 
   getData() {
@@ -340,6 +344,7 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.subscribedEmit = undefined
+    this.subscribedSection = undefined
+    this.subscribedSubsection = undefined
   }
 }
