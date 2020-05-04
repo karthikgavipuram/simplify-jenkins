@@ -103,6 +103,11 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   getData() {
     this._cs.getData({ "collection": "user", query: { "userId": this._cs.userDetails.id } }).subscribe((res: any) => {
       this.cvDetails = res.body.data[0].cvdetails.builderDetails;
+      if(this.cvDetails.projects.length){
+        for(let row of this.cvDetails.projects){
+          row.skills=row.skills_used.join();
+        }
+      }
       this.userObject = res.body.data[0];
     });
   }
@@ -308,9 +313,9 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
     if (!this.cvDetails.personal_info.job_info.relocation) {
       this.cvDetails.personal_info.job_info.preferred_location = "";
     }
-    if (this.cvDetails.personal_info.basic_information.dob) {
-      this.cvDetails.personal_info.basic_information.dob = this.convertToDate(this.cvDetails.personal_info.basic_information.dob);
-    }
+    // if (this.cvDetails.personal_info.basic_information.dob) {
+    //   this.cvDetails.personal_info.basic_information.dob = this.convertToDate(this.cvDetails.personal_info.basic_information.dob);
+    // }
     this.userObject.cvdetails.builderDetails = this.cvDetails;
     this._cs.updateObject({ "collection": "user", query: { "userId": this._cs.userDetails.id }, "updateFields": { "cvdetails": this.userObject.cvdetails } }).subscribe(
       (res: any) => {},

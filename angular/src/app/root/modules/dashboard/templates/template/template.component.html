@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="cvDetails">
     <div class="row" style="height: auto;">
         
         <div class="col-md-12" style="background-color: #80808029;">
@@ -8,26 +8,26 @@
                         <img class="profile" src="assets/images/profile.jpg" width="150px" height="150px">
                     </div>
                     <div class="box">
-                        <h1 style="font-size: 30px;text-transform: uppercase;margin: 12px 0;">{{name}}</h1>
-                        <h4>{{role}}</h4>
+                        <h1 style="font-size: 30px;text-transform: uppercase;margin: 12px 0;">{{cvDetails.personal_info.basic_information.full_name}}</h1>
+                        <h4>{{cvDetails.experience.designation}}</h4>
                     </div>
                 </div>
-                <div class="basic-info">
+                <div class="basic-info" *ngIf="cvDetails">
                     <div class="row" style="width: 100%;">
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <ul>
-                                <li><span><i class="material-icons"> phone_in_talk </i><label>+91 9538124623</label></span></li>
-                                <li><span><i class="material-icons"> mail_outline </i><label>shruthi21g@gmail.com</label></span></li>
-                                <li><span><i class="material-icons"> location_on </i><label>Bengaluru, Karnataka</label></span></li>
-                                <li><span><i class="material-icons"> language </i><label>facebook.com</label></span></li>
+                                <li><span><i class="material-icons"> phone_in_talk </i><label>{{cvDetails.personal_info.basic_information.mobile_number}}</label></span></li>
+                                <li><span><i class="material-icons"> mail_outline </i><label>{{cvDetails.personal_info.basic_information.email_id}}</label></span></li>
+                                <li><span><i class="material-icons"> location_on </i><label>{{cvDetails.personal_info.basic_information.current_location}}</label></span></li>
+                                <li><span><i class="material-icons"> language </i><label></label></span></li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <ul>
-                                <li><span><i class="material-icons"> work_outline </i><label>0,00,000 CTC</label></span></li>
-                                <li><span><i class="material-icons"> search </i><label>0,00,000 CTC</label></span></li>
-                                <li><span><i class="material-icons"> star </i><label>H1B1 Applied</label></span></li>
-                                <li><span><i class="material-icons"> calendar_today </i><label>Available in 20days</label></span></li>
+                                <li><span><i class="material-icons"> work_outline </i><label>{{cvDetails.personal_info.job_info.current_ctc.value}} CTC</label></span></li>
+                                <li><span><i class="material-icons"> search </i><label>{{cvDetails.personal_info.job_info.expected_ctc.value}} CTC</label></span></li>
+                                <li><span><i class="material-icons"> star </i><label>{{cvDetails.personal_info.job_info.visa_status.type}}</label></span></li>
+                                <li><span><i class="material-icons"> calendar_today </i><label>Available in {{cvDetails.personal_info.job_info.notice_period.days}}</label></span></li>
                             </ul>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="max-height">
                     <div class="row" *ngFor="let row of cvDetails.education" style="margin:15px 0">
                         <div class="col-md-4">
-                            <label style="border-bottom: 4px solid #e34949;">{{row.year}}</label>
+                            <label style="border-bottom: 4px solid #e34949;">{{row.from}}-{{row.to}}</label>
                         </div>
                         <div class="col-md-8" style="display: flex;flex-direction: column;">
                             <label><strong>{{row.level}}</strong></label>
@@ -63,11 +63,11 @@
                     <h3 style="margin-bottom: 25px;"><strong>Experience</strong></h3>
                     <div class="row" *ngFor="let row of cvDetails.experience" style="margin:15px 0">
                         <div class="col-md-4">
-                            <label style="border-bottom: 4px solid #e34949;">{{row.year}}</label>
+                            <label style="border-bottom: 4px solid #e34949;">{{row.from.year}}-{{row.to.year}}</label>
                         </div>
                         <div class="col-md-8" style="display: flex;flex-direction: column;">
                             <label><strong>{{row.company}}</strong></label>
-                            <label>{{row.role}}</label>
+                            <label>{{row.designation}}</label>
                             <label>{{row.location}}</label>
                         </div>
                     </div>
@@ -86,7 +86,19 @@
                     <label>domains</label>
                 </div>
                 <div class="certifications">
-                    <label>certifications</label>
+                    <h3>Certifications</h3>
+                    <div class="row" *ngFor="let row of cvDetails.certifications" style="margin:15px 0">
+                        <div class="col-md-1">
+                            <span><i class="material-icons"> stars </i></span>
+                        </div>
+                        <div class="col-md-7" style="display: flex;flex-direction: column;">
+                            <label><strong>{{row.title}}</strong></label>
+                            <label>{{row.organization}}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label style="border-bottom: 4px solid #e34949;">{{row.issue_date}}</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="projects">
@@ -94,8 +106,8 @@
                 <div class="row" *ngFor="let row of cvDetails.projects" style="margin:15px 0">
                     <div class="col-md-5" style="display: flex;flex-direction: column;">
                         <label><strong>{{row.role}}</strong></label>
-                        <label>{{row.domain}} |  <label style="margin-left: 0;">{{row.location}}</label></label>
-                        <label>Skill : {{row.skills}}</label>
+                        <label>{{row.domain}}</label>
+                        <label>Skills : {{row.skills_used.join()}}</label>
                     </div>
                     <div class="col-md-7">
 
