@@ -15,13 +15,15 @@ export class TemplatesComponent implements OnInit {
   }
 
   publish(template){
-    this.r.navigate([`/templates/${template}`])
+    this.r.navigate(['/dashboard/templates/template1'])
   }
 
   templateName:any
   showModal(name){
-    this.templateName = name
-    $('#imagePreview').modal('show')
+    this.templateName = name;
+    $('#imagePreview').modal('show');
+   let img= <HTMLImageElement>document.getElementById('image');
+   img.src=`assets/images/${name}.jpg`;
   }
 
 }
