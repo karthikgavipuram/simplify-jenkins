@@ -2,16 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //
 import { TemplatesComponent } from './templates.component'
-import { DefaultComponent } from './default/default.component';
+import { TemplateComponent } from './template/template.component';
+import { Template2Component } from './template2/template2.component';
 
 
-const routes: Routes = [{
-    path: '', component: TemplatesComponent,
-    children: [
-        { path: '', redirectTo: 'default', pathMatch: 'full' },
-        { path: 'default', component:DefaultComponent},
-    ]
-}]
+const routes: Routes = [
+    {path: '', component: TemplatesComponent},
+    {path: 'template1', component: TemplateComponent},
+    {path: 'template2', component: Template2Component}
+   ]
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
@@ -19,4 +18,4 @@ const routes: Routes = [{
 })
 
 export class TemplatesRoutingModule { }
-export const routingComponents = [TemplatesComponent,DefaultComponent]
+export const routingComponents = [TemplatesComponent,TemplateComponent,Template2Component]

@@ -1,0 +1,248 @@
+<div class="page">
+    <div class="card">
+    <div class="header1">
+    </div>
+     <div class="header">
+     <div class="row">
+      <div class="col-md-2"><img src="assets/images/v.png" alt="Avatar" class="avatar"></div>
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+      <div class="row">
+        <div class="Verdana">
+            
+          {{cvDetails.personal_info.basic_information.full_name}}<div></div>
+        <div class="row"><div class="Verdana1">User Experience Designer</div></div>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-3"><br>
+        <i class="fa fa-phone" style="font-size:20px"></i><b>+91&nbsp;{{cvDetails.personal_info.basic_information.mobile_number}}</b><br>
+       <br><i class="fa fa-envelope" style="font-size:20px"></i><b> {{cvDetails.personal_info.basic_information.email_id}}</b><br>
+        
+        <br><i class="fa fa-map-marker" style="font-size:20px"></i> <b>{{cvDetails.personal_info.basic_information.current_location}}<br>
+        <br><i class="fa fa-globe" style="font-size:20px"></i> www.bradley.com</b>
+    </div>
+    <div class="col-md-3"><br>
+        <i class="fa fa-briefcase" style="font-size:20px"></i> <b>{{cvDetails.personal_info.job_info.current_ctc.value}}</b><br>
+       <br><i class="fa fa-search
+      " style="font-size:20px"></i> <b>{{cvDetails.personal_info.job_info.expected_ctc.value}}</b><br>
+        
+        <br><i class="fa fa-star" style="font-size:20px"></i> <b>H1B1 Applied</b><br>
+        <br><i class="fa fa-calendar" style="font-size:20px"></i> <b>Available in 20 Days</b>
+    </div>
+    
+    
+    </div>
+</div>
+    
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-1">
+              <div class="square1"></div>
+            </div>
+            <div class="col">
+             <p style="font-size:20px">Work Experience</p>
+            </div>
+            
+            <div class="col-md-1">
+              <div class="square"></div>
+            </div>
+            <div class="col">
+             <p style="font-size:20px">Education</p>
+            </div>
+            
+            
+            </div>
+           
+
+
+  <div class="row">
+<div class="col-md-4">
+<p style="font-size:15px"><b>
+Christ(Deemed to be University)  <br>  Bachelor's in Computer Applications</b></p>
+</div>
+ <div class="col-md-1">
+  </div>
+  <div class="col-md-5">
+  <p style="font-size:15px"><b>
+Apple Inc. <br>  Product Designer </b></p>
+  </div>
+   <div class="col-md-2">
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+    <div class="rectangle"></div>
+    </div>
+    <div class="col-md-1">
+    </div>
+      <div class="col-md-5">
+    <div class="rectangle1"></div>
+      </div>
+      <div class="col-md-2">
+    </div>
+      <br>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        <p style="font-size:14px"><b>
+        2000 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </b></p>
+        </div>
+        <div class="col-md-4">
+        <p style="font-size:14px"><b>
+        2004&nbsp;&nbsp;&nbsp;2005&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2008
+        </b></p>
+        </div>
+          <div class="col-md-3">
+          <p style="font-size:14px"><b>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2016
+        </b></p>
+          </div>
+          <div class="col-md-2">
+          <p style="font-size:14px"><b>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Present
+          </b></p>
+        </div>
+        
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+            
+            </div>
+            <div class="col-md-2">
+            <div class="rectangle3"></div>
+            </div>
+              <div class="col-md-4">
+            
+              </div>
+              <div class="col-md-2">
+              <div class="rectangle4"></div>
+            </div>
+              <br>
+         </div>
+
+         <div class="row" >
+ 
+
+            <div class="col-md-3">
+            
+            </div>
+            <div *ngFor="let row of cvDetails.education">
+             <div class="col-md-4">
+             <p style="font-size:15px"><b>
+            {{row.institution}}  <br>  {{row.course}}</b></p>
+              </div>
+            </div>
+            
+               
+            
+              <div class="col-md-2">
+            
+              </div>
+              <div class = "row" *ngFor="let row of cvDetails.experience">
+               <div class="col-md-3">
+                 <p style="font-size:15px"><b> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{row.company}}<br> &nbsp;&nbsp; {{row.designation}}</b></p>
+              </div></div>
+              
+            </div>
+            <hr class="new4">
+       <div class="row" *ngFor="let row of cvDetails.certifications">
+        <div class="col">
+            Domain
+            <br>
+            <canvas id="doughnutChart"></canvas>
+            <br>
+            <br><br> 
+            Certifications
+            <br><br>
+            <i class='fas fa-award' style='font-size:28px;color:#0099ff'></i>&nbsp;<p style="font-size:19px">{{row.title}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u> {{row.expiry_date}} </u></p>
+            <p style="font-size:18px">{{row.organization}}</p>
+            
+            <i class='fas fa-award' style='font-size:28px;color:#0099ff'></i>&nbsp;<p style="font-size:19px">{{row.title}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{row.expiry_date}} </u></p>
+            <p style="font-size:18px">{{row.organization}}</p>
+            </div>
+
+            <div class="col">
+                Skills <br>
+                <br><br>
+                <br>
+                <br>
+                Projects
+                <br><br>
+                <div class="row" *ngFor="let row of cvDetails.projects">
+                    <div class="col-md-8">
+                        <p style="font-size:19px">
+                            {{row.role}}
+                        <br>
+                        {{row.domain}} | {{row.location}}<br>
+                        Skills : {{row.skills_used.join()}}
+                        </p>
+                        </div>
+                        <div class="col">
+                            <span style="border-bottom: 4px solid #ffcc00">{{row.from.year}}-{{row.to.year}}</span>
+                            </div>
+                            <br>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <p style="font-size:19px">
+                        User Interface Design
+                        <br>
+                        UI/UX | Bengaluru,Karnataka<br>
+                        Skills : Wireframes,Prototyping
+                        </p>
+                        </div>
+                        <div class="col">
+                            <p style="font-size:19px">
+                            <u>2016-2018</u>
+                            </p>
+                            </div>
+                           
+                 
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <p style="font-size:19px">
+                        User Interface Design
+                        <br>
+                        UI/UX | Bengaluru,Karnataka<br>
+                        Skills : Wireframes,Prototyping
+                        </p>
+                        </div>
+                        <div class="col">
+                            <p style="font-size:19px">
+                            <u>2016-2018</u>
+                            </p>
+                            <br>
+                            <br>
+                            <br>
+                            <i class="fa fa-qrcode" style="font-size:110px;color:black"></i>
+                            </div>
+                           
+                 
+                </div>
+                
+
+            </div>
+            
+       </div>
+            
+      
+    </div>
+    
+   
+    </div>
+</div>
