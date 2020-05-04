@@ -1,0 +1,239 @@
+<div class="wrapper" *ngIf="cvDetails">
+    <div class="head-info">
+        <div class="personal-info" >
+            <h1>{{cvDetails.personal_info.basic_information.full_name}}</h1>
+            <h2>{{cvDetails.experience[0].designation}}</h2>
+            <div class="tt-exp">{{getTotalExperience(cvDetails.personal_info.job_info.total_exp)}}</div>
+            <p>
+                <span class="glyphicon glyphicon-envelope" class="gly-ico"></span><span> {{cvDetails.personal_info.basic_information.email_id}}</span>
+                |
+                <span class="glyphicon glyphicon-phone"></span><span>{{cvDetails.personal_info.basic_information.mobile_number}}</span>
+            </p>
+        </div> <!-- personal-Info -->
+        <div class="per-dtls">
+            <table>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.education[0].level}} {{cvDetails.education[0].course}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span> {{cvDetails.personal_info.basic_information.current_location}}</span></td>
+                </tr>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-map-marker"></span><span>Available in - {{cvDetails.personal_info.job_info.notice_period.days}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-equalizer"></span><span> {{cvDetails.personal_info.basic_information.dob}}</span></td>
+                </tr>
+                <tr>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.personal_info.job_info.visa_country}}</span></td>
+                    <td width="50%"><span class="glyphicon glyphicon-education"></span><span> {{cvDetails.personal_info.job_info.visa}}</span></td>
+                </tr>
+            </table>
+        </div> <!-- Per-Dtls -->
+    </div> <!-- head-info -->
+
+    <div class="pro-img">
+        <div class="display-image">
+            <!-- <img src="assets/images/profile.jpg"> -->
+        </div>
+    </div> <!-- PRO-IMG -->
+
+    <div class="detail-info">
+        <div class="education">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> EDUCATION</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%" class="one"></th>
+                    <th width="15%">Year</th>
+                    <th width="25%" class="institute">Institute</th>
+                    <th width="25%">Course</th>
+                    <th width="15%">Score</th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.education">
+                    <td class="one"><img src="assets/images/circle.png"></td>
+                    <td>{{row.from}}-{{row.to}}</td>
+                    <td>{{row.institution}}</td>
+                    <td>{{row.course}}</td>
+                    <td>{{row.grade.type}}-{{row.grade.value}}</td>
+                </tr>
+            </table>
+        </div> 
+
+        <div class="border"></div>
+
+        <div class="experience">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> EXPERIENCE</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%" class="one"></th>
+                    <th width="15%">Year</th>
+                    <th width="25%">Company</th>
+                    <th width="25%">Designation</th>
+                    <th width="15%">Location</th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.experience">
+                    <td class="one"><img src="assets/images/circle.png"></td>
+                    <td>{{row.from.year}}-{{row.to.year}}</td>
+                    <td>{{row.company}}</td>
+                    <td>{{row.designation}}</td>
+                    <td>{{row.location}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="border"></div>
+
+        <div class="skillset">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> SKILL SET</span></div>
+            <div class="row col-md-12">
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">EXPERT</th>
+                        </tr>
+        
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='expert'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">APPLIED</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='applied'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">AWARE</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.skills">
+                            <td *ngIf="row.expertise_level=='aware'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            
+
+        </div> <!-- Skill SET -->
+
+        <div class="border"></div>
+
+        <div class="projects">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> PROJECTS</span></div>
+
+            <table>
+                <tr>
+                    <th width="5%"></th>
+                    <th width="19%">PROJECT NAME</th>
+                    <th width="18%">DURATION</th>
+                    <th width="18%">PROJECT ROLE</th>
+                    <th width="15%">DOMIAN</th>
+                    <th width="20%">SKILLS USED</th>
+                    <th width="5%"></th>
+                </tr>
+                <tr *ngFor="let row of cvDetails.projects">
+                    <td><div class="pro-point">P1</div></td>
+                    <td>{{row.name}}</td>
+                    <td>{{row.from.year}}-{{row.to.year}}</td>
+                    <td>{{row.role}}</td>
+                    <td>{{row.domain}}</td>
+                    <td>{{row.skills_used.join()}}</td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div> <!-- DETAIL_INFO -->
+
+    <div class="graph-sec">
+        <div class="domain-knw">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> DOMAIN KNOWLEDGE</span></div>
+
+            <div class="row col-md-12">
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">EXPERT</th>
+                        </tr>
+        
+                        <tr *ngFor="let row of cvDetails.domain">
+                            <td *ngIf="row.expertise_level=='expert'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">APPLIED</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.domain">
+                            <td *ngIf="row.expertise_level=='applied'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="33%">AWARE</th>
+                        </tr>
+                        <tr *ngFor="let row of cvDetails.domain">
+                            <td *ngIf="row.expertise_level=='aware'">
+                                <div class="pb-ttl">{{row.name}} - {{row.years}} years</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="grp-chart">
+                <canvas id="chart1"></canvas>
+            </div>
+        </div> <!-- DOMAIN KNOWLEDGE -->
+
+        <div class="border"></div>
+
+        <div class="frame">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> FRAME WORK</span></div>
+            <table>
+                <tr>
+                    <th>Framework Tool 1</th>
+                    <th>Framework Tool 2</th>
+                    <th>Framework Tool 3</th>
+                </tr>
+                <tr>
+                    <td class="">4.1 Years</td>
+                    <td>2.3 Years</td>
+                    <td>1.0 Years</td>
+                </tr>
+            </table>
+            <div id="frame-grh" class="frame-grh">
+
+            </div>
+        </div> <!-- frame -->
+
+        <div class="border"></div>
+
+        <div class="certi-ach">
+            <div class="title-head"><span class="glyphicon glyphicon-education"></span><span> CERTIFICATION & ACHEIVEMENTS</span></div>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; MS Excel Certified</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; ITIL Certified</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Employee Of The Year</span></li>
+            <li><span class="glyphicon glyphicon-star-empty"></span> <span>&nbsp; Best Team Lead Of The Year</span></li>
+        </div>
+    </div>
+</div>

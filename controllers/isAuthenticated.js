@@ -5,7 +5,7 @@ const isAuthenticated = (req, res, next) => {
   if(!req.headers.referer || !req.headers.referer.includes('login')){
     if (req.cookies.ssoCookie == null) {
       return res.redirect(
-        `${projectconfig.redirectUrl[0]}/sso/login?serviceURL=${redirectURL}`
+        `${projectconfig.redirectUrl[0]}`
       );
     }
   }
