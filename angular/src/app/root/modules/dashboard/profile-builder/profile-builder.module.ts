@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core'
-import {ProfileBuilderComponent} from './profile-builder.component'
-import { RouterModule, Routes } from '@angular/router'
+import {ProfileBuilderRoutingModule,routingComponents} from './profile-builder-routing.module'
 import {SharedModule} from '@shared-module'
 
-const ROUTES:Routes=[{ path: '', component:ProfileBuilderComponent}]
-
 @NgModule({
-    declarations: [ProfileBuilderComponent],
+    declarations: [routingComponents],
     imports: [
-      RouterModule.forChild(ROUTES),
+      ProfileBuilderRoutingModule,
       SharedModule
     ]
   })

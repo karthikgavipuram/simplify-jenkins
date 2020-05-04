@@ -3,12 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileBuilderComponent } from './profile-builder.component';
 import { DefaultComponent } from './default/default.component';
 
-const routes: Routes = [{
-    path: '', component: ProfileBuilderComponent,
-    children: [
-        {path:'default', component:DefaultComponent}
-    ]
-}]
+const routes: Routes = [{path:'',component:ProfileBuilderComponent},{path:'default',component:DefaultComponent}]
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

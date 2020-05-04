@@ -336,7 +336,7 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   }
 
   publish(){
-    this._r.navigate(['/templates/default'])
+    this._r.navigate(['/dashboard/profilebuilder/default'])
   }
 
   ngOnDestroy(){

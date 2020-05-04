@@ -2,10 +2,8 @@
     <div style="height: 45px;"><label style="float: left; font-size: 25px;">TEMPLATES</label></div>
 </div>
 <div>
-    <a (click)="showModal('CV1')"><img src="assets/images/CV1.jpg" width="300px" height="450px"></a>
-    <a (click)="showModal('CV2')"><img src="assets/images/CV2.jpg" width="300px" height="450px"></a>
-    <a (click)="showModal('CV3')"><img src="assets/images/CV1.jpg" width="300px" height="450px"></a>
-   
+    <a (click)="showModal('template1')"><img src="assets/images/template1.jpg" width="300px" height="450px"></a>
+    <a (click)="showModal('template2')"><img src="assets/images/template2.jpg" width="300px" height="450px"></a>
 </div>
 
 <div id="imagePreview" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
@@ -20,7 +18,7 @@
                 <img id="image" width="400px" height="600px" style="margin: 15px 100px;">
             </div>
             <div class="modal-footer">
-                <button (click)="publish('template')" data-dismiss="modal">Use this template</button>
+                <button (click)="publish(templateName)" data-dismiss="modal">Use this template</button>
                 <button data-dismiss="modal">Cancel</button>
             </div>
         </div>

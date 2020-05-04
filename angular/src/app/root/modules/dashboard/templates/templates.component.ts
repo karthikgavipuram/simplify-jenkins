@@ -15,7 +15,7 @@ export class TemplatesComponent implements OnInit {
   }
 
   publish(template){
-    this.r.navigate(['/dashboard/templates/template1'])
+    this.r.navigate([`/dashboard/templates/${template}`])
   }
 
   templateName:any
