@@ -8,34 +8,40 @@
 
 
 
-<div class="container" >
-  <div class = "pic float-left mt-5">
-      <img class = "mt-5"src=".\simplifycv\src\assets\images\tempsnip.png" height="180" width="180">
-  </div>
-  <div class = "info" *ngIf="cvDetails">
-      <div class="head-info pt-5 mt-5">
-      <h2>{{cvDetails.personal_info.basic_information.full_name}}</h2>
-      <h3 class = "mt-n2">{{cvDetails.experience.designation}}</h3>
-      </div>
-      <div class = "personal-info table table-borderless ">
-          <table class="mt-n3">
-              <tr>
-                  <td><span class="glyphicon glyphicon-earphone"></span><span>{{cvDetails.personal_info.basic_information.mobile_number}}+91 9110824364</span></td>
-                  <td><span class="glyphicon glyphicon-map-marker"></span><span>{{cvDetails.personal_info.basic_information.current_location}}</span></td>
-              </tr>
-              <tr>
-                  <td><span class="glyphicon glyphicon-envelope"></span><span> {{cvDetails.personal_info.basic_information.email_id}}</span></td>
-                  <td><span class="glyphicon glyphicon-map-marker"></span><span> Available in - 20 Days</span></td>
-              </tr>
-              <tr>
-                  <td><span class="glyphicon glyphicon-equalizer"></span><span> Current CTC</span></td>
-                  <td><span class="glyphicon glyphicon-equalizer"></span><span> Expected CTC</span></td>
-              </tr>
-          </table>
-      </div>
-  </div>
-</div>
-
+    <div class="container" >
+       
+        <div style="display: flex;">
+            <div class="name-section">
+                <div style="width: 40%;">
+                    <img class="profile" src="assets/images/profile.jpg" width="150px" height="150px">
+                </div>
+                <div class="box">
+                    <h1 style="font-size: 30px;text-transform: uppercase;margin: 12px 0;">{{cvDetails.personal_info.basic_information.full_name}}</h1>
+                    <h4>{{cvDetails.experience.designation}}</h4>
+                </div>
+            </div>
+            <div class="basic-info" *ngIf="cvDetails">
+                <div class="row" style="width: 100%;">
+                    <div class="col-md-7">
+                        <ul>
+                            <li><span><i class="material-icons"> phone_in_talk </i><label>{{cvDetails.personal_info.basic_information.mobile_number}}</label></span></li>
+                            <li><span><i class="material-icons"> mail_outline </i><label>{{cvDetails.personal_info.basic_information.email_id}}</label></span></li>
+                            <li><span><i class="material-icons"> location_on </i><label>{{cvDetails.personal_info.basic_information.current_location}}</label></span></li>
+                            <li><span><i class="material-icons"> language </i><label></label></span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <ul>
+                            <li><span><i class="material-icons"> work_outline </i><label>{{cvDetails.personal_info.job_info.current_ctc.value}} CTC</label></span></li>
+                            <li><span><i class="material-icons"> search </i><label>{{cvDetails.personal_info.job_info.expected_ctc.value}} CTC</label></span></li>
+                            <li><span><i class="material-icons"> star </i><label>{{cvDetails.personal_info.job_info.visa_status.type}}</label></span></li>
+                            <li><span><i class="material-icons"> calendar_today </i><label>Available in {{cvDetails.personal_info.job_info.notice_period.days}}</label></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class = "container" >
         <div class="row">
@@ -80,21 +86,10 @@
     <div class = "container" >
         <div class="row">
             <div class="col-sm-6">
-                <div class = "projects table table-borderless pl-5 ">
-                    <h3>PROJECTS</h3>
+                <div>
+                    <h3>DOMAIN</h3>
                     <br>
-                    <div class = "row" *ngFor="let row of cvDetails.projects">
-                            <div class = "col-sm-4">
-                                <span style="border-bottom: 4px solid #ffcc00">{{row.from.year}}-{{row.to.year}}</span>
-                            </div>
-                            <div class = "col-sm-8">
-                                    <span >{{row.role}}</span>
-                                    <br><br>
-                                    <span >{{row.domain}} | {{row.location}}</span>
-                                    <br><br>
-                                    <span >Skills : {{row.skills_used.join()}}</span>
-                            </div>
-                        </div>
+                    <canvas id="domainCanvas" width="400" height="260" style="border:1px solid #000000;"></canvas>
                 </div>
                 <div class = "certifications float-right table table-borderless pl-5">
                     <h3>CERTIFICATIONS</h3>
@@ -117,9 +112,24 @@
                     <br>
                     <canvas id="skillsCanvas" width="400" height="140" style="border:1px solid #000000;"> </canvas>
                     <br>
-                    <h3>DOMAIN</h3>
+                    <div class = "projects table table-borderless pl-5 ">
+                        <h3>PROJECTS</h3>
+                        <br>
+                        <div class = "row" *ngFor="let row of cvDetails.projects">
+                                <div class = "col-sm-4">
+                                    <span style="border-bottom: 4px solid #ffcc00">{{row.from.year}}-{{row.to.year}}</span>
+                                </div>
+                                <div class = "col-sm-8">
+                                        <span >{{row.role}}</span>
+                                        <br><br>
+                                        <span >{{row.domain}} | {{row.location}}</span>
+                                        <br><br>
+                                        <span >Skills : {{row.skills_used.join()}}</span>
+                                </div>
+                            </div>
+                    </div>
                     <br>
-                    <canvas id="domainCanvas" width="400" height="260" style="border:1px solid #000000;"></canvas>
+                    
                 </div> 
                 <img class = "float-right mt-5 mr-n3" src="./websiteQRCode_noFrame.png" height="130" width="130">
             </div>

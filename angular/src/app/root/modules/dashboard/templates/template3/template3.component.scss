@@ -1,0 +1,43 @@
+.page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  
+  .container {
+      font-family: 'Open Sans';
+      padding: 0px;
+      margin-left: 0px;
+  }
+  
+  .personal-info table tr td {
+      width: 273px;
+  }
+  
+  .experience {
+      margin-left: 85px;
+  }
+  
+  .skills {
+      margin-left: 85px; 
+  }
+  
+  .info {
+      margin-left: 230px;
+  }
+  .name-section{
+    width: 40%;
+    height: 175px;
+    background-color: white;
+    margin: 10px 10px;
+    display: flex;
+}
+.basic-info{
+    width: 60%;
+    height: 175px;
+    background-color: white;
+    margin: 10px 10px;
+    display: flex;
+}
