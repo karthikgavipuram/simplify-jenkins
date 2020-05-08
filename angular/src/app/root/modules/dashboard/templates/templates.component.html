@@ -1,16 +1,41 @@
-<div class="pb-section">
-    <div style="height: 45px;"><label style="float: left; font-size: 25px;">TEMPLATES</label></div>
+   <div class="row" >
+       <div class="col-sm-9">
+        <label style="padding: 5px; font-size: 27px; color: black; font-weight:bold;" > Templates </label>
+      
+    <div class="f_box" >    
+ 
+        <div >
+            <img src="assets/images/template1.jpg"  width="300px" height="450px">
+    
+
+          <img src="assets/images/template2.jpg"  width="300px" height="450px"> 
+          
+       
+          <div class="row">
+              <div class="col-sm-6">
+          <a (click)="showModal('template1')" class="sm_button" style="margin-left:275px;" >Preview</a>
+        </div>
+        <div class="col-sm-6">
+          <a (click)="showModal('template2')" class="sm_button" style="margin-left:250px;" >Preview</a>
+        </div>
+        </div>
+        
+        </div>
+
 </div>
-<div>
-    <a (click)="showModal('template1')"><img src="assets/images/template1.jpg" width="300px" height="450px"></a>
-    <a (click)="showModal('template2')"><img src="assets/images/template2.jpg" width="300px" height="450px"></a>
 </div>
+<div class="col-sm-3">
+<div class="f_box1">   
+    </div>
+</div>
+</div>
+
 
 <div id="imagePreview" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 style="text-transform: uppercase;">{{templateName}}</h3>
+                <h3 style="text-transform:  capitalize; font-weight:bold;">{{templateName}}</h3>
                 <a type="button" aria-label="Close" data-dismiss="modal" style="float: right;">
                     <span aria-hidden="true">&times;</span></a>
             </div>
@@ -18,8 +43,8 @@
                 <img id="image" width="400px" height="600px" style="margin: 15px 100px;">
             </div>
             <div class="modal-footer">
-                <button (click)="publish(templateName)" data-dismiss="modal">Use this template</button>
-                <button data-dismiss="modal">Cancel</button>
+                <button (click)="publish(templateName)" data-dismiss="modal" class="lar_button">Use this template</button>
+                <button data-dismiss="modal" class="lar_button">Cancel</button>
             </div>
         </div>
     </div>
