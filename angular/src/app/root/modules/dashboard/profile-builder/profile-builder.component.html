@@ -1,12 +1,108 @@
-<div class="pb_section" *ngIf="cvDetails">
-    <div style="height: 45px;">
-        <label style="float: left; font-size: 25px;">PROFILE BUILDER</label>
-        <button (click)="publish()">Publish</button>
+<div class="box" *ngIf="cvDetails">
+    <h4 style="padding: 15px 20px 0px;"><strong>{{header}}</strong></h4>
+    <div *ngIf="header=='Personal Information' && subHeader=='Basic Info'" id="Personal Information">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="profile-edit">
+                    <img src="assets/images/profile.jpg" width="125px" height="125px" class="profile-pic1">
+                    <div class="edit">
+                        <span style="padding: 1px;"><i class="material-icons"> edit </i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div style="display: flex;">
+                    <div class="textbox">
+                        <label>Full Name *</label>
+                        <input type="text" class="ellipsis" name="full_name" autocomplete="off" [(ngModel)]="cvDetails.personal_info.basic_information.full_name">
+                    </div>
+                    <div class="textbox">
+                        <label>Date of Birth</label>
+                        <div style="display: flex;width: 100%;position: relative;">
+                            <input type="text" name="dob"class="flatpickr" autocomplete="off" style="width: 100%;" [(ngModel)]="cvDetails.personal_info.basic_information.dob">
+                            <span style="position: absolute; right: 2px;"><i class="material-icons"> date_range</i></span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div class="textbox">
+                        <label>Current Location</label>
+                        <input type="text" name="clocation" [(ngModel)]="cvDetails.personal_info.basic_information.current_location" autocomplete="off">
+                    </div>
+                    <div class="textbox">
+                        <label>Email</label>
+                        <input type="text" name="email" [(ngModel)]="cvDetails.personal_info.basic_information.email_id" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div style="width: 100%; margin-top: 25px; display: flex;">
+                <div class="textbox">
+                    <label>Mobile Number</label>
+                    <input type="text" name="mobile number" [(ngModel)]="cvDetails.personal_info.basic_information.mobile_number" autocomplete="off">
+                </div>
+                <div class="textbox">
+                    <label>Alternate Number</label>
+                    <input type="text" name="alternate number" [(ngModel)]="cvDetails.personal_info.basic_information.alt_number" autocomplete="off">
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="fields_box">
-        <div style="height: 55px;background-color:#f8f8f8; box-shadow: 0px 1px grey;">
-            <label style="padding: 5px; font-size: 20px; color: green;"> {{header}} </label>
-            <a class="btn btn-primary btn-sm" style="float: right;background-color: #0000003d; height: 35px;margin: 5px;" (click)="nextSection()">Next</a>
+    <div *ngIf="header=='Personal Information' && subHeader=='Job Specific Info'">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="textbox" style="width: 100%;">
+                    <label>Total Work Experience</label>
+                    <div style="display: flex;width: 100%">
+                        <input type="number" name="experienceyears" placeholder="Months" autocomplete="off" style="width: 50%;margin-right: 30px;text-align: end;" max="12" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.month">
+                        <input type="number" name="experiencemonths" placeholder="Years" autocomplete="off" style="width: 50%;text-align: end;" max="30"  maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.year">
+                    </div>
+                </div>
+                <div class="textbox" style="width: 100%;">
+                    <div style="display: flex;">
+                    <input style="width: 25px" type="checkbox" name="Preferred location" [(ngModel)]="cvDetails.personal_info.job_info.relocation">
+                    <label style="font-size: 17px">Willing to relocate</label>
+                    </div>
+                    <label>Preferred Location</label>
+                    <div style="display: flex;">
+                        <input type="text" name="preferred_loc" style="width: 70%;" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_location" [disabled]="!cvDetails.personal_info.job_info.relocation">
+                        <button type="button" class="add" style="width: 20%;margin-left: 15px;" (click)="add($event)">+ Add</button>
+                    </div>
+                </div>
+                <div class="=row skills">
+                    <!-- <div *ngFor="let row of preferred_location">
+                        <label>{{row}} <span><i class="material-icons"> delete</i></span></label>
+                    </div> -->
+                    <div>
+                        <label> Chennai <span><i class="material-icons"> delete</i></span></label>
+                    </div>
+                    <div>
+                        <label> Hyderabad <span><i class="material-icons"> delete</i></span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="textbox" style="width: 100%;">
+                    <label>Current Compensation (Annual)</label>
+                    <div style="display: flex;">
+                    <select name="ccurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.currency" style="width: 25%;margin-right: 15px;">
+                        <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+                    <input type="text" name="cctc" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.value">
+                    </div>
+                </div>
+                <br>
+                <div class="textbox" style="width: 100%;">
+                    <label>Expected Compensation (Annual)</label>
+                    <div style="display: flex;">
+                        <select name="ecurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.currency" style="width: 25%;margin-right: 15px;">
+                            <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
+                        </select>    
+                    <input type="text" name="ectc" placeholder="Ex. 5,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.value">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="fields" *ngIf="header=='Personal Information'" id="Personal Information">
                 <form>
@@ -139,27 +235,34 @@
                         <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
                         <br>
                     </div>
-                </form>
-        </div>
-        <div class="fields" *ngIf="header=='Education'" id="Education">
-            <span style="float: right; margin: -10px 0px;" (click)="showModal('educationModal')"><i class="material-icons"> add</i></span>
-            <div *ngFor="let row of cvDetails.education;let i=index" class="education-box">
-            <!-- <div > -->
+                    <button type="button" class="add" style="margin-right: 20px;">+ Add</button>
+                </div>
+            </div>
+            <div class="=row skills">
                 <div>
-                    <label>Institute</label>
-                    <span>{{row.institution}}</span>
+                    <label>H1B1 03/22 <span><i class="material-icons"> delete</i></span></label>
                 </div>
                 <div>
-                    <label>Qualificatin level</label>
+                    <label> Business Visa 02/2024 <span><i class="material-icons"> delete</i></span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="header=='Education'" id="Education">
+        <button type="button" class="add" (click)="showModal('educationModal')">+ Add</button>
+        <div *ngFor="let row of cvDetails.education;let i=index" class="row education-box">
+            <div class="col-md-11">
+                <div>
+                        <label>Institute</label>
+                        <span>{{row.institution}}</span>
+                </div>
+                <div>
+                    <label>Qualification level</label>
                     <span>{{row.level}}</span>
                 </div>
                 <div>
                     <label>Specialization In</label>
                     <span>{{row.course}}</span>
-                </div>
-                <div style="width: 10%;">
-                    <!-- <span class="ed_icons" (click)="editEdu(row,i)"><i class="material-icons"> edit</i></span> -->
-                    <span class="ed_icons" (click)="deleteEdu(i)"><i class="material-icons"> delete</i></span>
                 </div>
                 <div>
                     <label>Duration</label>
@@ -173,37 +276,119 @@
                     <label>Score</label>
                     <span>{{row.grade.type}}-{{row.grade.value}}</span>
                 </div>
-            <!-- </div> -->
-            </div>   
+            </div>
+            <div class="col-md-1">
+                <div>
+                    <span (click)="editEdu(row,i)"><i class="material-icons" style="margin-top: 30px;"> edit</i></span>
+                    <span (click)="deleteEdu(i)"><i class="material-icons" style="margin-top: 30px;"> delete</i></span>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div *ngIf="header=='Work Experience'" id="work">
+        <button type="button" class="add" (click)="showModal('workModal')">+ Add</button>
+        <div *ngFor="let row of cvDetails.experience;let i=index" class="row education-box">
+            <div class="col-md-11">
+            <div>
+                <label>Company</label>
+                <span>{{row.company}}</span>
+            </div>
+            <div>
+                <label>Designation</label>
+                <span>{{row.designation}}</span>
+            </div>
+            <div>
+                <label>Experience</label>
+                <span>{{row.from.year}}-{{row.to.year}}</span>
+            </div>
+            <div>
+                <label>Location</label>
+                <span>{{row.location}}</span>
+            </div>
+            <div>
+                <label>Engagement Type </label>
+                <span>{{row.engagementType}}</span>
+            </div>
+            </div>
+            <div class="col-md-1">
+                <div>
+                    <span (click)="editWork(row,i)"><i class="material-icons" style="margin-top: 30px;"> edit</i></span>
+                    <span (click)="deleteWork(i)"><i class="material-icons" style="margin-top: 30px;"> delete</i></span>
+                </div>
+            </div>
         </div>
-        <div class="fields" *ngIf="header=='Work Experience'" id="work">
-            <span style="float: right; margin: -10px 0px;" (click)="showModal('workModal')"><i class="material-icons"> add</i></span>
-        
-            <div *ngFor="let row of cvDetails.experience;let i=index" class="education-box">
-                <div>
-                    <label>Company</label>
-                    <span>{{row.company}}</span>
+    </div>
+    <div *ngIf="header=='Skills'" id="Skills">
+        <table>
+            <thead>
+                <tr>
+                    <th>Enter Skills</th>
+                    <th>Expertise Level</th>
+                    <th>Years of Experience</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 
+                        <div class="textbox">
+                            <input type="text" name="skill" autocomplete="off" [(ngModel)]="skills.name">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="textbox">
+                            <select name="ex_level" class="form-control" [(ngModel)]="skills.expertise_level">
+                                <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="textbox">
+                            <input type="text" name="years" autocomplete="off" [(ngModel)]="skills.years">
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="add" (click)="addSkills()" style="width: 50%;float: left;">+ Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="=row skills">
+            <div>
+                <label> UI Design <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> Web Design <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> Adobe Photoshop <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label>Adobe After Effects <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> HTML/CSS <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label>Angular <span><i class="material-icons"> delete</i></span></label>
+            </div>
+        </div>
+        <h6 style="margin: 10px 25px;"><strong>Top 3 Skills</strong></h6>
+        <div class="row education-box" *ngFor="let row of cvDetails.skills;let i=index" style="border-radius: 0;">
+            <div class="col-md-10">
+                <div style="padding: 3px 10px;">
+                    <span>{{row.name}}</span>
                 </div>
-                <div>
-                    <label>Designation</label>
-                    <span>{{row.designation}}</span>
+                <div style="padding: 3px 10px;">
+                    <span>{{row.expertise_level}}</span>
                 </div>
-                <div>
-                    <label>Experience</label>
-                    <span>{{row.from.year}}-{{row.to.year}}</span>
+                <div style="padding: 3px 10px;">
+                    <span>{{row.years}} years</span>
                 </div>
-                <div style="width: 10%;">
-                    <!-- <span class="ed_icons" (click)="editWork(row,i)"><i class="material-icons"> edit</i></span> -->
-                    <span class="ed_icons" (click)="deleteWork(i)"><i class="material-icons"> delete</i></span>
-                </div>
-                <div>
-                    <label>Location</label>
-                    <span>{{row.location}}</span>
-                </div>
-                <div>
-                    <label>Engagement Type </label>
-                    <span>{{row.engagementType}}</span>
-                </div>
+            </div>
+            <div class="col-md-2">
+                    <span style="padding: 10px;" (click)="editSkills(row,i)"><i class="material-icons"> edit</i></span>
+                    <span style="padding: 10px;" (click)="deleteRow('skills',i)"><i class="material-icons"> delete</i></span>
             </div>
         </div>
         <div class="fields" *ngIf="header=='Skills'" id="Skills">
@@ -304,47 +489,52 @@
                 </table>
             </form>
         </div>
-        <div class="fields" *ngIf="header=='Projects'" id="Projects">
-            <span style="float: right; margin: -10px 0px;" (click)="showModal('projectModal')"><i class="material-icons"> add</i></span>
-            <div *ngFor="let row of cvDetails.projects;let i=index" class="education-box" id="projectExpand1" style="height: 25%;">
-                <div style="width: 20%;height: 30%;">
+    </div>
+    <div *ngIf="header=='Projects'" id="Projects">
+        <button type="button" class="add" (click)="showModal('projectModal')">+ Add</button>
+        <div *ngFor="let row of cvDetails.projects;let i=index" class="row education-box" id="projectExpand1">
+            <div class="col-md-11">
+                <div style="width: 24%;">
                     <label>Name</label>
                     <span>{{row.name}}</span>
                 </div>
-                <div style="width: 20%;height: 30%;">
+                <div style="width: 24%;">
                     <label>Domain</label>
                     <span>{{row.domain}}</span>
                 </div>
-                <div style="width: 20%;height: 30%;">
+                <div style="width: 24%;">
                     <label>Project Role</label>
                     <span>{{row.role}}</span>
                 </div>
-                <div style="width: 20%;height: 30%;">
+                <div style="width: 24%;">
                     <label>Duration</label>
                     <span>{{row.from.year}}-{{row.to.year}}</span>
-                </div>
-                <span (click)="projectExpand('projectExpand1')"><i class="material-icons" style="margin: 25px 20px;"> keyboard_arrow_down</i></span>
-                <div style="width: 10%;height: 30%;">
-                    <!-- <span style="padding: 10px;" (click)="editProject(row,i)"><i class="material-icons"> edit</i></span> -->
-                    <span style="padding: 10px;" (click)="deleteProject(i)"><i class="material-icons"> delete</i></span>
                 </div>
                 <div *ngIf="showSummary" style="width: 100%;">
                     <label>Skills Used :</label>
                     <span>{{row.skills}}</span>
-                    <br>
-                    <br>
-                    <label>Project Summary :</label>
-                    <span>The height property is used to set the height of an element. The height property does not contains padding, margin and border of element. The height property contains many values which define the height of an element. The height property values are listed below</span>
+                    <label style="margin-top: 10px;">Project Summary :</label>
+                    <p>The height property is used to set the height of an element. The height property does not contains padding, margin and border of element. The height property contains many values which define the height of an element. The height property values are listed below</p>
                 </div>
             </div>
-            
+            <div class="col-md-1">
+                <span (click)="projectExpand('projectExpand1')"><i class="material-icons" style="margin: 25px 20px;"> keyboard_arrow_down</i></span>
+                <div *ngIf="showSummary">
+                    <span (click)="editProject(row,i)"><i class="material-icons" style="margin: 20px 0;"> edit</i></span>
+                    <span (click)="deleteProject(i)"><i class="material-icons" style="margin: 20px 0;"> delete</i></span>
+                </div>
+            </div>
         </div>
-        <div class="fields" *ngIf="header=='Certifications and Achievements'" id="Certification and Achievements">
-            <span style="float: right; margin: -10px 0px;" data-toggle="modal" data-target="#certificationModal"><i class="material-icons"> add</i></span>
-            <div *ngFor="let row of cvDetails.certifications;let i=index" class="education-box">
+
+
+    </div>
+    <div *ngIf="header=='Certifications and Achievements'" id="Certification and Achievements">
+        <button type="button" class="add" (click)="showModal('certificationModal')">+ Add</button>
+        <div *ngFor="let row of cvDetails.certifications;let i=index" class="row education-box">
+            <div class="col-md-11">
                 <div>
                     <label>Title</label>
-                    <span>{{row.title}}</span>
+                    <span class="ellipsis" title="{{row.title}}">{{getEllipsis(row.title)}}</span>
                 </div>
                 <div>
                     <label>Issuing Organisation</label>
@@ -353,10 +543,6 @@
                 <div>
                     <label>Certification ID</label>
                     <span>{{row.credential_id}}</span>
-                </div>
-                <div style="width: 10%;">
-                    <!-- <span class="ed_icons" (click)="editCertificate(row,i)"><i class="material-icons"> edit</i></span> -->
-                    <span class="ed_icons" (click)="deleteCertificate(i)"><i class="material-icons"> delete</i></span>
                 </div>
                 <div>
                     <label>Issue Date</label>
@@ -367,20 +553,23 @@
                     <span>{{row.expiry_date}}</span>
                 </div>
             </div>
+            <div class="col-md-1">
+                <span (click)="editCertificate(row,i)"><i class="material-icons"style="margin-top: 30px;padding:10px;"> edit</i></span>
+                <span (click)="deleteCertificate(i)"><i class="material-icons" style="margin-top: 30px;padding:10px;"> delete</i></span>
+            </div>
         </div>
-
-        <!-- <div style="width: 100%;height: 35px;background-color:#f8f8f8;color: #09a16feb;">
-            {{message}}
-        </div> -->
+    </div>
+    <div >
+        <button type="button" class="next" (click)="next()">Next</button>
     </div>
 </div>
-<div id="educationModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+<div id="educationModal" class="modal fade bd-example-modal-lg" role="dialog" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-header">
-                    <h4 style="padding-top: 10px;">Education</h4>
-                    <button type="button" aria-label="Close" style="float: right;"><span
-                        aria-hidden="true" (click)="hideModal('educationModal')">&times;</span></button>
+                    <h5>Education</h5>
+                    <a type="button" aria-label="Close" style="float: right;"><span
+                        aria-hidden="true" (click)="hideModal('educationModal')">&times;</span></a>
             </div>
             <div class="modal-body">
             <form #eduData="ngForm" (ngSubmit)="addEducation(eduData)">
@@ -432,27 +621,26 @@
                     <input type="text"  name="grade" autocomplete="off" style="width: 250px;border-bottom: 1px solid #212869;" [(ngModel)]="education.grade.value">
                     </div>
                 </div>
-            </div>
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('educationModal')" >Cancel</button>
-                <button type="submit"  class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addEducation(eduData)">Submit</button>
+                <button type="button" class="btn btn-primary btn-sm cancel" (click)="hideModal('educationModal')" >Cancel</button>
+                <button type="submit"  class="btn btn-primary btn-sm submit" (click)="addEducation(eduData)">Submit</button>
             </div>
         </div>
     </div>
 </div>
-<div id="workModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="workExp.from">
+<div id="workModal" class="modal fade bd-example-modal-lg" role="dialog" tabindex="-1" data-backdrop="static" *ngIf="workExp.from">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-header">
-                <h4 style="padding-top: 10px;">Work Experience</h4>
-                    <button type="button" aria-label="Close" (click)="hideModal('workModal')" style="float: right;"><span
-                        aria-hidden="true">&times;</span></button>
+                <h5>Work Experience</h5>
+                    <a type="button" aria-label="Close" (click)="hideModal('workModal')" style="float: right;"><span
+                        aria-hidden="true">&times;</span></a>
             </div>
             <div class="modal-body">
             <form #workData="ngForm" (ngSubmit)="addWork(workData)">
-            <div class="education-modal">
+            <div class="modal-box">
                 <div class="textbox">
                     <label>Company Name</label>
                     <input type="text" name="companyname" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.company" autocomplete="off" maxlength=30>
@@ -465,43 +653,37 @@
                     <label>Location</label>
                     <input type="text" name="worklocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.location" autocomplete="off">
                 </div>
-                <div class="textbox" style="border: none;">
+                <div class="textbox">
                     <label>Engagement type</label>
-                    <!-- <input type="text" name="etype" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.engagementType" autocomplete="off"> -->
                     <select name="level" class="form-control" [(ngModel)]="workExp.engagementType">
                         <option value="">Select Type</option>
                         <option *ngFor="let y of engagementType" value="{{y.value}}">{{y.key}}</option>
                     </select>
-
                 </div>
-                <div class="textbox" style="border: none;">
+                <div class="textbox">
                     <label>From</label>
-                    <br>
-                    <!-- <input type="text" name="from months" [(ngModel)]="workExp.from_months" placeholder="Select Month" autocomplete="off" style="width: 150px;border-bottom: 1px solid #212869;">
-                    <input type="text" name="from years" [(ngModel)]="workExp.from_years" autocomplete="off" placeholder="Select Year" style="width: 150px;border-bottom: 1px solid #212869;"> -->
-                    <div style="display: flex;width: 95%;margin: 0;">
-                    <select name="work_from_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.from.month">
-                        <option value="">Select Month</option>
-                        <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
-                    </select>
-                    <select name="work_from_years" id="work_from_years" class="form-control" [(ngModel)]="workExp.from.year">
-                        <option value="">Select Year</option>
-                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
-                    </select>
+                    <div style="display: flex;width: 100%;">
+                        <select name="work_from_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.from.month">
+                            <option value="">Select Month</option>
+                            <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                        </select>
+                        <select name="work_from_years" id="work_from_years" class="form-control" [(ngModel)]="workExp.from.year">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
                     </div>
                 </div>
-                <div class="textbox" style="border: none;">
+                <div class="textbox">
                     <label>To</label>
-                    <br>
-                    <div style="display: flex;width: 95%;margin: 0;">
-                    <select name="work_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.month" [disabled]="workExp.currently_working">
-                        <option value="">Select Month</option>
-                        <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
-                    </select>
-                    <select name="work_to_years" class="form-control" id="work_to_years" [(ngModel)]="workExp.to.year" [disabled]="workExp.currently_working" (change)="checkyear('work')">
-                        <option value="">Select Year</option>
-                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
-                    </select>
+                    <div style="display: flex;width: 100%;">
+                        <select name="work_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="workExp.to.month" [disabled]="workExp.currently_working">
+                            <option value="">Select Month</option>
+                            <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                        </select>
+                        <select name="work_to_years" class="form-control" id="work_to_years" [(ngModel)]="workExp.to.year" [disabled]="workExp.currently_working" (change)="checkyear('work')">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
                     </div>
                     <label id="work_error" class="error"></label>
                 </div>
@@ -510,24 +692,24 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('workModal')">Cancel</button>
-                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addWork(workData)">Submit</button>
+                <button type="button" class="btn btn-primary btn-sm cancel" (click)="hideModal('workModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm submit" (click)="addWork(workData)">Submit</button>
             </div>
 
         </div>
     </div>
 </div>
-<div id="certificationModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static">
+<div id="certificationModal" class="modal fade bd-example-modal-lg" role="dialog" tabindex="-1" data-backdrop="static">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-header">
-                <h4 style="padding-top: 10px;">Certification</h4>
-                    <button type="button" aria-label="Close" (click)="hideModal('certificationModal')" style="float: right;"><span
-                        aria-hidden="true" >&times;</span></button>
+                <h5>Certification</h5>
+                    <a type="button" aria-label="Close" (click)="hideModal('certificationModal')" style="float: right;"><span
+                        aria-hidden="true" >&times;</span></a>
             </div>
             <div class="modal-body">
             <form #certificateData="ngForm" (ngSubmit)="addCertificate(certificateData)">
-            <div class="education-modal">
+            <div class="modal-box">
                 <div class="textbox">
                     <label>Title </label>
                     <br>
@@ -543,16 +725,18 @@
                 </div>
                 <div class="textbox">
                     <label>Issue Date</label>
-                    <input type="text" name="issuedate" id="flatpickr2" class="flatpickr" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.issue_date" autocomplete="off" maxlength="2">
-                    <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;">
+                    <div style="display: flex;width: 100%;position: relative;">
+                    <input type="text" name="issuedate" id="flatpickr2" class="flatpickr" [(ngModel)]="certification.issue_date" autocomplete="off" style="width: 100%;">
+                    <span style="position: absolute; right: 2px;"><i class="material-icons"> date_range</i></span>
+                    </div>
                 </div>
                 <div class="textbox">
                     <label>Expires</label>
-                    <br>
-                    <input type="text" name="expires" id="flatpickr3" class="flatpickr" oninput="this.value = this.value.replace(/[^0-9-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.expiry_date" [disabled]="certification.expires" autocomplete="off" maxlength="2">
-                    <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;">
+                    <div style="display: flex; width: 100%;position: relative;">
+                    <input type="text" name="expires" id="flatpickr3" class="flatpickr" [(ngModel)]="certification.expiry_date" [disabled]="certification.expires" autocomplete="off" style="width: 100%;">
+                    <span style="position: absolute; right: 2px;"><i class="material-icons"> date_range</i></span>
+                    </div>
                 </div>
-                <br>
                 <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="certification.expires"><span>This credential does not expire</span>
                 <div class="textbox">
                     <label>URL</label>
@@ -563,20 +747,20 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('certificationModal')">Cancel</button>
-                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addCertificate(certificateData)">Submit</button>
+                <button type="button" class="btn btn-primary btn-sm cancel" (click)="hideModal('certificationModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm submit" (click)="addCertificate(certificateData)">Submit</button>
             </div>
 
         </div>
     </div>
 </div>
-<div id="projectModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" *ngIf="project.from">
+<div id="projectModal" class="modal fade bd-example-modal-lg" role="dialog" data-backdrop="static" tabindex="-1" *ngIf="project.from">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-header">
-                <h4 style="padding-top: 10px;">Projects</h4>
-                    <button type="button" aria-label="Close" style="float: right;"><span
-                        aria-hidden="true" (click)="hideModal('projectModal')">&times;</span></button>
+                <h5>Projects</h5>
+                    <a type="button" aria-label="Close" style="float: right;"><span
+                        aria-hidden="true" (click)="hideModal('projectModal')">&times;</span></a>
             </div>
             <div class="modal-body">
             <form #projectData="ngForm" (ngSubmit)="addProject(projectData)">
@@ -605,8 +789,7 @@
                 </div>
                     <div class="textbox" style="border: none;">
                         <label>To</label>
-                        <br>
-                        <div style="display: flex;width: 95%;margin: 0;">
+                        <div style="display: flex;width: 100%">
                         <select name="project_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.month" [disabled]="project.ongoing">
                             <option value="">Select Month</option>
                             <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
@@ -643,8 +826,8 @@
             </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="hideModal('projectModal')">Cancel</button>
-                <button type="submit" class="btn btn-primary btn-sm" style="background-color: grey;" (click)="addProject(projectData)">Submit</button>
+                <button type="button" class="btn btn-primary btn-sm cancel" (click)="hideModal('projectModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-sm submit" (click)="addProject(projectData)">Submit</button>
             </div>
 
         </div>

@@ -204,3 +204,14 @@
     background-color: #ebebeb;
     overflow: hidden;
 }
+*{
+  font-family: Nexa ☞;
+  opacity: 1;
+}
+ul{
+  list-style: none;
+}
+* :disabled{
+  background-color: white;
+  cursor: not-allowed;
+}

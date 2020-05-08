@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 //
 import { DashboardComponent } from './dashboard.component'
-import {ProfileBuilderComponent} from './profile-builder/profile-builder.component'
-import {TemplatesComponent} from './templates/templates.component'
 
 
 const routes: Routes = [{
