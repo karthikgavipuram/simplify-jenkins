@@ -16,16 +16,13 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   message: string = "Successfully saved entered data";
   header: string = 'Personal Information';
   subHeader: string = "Basic Info";
-  certificationHeader: string = "Certifications";
-  subProjHeader: boolean = false;
-  rows: any = [];
   showPersonal: boolean = true;
   showSummary: boolean = false;
   workExp: any = { "company": "", "designation": "", "engagementType": "", "from": { "year": "", "month": "" }, "to": { "year": "", "month": "" }, "location": "" };
   education: any = { "institute": "", "course": "", "from": "", "to": "", "grade": { "type": "", "value": "" }, "level": "", "location": "" };
   project: any = { "name": "", "role": "", "skills_used": [], "domain": "", "type": "", "summary": "", "responsibility": "", "ongoing": false, "from": { "year": "", "month": "" }, "to": { "year": "", "month": "" }, "location": "" };
   certification: any = { "title": "", "organization": "", "issue_date": "", "expires": true, "expiry_date": "", "credential_id": "", "url": "" };
-  sections: any = ['Personal Information', 'Education', 'Work Experience', 'Skills', 'Domain', 'Projects', 'Certification and Achievements'];
+  sections: any = ['Personal Information', 'Education', 'Work Experience', 'Skills', 'Domain', 'Projects', 'Certifications and Achievements'];
   subSection = ['Basic Info', 'Job Specific Info'];
   noticePeriod = [{ "key": "Actively Looking", "value": "active" }, { "key": "Passively Looking", "value": "passive" }, { "key": "Serving Notice Period", "value": "serving" }, { "key": "Immediately Available", "value": "immediate" }];
   expertise_level = [{ "key": "Aware", "value": "aware" }, { "key": "Expert", "value": "expert" }, { "key": "Applied", "value": "applied" }];
@@ -86,9 +83,6 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
     else {
       this.getData()
     }
-    // setTimeout(() => {
-    //   document.getElementById(this.subHeader).style.color='blue';
-    // }, 200);
     this.duration.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     this.duration.years = this.years;
     this.showDate();
@@ -103,11 +97,13 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   getData() {
     this._cs.getData({ "collection": "user", query: { "userId": this._cs.userDetails.id } }).subscribe((res: any) => {
       this.cvDetails = res.body.data[0].cvdetails.builderDetails;
+      console.log(this.cvDetails);
       if(this.cvDetails.projects.length){
         for(let row of this.cvDetails.projects){
           row.skills=row.skills_used.join();
         }
       }
+      this.preferred_location= this.cvDetails.personal_info.job_info.preferred_location.split(',');
       this.userObject = res.body.data[0];
     });
   }
@@ -123,9 +119,8 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   }
   addEducation(data) {
     if (this.edited != -1) {
-      this.cvDetails.education.splice(this.edited, 1, this.education);
+      this.cvDetails.education.splice(this.edited,1,this.clone(this.education));
       this.edited = -1;
-      this.clearJson(this.education)
     }
     else {
       this.cvDetails.education.push(this.clone(this.education));
@@ -146,7 +141,7 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
       this.workExp.to = { "year": "", "month": "" };
     }
     if (this.edited != -1) {
-      this.cvDetails.experience.splice(this.edited, 1, this.workExp);
+      this.cvDetails.experience.splice(this.edited, 1, this.clone(this.workExp));
       this.edited = -1;
     }
     else {
@@ -174,7 +169,7 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
       this.project.skills_used = this.project.skills.split(',');
     delete this.project.skills;
     if (this.edited != -1) {
-      this.cvDetails.projects.splice(this.edited, 1, this.project);
+      this.cvDetails.projects.splice(this.edited, 1, this.clone(this.project));
       this.edited = -1;
     }
     else {
@@ -197,7 +192,7 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
       this.certification.expiry_date = "";
     }
     if (this.edited != -1) {
-      this.cvDetails.certifications.splice(this.edited, 1, this.certification);
+      this.cvDetails.certifications.splice(this.edited, 1, this.clone(this.certification));
       this.edited = -1;
     }
     else {
@@ -215,28 +210,43 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   deleteCertificate(i) {
     this.cvDetails.certifications.splice(i, 1);
   }
+  
   showModal(id) {
-    // $(".modal").modal('hide');
     $("#" + id).modal('show');
   }
   showFields(header) {
-    // document.getElementById(this.header).style.color='unset';
-    // document.getElementById(this.subHeader).style.color='unset';
-    if (this.subProjHeader) {
-      this.subProjHeader = false;
-    }
     this.header = header;
     this.showDate();
-    // let x =document.getElementById(this.header);
-    // x.style.color='blue';
   }
-  showRow(card) {
-    if (card == 'skills') {
-      this.cvDetails.skills.push({ "name": "", "expertise_level": "", "years": "" });
+  skills:any={};
+  domains:any={};
+  addSkills() {
+      if(this.edited!=-1){
+        this.cvDetails.skills.splice(this.edited,1,this.skills);
+        this.edited=-1
+      }
+      else{
+      this.cvDetails.skills.push(this.skills);
+      }
+      this.skills={};
+  }
+  editSkills(row,i){
+    this.skills=row;
+    this.edited=i;
+  }
+  addDomain(){
+    if(this.edited!=-1){
+      this.cvDetails.domain.splice(this.edited,1,this.domains);
+      this.edited=-1
     }
-    if (card == 'domain') {
-      this.cvDetails.domain.push({ "name": "", "expertise_level": "", "years": "" });
+    else{
+    this.cvDetails.domain.push(this.domains);
     }
+    this.domains={};
+  }
+  editDomain(row,i){
+    this.domains=row;
+    this.edited=i;
   }
   deleteRow(card, i) {
     if (card == 'skills') {
@@ -273,19 +283,11 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
 
   subHeaderChange(header) {
     this.header = 'Personal Information';
-    // document.getElementById(this.subHeader).style.color='unset';
     this.subHeader = header;
     this.showDate();
   }
   projectExpand(id) {
     this.showSummary = !this.showSummary;
-    let x = document.getElementById(id);
-    if (this.showSummary) {
-      x.style.height = "85%";
-    }
-    else {
-      x.style.height = "30%";
-    }
   }
   convertToDate(s) {
     var date = new Date(s);
@@ -313,9 +315,6 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
     if (!this.cvDetails.personal_info.job_info.relocation) {
       this.cvDetails.personal_info.job_info.preferred_location = "";
     }
-    // if (this.cvDetails.personal_info.basic_information.dob) {
-    //   this.cvDetails.personal_info.basic_information.dob = this.convertToDate(this.cvDetails.personal_info.basic_information.dob);
-    // }
     this.userObject.cvdetails.builderDetails = this.cvDetails;
     this._cs.updateObject({ "collection": "user", query: { "userId": this._cs.userDetails.id }, "updateFields": { "cvdetails": this.userObject.cvdetails } }).subscribe(
       (res: any) => {},
@@ -351,5 +350,38 @@ export class ProfileBuilderComponent implements OnInit, OnDestroy {
   ngOnDestroy(){
     this.subscribedSection = undefined
     this.subscribedSubsection = undefined
+  }
+  next(){
+    if(this.header=='Personal Information' && this.subHeader=='Basic Info'){
+        this.subHeader="Job Specific Info";
+        return
+    }
+    else if(this.header=='Personal Information' && this.subHeader!='Basic Info'){
+      let section = this.sections.indexOf(this.header);
+      this.header=this.sections[++section];
+      this.subHeader="Basic Info";
+      return
+    }
+    else if(this.header!='Personal Information'){
+      let section = this.sections.indexOf(this.header);
+      let index=++section;
+      if(index>6)
+        return
+      this.header=this.sections[index];
+    }
+  }
+  preferred_location:any=[];
+  add(data){
+    this.preferred_location= this.cvDetails.personal_info.job_info.preferred_location.split(',');
+  }
+  getEllipsis(data){
+    let title;
+    if(data.length>25) {
+      title=data.slice(0,25);
+      title+='...';
+    }
+    else
+      title=data;
+    return title;
   }
 }
