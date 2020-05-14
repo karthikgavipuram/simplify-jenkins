@@ -1,4 +1,4 @@
-<div class="box" *ngIf="cvDetails">
+<div *ngIf="cvDetails" style="width: 900px;">
     <h4 style="padding: 15px 20px 0px;"><strong>{{header}}</strong></h4>
     <div *ngIf="header=='Personal Information' && subHeader=='Basic Info'" id="Personal Information">
         <div class="row">
@@ -14,12 +14,17 @@
                 <div style="display: flex;">
                     <div class="textbox">
                         <label>Full Name *</label>
-                        <input type="text" class="ellipsis" name="full_name" autocomplete="off" [(ngModel)]="cvDetails.personal_info.basic_information.full_name">
+                        <input type="text" class="ellipsis" name="full_name" autocomplete="off" oninput="this.value = this.value.replace(/[^a-zA-Z ']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.full_name" #fname="ngModel">
                     </div>
+                    <div [hidden]="fname.valid || fname.pristine"
+                    class="alert alert-danger">
+                    <div [hidden]="!fname.hasError('required')">Full Name is required</div>
+                    
+                    </div> 
                     <div class="textbox">
                         <label>Date of Birth</label>
                         <div style="display: flex;width: 100%;position: relative;">
-                            <input type="text" name="dob"class="flatpickr" autocomplete="off" style="width: 100%;" [(ngModel)]="cvDetails.personal_info.basic_information.dob">
+                            <input type="text" name="dob" oninput="this.value = this.value.replace(/[^0-9 -]/g, '').replace(/(\..*)\./g, '$1');" class="flatpickr" autocomplete="off" style="width: 100%;" [(ngModel)]="cvDetails.personal_info.basic_information.dob">
                             <span style="position: absolute; right: 2px;"><i class="material-icons"> date_range</i></span>
                         </div>
                     </div>
@@ -27,11 +32,18 @@
                 <div style="display: flex;">
                     <div class="textbox">
                         <label>Current Location</label>
-                        <input type="text" name="clocation" [(ngModel)]="cvDetails.personal_info.basic_information.current_location" autocomplete="off">
+                        <input type="text" name="clocation" oninput="this.value = this.value.replace(/[^a-zA-Z ',]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.current_location" autocomplete="off">
                     </div>
                     <div class="textbox">
                         <label>Email</label>
-                        <input type="text" name="email" [(ngModel)]="cvDetails.personal_info.basic_information.email_id" autocomplete="off">
+                        <input type="text" name="email" [(ngModel)]="cvDetails.personal_info.basic_information.email_id" autocomplete="off" #email="ngModel">
+                    </div>
+                    <div [hidden]="email.valid || email.pristine"
+                    class="alert alert-danger">
+                    <div [hidden]="!email.hasError('required')">Email is required</div>
+                    <div [hidden]="!email.hasError('pattern')">Email format :
+                       <small><b>abc@xyz.com</b></small>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -40,11 +52,11 @@
             <div style="width: 100%; margin-top: 25px; display: flex;">
                 <div class="textbox">
                     <label>Mobile Number</label>
-                    <input type="text" name="mobile number" [(ngModel)]="cvDetails.personal_info.basic_information.mobile_number" autocomplete="off">
+                    <input type="text" name="mobile number" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.mobile_number" autocomplete="off">
                 </div>
                 <div class="textbox">
                     <label>Alternate Number</label>
-                    <input type="text" name="alternate number" [(ngModel)]="cvDetails.personal_info.basic_information.alt_number" autocomplete="off">
+                    <input type="text" name="alternate number" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.alt_number" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -55,8 +67,8 @@
                 <div class="textbox" style="width: 100%;">
                     <label>Total Work Experience</label>
                     <div style="display: flex;width: 100%">
-                        <input type="number" name="experienceyears" placeholder="Months" autocomplete="off" style="width: 50%;margin-right: 30px;text-align: end;" max="12" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.month">
-                        <input type="number" name="experiencemonths" placeholder="Years" autocomplete="off" style="width: 50%;text-align: end;" max="30"  maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.year">
+                        <input type="number" name="experienceyears" placeholder="Months" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" style="width: 50%;margin-right: 30px;text-align: end;" max="12" maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.month">
+                        <input type="number" name="experiencemonths" placeholder="Years" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" style="width: 50%;text-align: end;" max="30"  maxlength="2" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.year">
                     </div>
                 </div>
                 <div class="textbox" style="width: 100%;">
@@ -66,7 +78,7 @@
                     </div>
                     <label>Preferred Location</label>
                     <div style="display: flex;">
-                        <input type="text" name="preferred_loc" style="width: 70%;" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_location" [disabled]="!cvDetails.personal_info.job_info.relocation">
+                        <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z ',]/g, '').replace(/(\..*)\./g, '$1');" style="width: 70%;" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_location" [disabled]="!cvDetails.personal_info.job_info.relocation">
                         <button type="button" class="add" style="width: 20%;margin-left: 15px;" (click)="add($event)">+ Add</button>
                     </div>
                 </div>
@@ -89,7 +101,7 @@
                     <select name="ccurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.currency" style="width: 25%;margin-right: 15px;">
                         <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
                     </select>
-                    <input type="text" name="cctc" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.value">
+                    <input type="text" name="cctc" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.value">
                     </div>
                 </div>
                 <br>
@@ -99,141 +111,33 @@
                         <select name="ecurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.currency" style="width: 25%;margin-right: 15px;">
                             <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
                         </select>    
-                    <input type="text" name="ectc" placeholder="Ex. 5,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.value">
+                    <input type="text" name="ectc" placeholder="Ex. 5,00,000" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.value">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="fields" *ngIf="header=='Personal Information'" id="Personal Information">
-                <form>
-                    <div *ngIf="subHeader=='Basic Info'">
-                        <div class="textbox">
-                            <label>Full Name  *</label>
-                            <br>
-                            <input type="text" name="full_name" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.full_name" autocomplete="off" #fname="ngModel">
-                        </div>
-                        <div [hidden]="fname.valid || fname.pristine"
-                        class="alert alert-danger">
-                        <div [hidden]="!fname.hasError('required')">First Name is required</div>
-                        
-                        </div>
-                        <br>
-                        <div class="textbox">
-                            <label>Date of Birth  </label>
-                            <br>
-                            <input type="text" id="flatpickr" class="flatpickr" name="dob" [(ngModel)]="cvDetails.personal_info.basic_information.dob" autocomplete="off" #dob="ngModel">
-                        </div>
-                        <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> date_range</i></span> -->
-                        <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;margin-right: 285px;margin-top: -35px;">
-                        <div [hidden]="dob.valid || dob.pristine"
-                        class="alert alert-danger">
-                        <div [hidden]="!dob.hasError('required')">Date of Birth is required</div>
-                        
-                        </div> 
-                        <br>
-                        <div class="textbox">
-                            <label>Current Location</label>
-                            <br>
-                            <input type="text" name="location" oninput="this.value = this.value.replace(/[^a-zA-Z ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.basic_information.current_location" autocomplete="off">
-                        </div>
-                        <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> my_location</i></span> -->
-                        <br>
-                        <div class="textbox">
-                            <label>Email ID  *</label>
-                            <br>
-                            <input type="text" required name="email" id="email"  [(ngModel)]="cvDetails.personal_info.basic_information.email_id" autocomplete="off" maxlength="30" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel">
-           
-                        </div>
-                        <div [hidden]="email.valid || email.pristine"
-                        class="alert alert-danger">
-                        <div [hidden]="!email.hasError('required')">Email is required</div>
-                        <div [hidden]="!email.hasError('pattern')">Email format :
-                           <small><b>abc@xyz.com</b></small>
-                        </div>
-                        </div>
-                        
-                        <br>
-                        <div class="textbox">
-                            <label>Mobile Number</label>
-                            <input type="text" name="phonenumber" placeholder="+91" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" id="mnum"  [(ngModel)]="cvDetails.personal_info.basic_information.mobile_number" autocomplete="off" ngmodel maxlength="10" >
-                        </div>
-                       
-                        <br>
-                        <div class="textbox">
-                            <label>Alternate Number</label>
-                            <input type="text" name="alternatenumber" placeholder="+91" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" maxlength="10" [(ngModel)]="cvDetails.personal_info.basic_information.alt_number">
-                        </div>
-                        <br>
-                    </div>
-                    <div *ngIf="subHeader=='Job Specific Info'">
-                        <div class="textbox" style="border: none;">
-                            <label>Total Work Experience</label>
-                            <br>
-                            <!-- <input type="text" name="experience years" placeholder="Years" autocomplete="off" style="width: 250px;"> -->
-                            <!-- <input type="text" name="experience months" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" ngModel maxlength="3"> -->
-                            <input type="number" name="experienceyears" placeholder="Months" autocomplete="off"  style="width: 150px; border-bottom: 1px solid #212869;" max="12" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.month">
-                            <input type="number" name="experiencemonths" placeholder="Years" autocomplete="off"  style="width: 150px;border-bottom: 1px solid #212869;" max="30" [(ngModel)]="cvDetails.personal_info.job_info.total_exp.year">
-                        </div>
-                        <div style="margin-top:15px">
-                            <input style="float: left; width: 3%; margin: 10px 0px;" type="checkbox" name="Preferred location" [(ngModel)]="cvDetails.personal_info.job_info.relocation">
-                            <label style="font-size: 17px;margin-top: 5px;">Willing to relocate</label>
-                        </div>
-                        <div class="textbox">
-                            <label>Preferred Location</label>
-                            <input type="text" name="preferred_loc" oninput="this.value = this.value.replace(/[^a-zA-Z, ]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="cvDetails.personal_info.job_info.preferred_location" [disabled]="!cvDetails.personal_info.job_info.relocation">
-                        </div>
-                        <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
-                        <br>
-                        <div class="textbox" style="border: none;">
-                            <label>Current Compensation (Annual)</label>
-                            <br>
-                            <div style="display: flex;">
-                            <select name="ccurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.currency" style="width: 15%;margin-right: 15px;">
-                                <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
-                            </select>
-                            <input type="text" name="cctc" placeholder="Ex. 4,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9, -]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.current_ctc.value" maxlength=30>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="textbox" style="border: none;">
-                            <label>Expected Compensation (Annual)</label>
-                            <br>
-                            <div style="display: flex;">
-                                <select name="ecurrency" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.currency" style="width: 15%;margin-right: 15px;">
-                                    <option *ngFor="let y of currency" value="{{y.value}}">{{y.key}}</option>
-                                </select>    
-                            <input type="text" name="ectc" placeholder="Ex. 5,00,000" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" oninput="this.value = this.value.replace(/[^0-9, -]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="cvDetails.personal_info.job_info.expected_ctc.value" maxlength=30>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="textbox" style="border: none;">
-                            <label>Notice Period</label>
-                            <br>
-                            <div style="display: flex; width: 500px; margin-right: 15px;">
-                            <!-- <input type="text" name="notice period" pla(ceholder="Serving Notice Period" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.serving_np"> -->
-                            <select name="serving_np" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.status">
-                                <option *ngFor="let y of noticePeriod" value="{{y.value}}">{{y.key}}</option>
-                            </select>
-                            <input type="text" name="days" placeholder="No. of days left" autocomplete="off" style="width: 250px; border-bottom: 1px solid #212869;margin: 0 10px;" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.days" oninput="this.value = this.value.replace(/[^0-9, -]/g, '').replace(/(\..*)\./g, '$1');" maxlength=30>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="textbox" style="border: none;width: 90%;">
-                            <label>Visa Status</label>
-                            <br>
-                            <div style="display: flex;">
-                                <select name="visa_country" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.country" style="width: 20%;margin-right: 10px;">
-                                    <option *ngFor="let y of countries" value="{{y.value}}">{{y.key}}</option>
-                                </select>
-                            <!-- <input type="text" name="country" placeholder="Select Country" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_country"> -->
-                            <input type="text"  name="visa" placeholder="Ex. H1B1" autocomplete="off" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.type" oninput="this.value = this.value.replace(/[^a-bA-B0-9, -]/g, '').replace(/(\..*)\./g, '$1');" maxlength=30>
-                                <br>
-                            <input type="text" id="flatpickr1" class="flatpickr" name="validdate" style="width: 225px;border-bottom: 1px solid #212869;" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.expires">
-                            <img src="assets/images/calender.png" width="25px" height="25px" style="float: right;">
-                        </div>
-                        </div>
-                        <!-- <span style="float: right;margin-right: 285px;margin-top: -35px;"><i class="material-icons"> add</i></span> -->
-                        <br>
+        <div class="row">
+            <div class="textbox" style="width: 50%;">
+                <label>Notice Period</label>
+                <div style="display: flex;">
+                    <select name="serving_np" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.status">
+                        <option *ngFor="let y of noticePeriod" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+                    <input type="text" name="days" oninput="this.value = this.value.replace(/[^0-9.-]/g, '').replace(/(\..*)\./g, '$1');" placeholder="No. of days left" autocomplete="off" style="margin-left: 30px;" [(ngModel)]="cvDetails.personal_info.job_info.notice_period.days">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="textbox" style="width: 100%;">
+                <label>Visa Status</label>
+                <div style="display: flex;">
+                    <select name="visa_country" class="form-control" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.country" style="width: 20%;margin-right: 30px;">
+                        <option *ngFor="let y of countries" value="{{y.value}}">{{y.key}}</option>
+                    </select>
+                    <input type="text"  name="visa" placeholder="Ex. H1B1" oninput="this.value = this.value.replace(/[^a-zA-Z0-9 '-,]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" style="margin-right: 30px;" [(ngModel)]="cvDetails.personal_info.job_info.visa_status.type">
+                    <div style="display: flex;position: relative;">
+                        <input type="text" id="flatpickr1" class="flatpickr" name="validdate" placeholder="Valid Till"  [(ngModel)]="cvDetails.personal_info.job_info.visa_status.expires">
+                        <span style="position: absolute; right: 2px; margin-top: 15px;"><i class="material-icons"> date_range</i></span>
                     </div>
                     <button type="button" class="add" style="margin-right: 20px;">+ Add</button>
                 </div>
@@ -254,7 +158,7 @@
             <div class="col-md-11">
                 <div>
                         <label>Institute</label>
-                        <span>{{row.institution}}</span>
+                        <span title="{{row.institution}}">{{getEllipsis(row.institution)}}</span>
                 </div>
                 <div>
                     <label>Qualification level</label>
@@ -291,7 +195,7 @@
             <div class="col-md-11">
             <div>
                 <label>Company</label>
-                <span>{{row.company}}</span>
+                <span title="{{row.company}}">{{getEllipsis(row.company)}}</span>
             </div>
             <div>
                 <label>Designation</label>
@@ -332,7 +236,7 @@
                 <tr>
                     <td> 
                         <div class="textbox">
-                            <input type="text" name="skill" autocomplete="off" [(ngModel)]="skills.name">
+                            <input type="text" name="skill" oninput="this.value = this.value.replace(/[^a-zA-Z ',]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="skills.name">
                         </div>
                     </td>
                     <td>
@@ -344,7 +248,7 @@
                     </td>
                     <td>
                         <div class="textbox">
-                            <input type="text" name="years" autocomplete="off" [(ngModel)]="skills.years">
+                            <input type="text" name="years" oninput="this.value = this.value.replace(/[^0-9-.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="skills.years">
                         </div>
                     </td>
                     <td>
@@ -391,103 +295,79 @@
                     <span style="padding: 10px;" (click)="deleteRow('skills',i)"><i class="material-icons"> delete</i></span>
             </div>
         </div>
-        <div class="fields" *ngIf="header=='Skills'" id="Skills">
-            <form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 250px;">Enter Skills</th>
-                            <th style="width: 250px;">Expertise Level</th>
-                            <th style="width: 250px;">Years of Experience</th>
-                            <th style="width: 25px;"></th>
-                            <th style="width: 25px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of cvDetails.skills;let i=index">
-                            <td> 
-                                <div class="textbox">
-                                    <input type="text" name="skill{{i}}" [(ngModel)]="row.name" autocomplete="off" oninput="this.value = this.value.replace(/[^0-9, -]/g, '').replace(/(\..*)\./g, '$1');" maxlength=30>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="textbox">
-                                 <!-- <input type="text" name="ex_level{{i}}"  onkeypress="return (event.charCode > 64 && 
-                                 event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off">  -->
-                                    <!-- <mselect [(ngModel)]="row.expertise_level" (change)="experienced($event)" style="all:unset ;">
-                                        <option value="Beginner">Beginner</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Expert">Expert</option>
-                                    </select> -->
-                                    <select name="ex_level{{i}}" class="form-control" [(ngModel)]="row.expertise_level">
-                                        <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
-                                    </select>
-                                </div>
-                                <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
-                            </td>
-                            <td>
-                                <div class="textbox">
-                                    <input type="text" name="years{{i}}"   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="row.years" autocomplete="off" maxlength="30">
-                                </div>
-                                <!-- <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
-                            </td>
-                            <td>
-                                <span (click)="deleteRow('skills',i)"><i class="material-icons" style="margin-top: 30px;padding: 0px 15px;"> delete_outline</i></span>
-                            </td>
-                            <td *ngIf="i==cvDetails.skills.length-1">
-                                <span (click)="showRow('skills')"><i class="material-icons" style="margin-top: 30px;"> add_circle_outline</i></span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+    </div>
+    <div *ngIf="header=='Domain'" id="Domain">
+        <table>
+            <thead>
+                <tr>
+                    <th>Enter Domain</th>
+                    <th>Expertise Level</th>
+                    <th>Years of Experience</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 
+                        <div class="textbox">
+                            <input type="text" name="skill" oninput="this.value = this.value.replace(/[^a-zA-Z ',]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="domains.name">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="textbox">
+                            <select name="ex_level" class="form-control" [(ngModel)]="domains.expertise_level">
+                                <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="textbox">
+                            <input type="text" name="years" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="domains.years">
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="add" style="width: 50%;float: left;" (click)="addDomain()">+ Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="=row skills">
+            <div>
+                <label> UI Design <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> Web Design <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> Adobe Photoshop <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label>Adobe After Effects <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label> HTML/CSS <span><i class="material-icons"> delete</i></span></label>
+            </div>
+            <div>
+                <label>Angular <span><i class="material-icons"> delete</i></span></label>
+            </div>
         </div>
-        <div class="fields" *ngIf="header=='Domain'" id="Domain">
-            <form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 250px;">Enter Domain</th>
-                            <th style="width: 250px;">Expertise Level</th>
-                            <th style="width: 250px;">Years of Experience</th>
-                            <th style="width: 25px;"></th>
-                            <th style="width: 25px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of cvDetails.domain;let i=index">
-                            <td>
-                                <div class="textbox">
-                                    <input type="text" name="domain{{i}}" [(ngModel)]="row.name" autocomplete="off" oninput="this.value = this.value.replace(/[^a-bA-B0-9, -']/g, '').replace(/(\..*)\./g, '$1');" maxlength=30>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="textbox">
-                                    <!-- <input type="text" name="domainex-level{{i}}"  onkeypress="return (event.charCode > 64 && 
-                                    event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" [(ngModel)]="row.expertise_level" autocomplete="off"> -->
-                                    <select name="domainex_level{{i}}" class="form-control" [(ngModel)]="row.expertise_level">
-                                        <option *ngFor="let y of expertise_level" value="{{y.value}}">{{y.key}}</option>
-                                    </select>
-                                </div>
-                                <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span>
-                            </td>
-                            <td>
-                                <div class="textbox">
-                                    <input type="text" name="domainyears{{i}}" oninput="this.value = this.value.replace(/[^0-9. ,]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="row.years" autocomplete="off" maxlength="3">
-                                </div>
-                                <!-- <span style="float: right;margin-right: 75px;margin-top: -35px;"><i class="material-icons"> keyboard_arrow_down </i></span> -->
-                            </td>
-                            <td>
-                                <span (click)="deleteRow('domain',i)"><i class="material-icons" style="margin-top: 30px;padding: 0px 15px;"> delete_outline</i></span>
-                            </td>
-                            <td *ngIf="i==cvDetails.domain.length-1">
-                                <span (click)="showRow('domain')"><i class="material-icons" style="margin-top: 30px;"> add_circle_outline</i></span>
-                            </td>
-                           
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+        <h6 style="margin: 10px 25px;"><strong>Top 3 Domains</strong></h6>
+        <div class="row education-box" *ngFor="let row of cvDetails.domain;let i=index" style="border-radius: 0;">
+            <div class="col-md-10">
+                <div style="padding: 3px 10px;">
+                    <span>{{row.name}}</span>
+                </div>
+                <div style="padding: 3px 10px;">
+                    <span>{{row.expertise_level}}</span>
+                </div>
+                <div style="padding: 3px 10px;">
+                    <span>{{row.years}} years</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                    <span style="padding: 10px;" (click)="editDomain(row,i)"><i class="material-icons"> edit</i></span>
+                    <span style="padding: 10px;" (click)="deleteRow('domain',i)"><i class="material-icons"> delete</i></span>
+            </div>
         </div>
     </div>
     <div *ngIf="header=='Projects'" id="Projects">
@@ -534,7 +414,7 @@
             <div class="col-md-11">
                 <div>
                     <label>Title</label>
-                    <span class="ellipsis" title="{{row.title}}">{{getEllipsis(row.title)}}</span>
+                    <span title="{{row.title}}">{{getEllipsis(row.title)}}</span>
                 </div>
                 <div>
                     <label>Issuing Organisation</label>
@@ -560,7 +440,8 @@
         </div>
     </div>
     <div >
-        <button type="button" class="next" (click)="next()">Next</button>
+        <button *ngIf="header!='Certifications and Achievements'" type="button" class="next" (click)="next()">Next</button>
+        <button *ngIf="header=='Certifications and Achievements'" type="button" class="next" (click)="publish()">Publish</button>
     </div>
 </div>
 <div id="educationModal" class="modal fade bd-example-modal-lg" role="dialog" tabindex="-1" data-backdrop="static">
@@ -573,52 +454,49 @@
             </div>
             <div class="modal-body">
             <form #eduData="ngForm" (ngSubmit)="addEducation(eduData)">
-            <div class="education-modal">
-                <div class="textbox">
-                    <label>Institute Name</label>
-                    <input type="text" name="institutename" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.institution" autocomplete="off" required>
-                </div>
-                <div class="textbox" style="border: none;">
-                    <label>Qualification Level</label>
-                    <!-- <input type="text" name="level" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.level" autocomplete="off"> -->
-                    <select name="level" class="form-control" [(ngModel)]="education.level">
-                        <option value="">Select Qualificatin</option>
-                        <option *ngFor="let y of qualification" value="{{y.value}}">{{y.key}}</option>
-                    </select>
-                </div>
-                <div class="textbox">
-                    <label>Specialization In</label>
-                    <input type="text" name="Specialization" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.course" autocomplete="off">
-                </div>
-                <div class="textbox">
-                    <label>Location</label>
-                    <input type="text" name="educationlocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="education.location" autocomplete="off">
-                </div>
-                <div class="textbox" style="width: 21%;border: none;">
-                    <label>From</label>
-                    <br>
-                    <select name="edu_from" id="education_from_years" class="form-control" [(ngModel)]="education.from">
-                        <option value="">Select Year</option>
-                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
-                    </select>
-                </div>
-                <div class="textbox" style="width: 21%;border: none;">
-                    <label>To/Expected</label>
-                    <select name="edu_to" class="form-control" id="education_to_years" [(ngModel)]="education.to" (change)="checkyear('education')">
-                        <option value="">Select Year</option>
-                        <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
-                    </select>
-                    <label id="education_error" class="error"></label>
-                </div>
-                <div class="textbox" style="border: none;">
-                    <label>Grade</label>
-                    <br>
-                    <!-- <input type="text" name="type" placeholder="GPA" autocomplete="off" style="width: 50px;border-bottom: 1px solid #212869;"> -->
-                    <div style="display: flex;width: 100%; margin: 0;">
-                    <select name="level" class="form-control" [(ngModel)]="education.grade.type" style="width: 30%; margin-right: 10px;">
-                        <option *ngFor="let y of grade" value="{{y.value}}">{{y.key}}</option>
-                    </select>
-                    <input type="text"  name="grade" autocomplete="off" style="width: 250px;border-bottom: 1px solid #212869;" [(ngModel)]="education.grade.value">
+                <div class="modal-box">
+                    <div class="textbox">
+                        <label>Institution Name</label>
+                        <input type="text" name="institution" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="education.institution">
+                    </div>
+                    <div class="textbox">
+                        <label>Qualification Level</label>
+                        <select name="level" class="form-control" [(ngModel)]="education.level">
+                            <option value="">Select Qualification</option>
+                            <option *ngFor="let y of qualification" value="{{y.value}}">{{y.key}}</option>
+                        </select>
+                    </div>
+                    <div class="textbox">
+                        <label>Specialization In</label>
+                        <input type="text" name="course" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');"  autocomplete="off" [(ngModel)]="education.course">
+                    </div>
+                    <div class="textbox">
+                        <label>Location</label>
+                        <input type="text" name="educationlocation" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');"  autocomplete="off" [(ngModel)]="education.location">
+                    </div>
+                    <div class="textbox" style="width: 25%;">
+                        <label>From</label>
+                        <select name="edu_from" id="education_from_years" class="form-control" [(ngModel)]="education.from">
+                            <option value="">Select Year</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
+                    </div>
+                    <div class="textbox" style="width: 25%;">
+                        <label>To/Expected</label>
+                        <select name="edu_to" class="form-control" id="education_to_years" [(ngModel)]="education.to" (change)="checkyear('education')">
+                            <option value="">Select Month</option>
+                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                        </select>
+                    </div>
+                    <div class="textbox">
+                        <label>Grade</label>
+                        <div style="display: flex; width: 100%;">
+                        <select name="level" class="form-control" [(ngModel)]="education.grade.type" style="margin-right: 10px;">
+                            <option value="">Select Grade</option>
+                            <option *ngFor="let y of grade" value="{{y.value}}">{{y.key}}</option>
+                        </select>
+                        <input type="text" name="edu_to" autocomplete="off" [(ngModel)]="education.grade.value">
+                        </div>
                     </div>
                 </div>
             </form>
@@ -643,11 +521,11 @@
             <div class="modal-box">
                 <div class="textbox">
                     <label>Company Name</label>
-                    <input type="text" name="companyname" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.company" autocomplete="off" maxlength=30>
+                    <input type="text" name="companyname" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" autocomplete="off" [(ngModel)]="workExp.company">
                 </div>
                 <div class="textbox">
                     <label>Designation</label>
-                    <input type="text" name="designation" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.designation" autocomplete="off" maxlength=30>
+                    <input type="text" name="designation" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="workExp.designation" autocomplete="off">
                 </div>
                 <div class="textbox">
                     <label>Location</label>
@@ -712,8 +590,7 @@
             <div class="modal-box">
                 <div class="textbox">
                     <label>Title </label>
-                    <br>
-                    <input type="text" name="title" oninput="this.value = this.value.replace(/[^a-zA-Z ,' ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.title"  autocomplete="off" maxlength=30>
+                    <input type="text" name="title" oninput="this.value = this.value.replace(/[^a-zA-Z ,' ]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.title" autocomplete="off">
                 </div>
                 <div class="textbox">
                     <label>Issuing Organisation</label>
@@ -740,7 +617,6 @@
                 <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="certification.expires"><span>This credential does not expire</span>
                 <div class="textbox">
                     <label>URL</label>
-                    <br>
                     <input type="text" name="url" oninput="this.value = this.value.replace(/[^a-zA-Z ./:'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="certification.url" autocomplete="off">
                 </div>
             </div>
@@ -764,30 +640,29 @@
             </div>
             <div class="modal-body">
             <form #projectData="ngForm" (ngSubmit)="addProject(projectData)">
-            <div class="education-modal">
-                <div class="textbox">
-                    <label>Project Name </label>
-                    <input type="text" name="projectname" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.name" autocomplete="off" maxlength=30>
-                </div>
-                <div class="textbox">
-                    <label>Project Role</label>
-                    <input type="text" name="role" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.role" autocomplete="off" maxlength=30>
-                </div>
-                <div class="textbox" style="border: none;">
-                    <label>From</label>
-                    <br>
-                    <div style="display: flex;width: 95%;margin: 0;">
-                        <select name="proj_from_months" class="form-control"  style="margin: 0 10px;" [(ngModel)]="project.from.month">
-                            <option value="">Select Month</option>
-                            <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
-                        </select>
-                        <select name="project_from_years" id="project_from_years" class="form-control" [(ngModel)]="project.from.year">
-                            <option value="">Select Year</option>
-                            <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
-                        </select>
-                     </div>
-                </div>
-                    <div class="textbox" style="border: none;">
+            <div class="modal-box">
+                    <div class="textbox">
+                        <label>Project Name </label>
+                        <input type="text" name="projectname" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.name" autocomplete="off">
+                    </div>
+                    <div class="textbox">
+                        <label>Project Role</label>
+                        <input type="text" name="role" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.role" autocomplete="off">
+                    </div>
+                    <div class="textbox">
+                        <label>From</label>
+                        <div style="display: flex;width: 100%">
+                            <select name="proj_from_months" class="form-control"  style="margin: 0 10px;" [(ngModel)]="project.from.month">
+                                <option value="">Select Month</option>
+                                <option *ngFor="let y of duration.months" value="{{y}}">{{y}}</option>
+                            </select>
+                            <select name="project_from_years" id="project_from_years" class="form-control" [(ngModel)]="project.from.year">
+                                <option value="">Select Year</option>
+                                <option *ngFor="let y of duration.years" value="{{y}}">{{y}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="textbox">
                         <label>To</label>
                         <div style="display: flex;width: 100%">
                         <select name="project_to_months" class="form-control" style="margin: 0 10px;" [(ngModel)]="project.to.month" [disabled]="project.ongoing">
@@ -803,25 +678,21 @@
                     </div>
                     <div class="textbox">
                         <label>Domain</label>
-                        <input type="text" name=" projectdomain" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.domain" autocomplete="off" maxlength=30>
+                        <input type="text" name=" projectdomain" oninput="this.value = this.value.replace(/[^a-zA-Z ,'-]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.domain" autocomplete="off">
                     </div>
-                <input type="checkbox" name="working" style="width: 5%;" [(ngModel)]="project.ongoing"><span>On going project</span>
-                <div class="textbox" style="width: 55%;">
-                    <label>Skills Used</label>
-                    <br>
-                    <input type="text" name="skillsused" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.skills" autocomplete="off">
-                </div>
-                <!-- <span style="float: right;margin-right: 290px;margin-top: 45px;"><i class="material-icons"> add</i></span> -->
-                <div class="textbox" style="width: 80%;border: none;">
-                    <label>Project Description</label>
-                    <br>
-                    <textarea rows="4" class="form-control" type="text" [(ngModel)]="project.summary" name="summary" ></textarea>
-                </div>
-                <div class="textbox" style="width: 80%;border: none;">
-                    <label>Responsibility</label>
-                    <br>
-                    <textarea rows="2" class="form-control" type="text" [(ngModel)]="project.responsibility" name="Responsibility" ></textarea>
-                </div>
+                    <input type="checkbox" name="working" style="width: 5%;margin-left: 25px;" [(ngModel)]="project.ongoing"><span style="margin: -6px;">On going project</span>
+                    <div class="textbox" style="width: 55%;">
+                        <label>Skills Used</label>
+                        <input type="text" name="skillsused" oninput="this.value = this.value.replace(/[^a-zA-Z ,-']/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="project.skills" autocomplete="off">
+                    </div>
+                    <div class="textbox" style="width: 80%;">
+                        <label>Project Description</label>
+                        <textarea rows="4" class="form-control" type="text" [(ngModel)]="project.summary" name="summary" ></textarea>
+                    </div>
+                    <div class="textbox" style="width: 80%;">
+                        <label>Responsibility</label>
+                        <textarea rows="2" class="form-control" type="text" [(ngModel)]="project.responsibility" name="Responsibility" ></textarea>
+                    </div>
             </div>
             </form>
             </div>
